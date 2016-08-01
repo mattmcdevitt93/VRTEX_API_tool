@@ -1,0 +1,10 @@
+Users Index
+
+<div class='dashboard_content'>
+<% @user.each do |user| %>
+  <div class='dashboard_index'>
+    <%= user.id %> - <%= user.email %>  |  <%= link_to 'User Profile', user %>
+  </div>
+<% end %>
+
+</div>
