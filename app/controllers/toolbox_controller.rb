@@ -1,0 +1,3 @@
+class ToolboxController < ApplicationController
+
+end

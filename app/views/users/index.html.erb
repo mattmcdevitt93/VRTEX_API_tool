@@ -1,8 +1,22 @@
 Users Index
+<span class="success badge" title="Valid API">V</span>
+ <span class="alert badge" title="Error">IV</span>
+<span class="warning badge" title="Incomplete API">I</span>
+
+
+
 
 <div class='dashboard_content'>
 <% @user.each do |user| %>
   <div class='dashboard_index'>
+	<% if user.valid_api == true %>
+	<span class="success badge" title="Valid API">V</span>
+	<% else %>
+	<span class="alert badge" title="Error">IV</span>
+	<% end %>
+	<% if user.primary_character == nil and user.valid_api == true %>
+	<span class="warning badge" title="Incomplete API">I</span>
+	<% end %>
     <%= user.id %> - <%= user.email %>  |  <%= link_to 'User Profile', user %>
   </div>
 <% end %>
