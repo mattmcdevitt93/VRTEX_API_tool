@@ -1,7 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+User.create!([
+  {email: "mcfatboy93@gmail.com", encrypted_password: "$2a$11$2difa1WarsshhnWFhBukROIsX75n.Q0mr9y0kjMUVES.TGJSdhhQe", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 2, current_sign_in_at: "2016-08-03 15:41:01", last_sign_in_at: "2016-08-01 01:43:12", current_sign_in_ip: "::1", last_sign_in_ip: "::1", key_id: "5475150", v_code: "M8Xx3MwZmilaHKVMvk3gEGWZHQt3RHoxR2K2exB1w3cTNn2bX9emuUtBZLwFnhSn", primary_character: 0, valid_api: true},
+  {email: "mattmcdevitt93@gmail.com", encrypted_password: "$2a$11$JLMUKgOGarhWtNq3.6BVeeFsDVBsnD8CSN2U7S/t/d.RuJnFeJXLO", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2016-08-04 13:31:30", last_sign_in_at: "2016-08-04 13:31:30", current_sign_in_ip: "::1", last_sign_in_ip: "::1", key_id: "5480089", v_code: "e1XiLnVj1QM9VKdwFfaW9NOEBmIDHss1mgOOv30auNTqmNftdnldj3qgfRvGkPl5", primary_character: nil, valid_api: false}
+])

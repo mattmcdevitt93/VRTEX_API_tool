@@ -29,7 +29,9 @@ ActiveRecord::Schema.define(version: 20160729145201) do
     t.string   "key_id"
     t.string   "v_code"
     t.integer  "primary_character"
+    t.string   "primary_character_name"
     t.boolean  "valid_api",              default: false, null: false
+    t.boolean  "admin",                  default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

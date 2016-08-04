@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   s = Rufus::Scheduler.singleton
 
 
-  # s.every '15s' do
+  # s.every '1m' do
   # 	validation_task
   # end
 
