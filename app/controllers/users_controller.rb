@@ -10,7 +10,9 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-
+    if params[:start_task] == 'true'
+      User.validation_task
+    end
   end
 
   private

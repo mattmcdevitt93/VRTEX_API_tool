@@ -50,6 +50,10 @@ table tbody tr:nth-child(even)  {
 	background-size: 40px 40px;
 }
 
+#validate {
+	margin: 10px;
+}
+
 .content {
 	/*position: ;*/
 }

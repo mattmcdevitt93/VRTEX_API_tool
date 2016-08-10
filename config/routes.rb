@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :toolbox
     root 'users#dashboard'
     get '/index' => 'users#index'
-
+    get '/timesheet' => 'toolbox#timesheet'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
