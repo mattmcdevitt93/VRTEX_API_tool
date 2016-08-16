@@ -39,6 +39,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string  :primary_character_name
       t.boolean :valid_api, null: false, default: false
       t.boolean :admin, default: false
+      t.string :primary_timezone
+      t.datetime :character_cake_day
+
 
     end
 

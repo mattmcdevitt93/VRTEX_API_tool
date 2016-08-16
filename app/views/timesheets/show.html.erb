@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @timesheet.event %>
+</p>
+
+<p>
+  <strong>Event time:</strong>
+  <%= @timesheet.event_time %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @timesheet.user_id %>
+</p>
+
+<p>
+  <strong>Urgency:</strong>
+  <%= @timesheet.urgency %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @timesheet.notes %>
+</p>
+
+<%= link_to 'Edit', edit_timesheet_path(@timesheet) %> |
+<%= link_to 'Back', timesheets_path %>

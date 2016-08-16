@@ -4,11 +4,23 @@ var Module = Module || {};
 
 $(document).ready(function() {
 	console.log('Ready!')
+    Module.bindings();
 });
+
+Module.bindings = function () {
+
+$('#password_update').bind('input', function() { 
+    $('#password_confirm').removeClass("hidden")
+    $('#password_fields').addClass("password_border")
+});
+
+
+}
+
 
 Module.toolbar_slide = function () {
 	// $('#toolbar-switch').click(function() {
-		if( $('#toolbar').hasClass("toolbar-hidden")) {
+	if( $('#toolbar').hasClass("toolbar-hidden")) {
     	// console.log('Slide Out')
         $('#toolbar').animate({"margin-left": '+=220'});
         $('#toolbar').removeClass("toolbar-hidden");
@@ -16,6 +28,7 @@ Module.toolbar_slide = function () {
     	// console.log('Slide In')
         $('#toolbar').animate({"margin-left": '-=220'});
         $('#toolbar').addClass("toolbar-hidden"); }
+
     // });
 }
 
@@ -24,12 +37,14 @@ Module.toolbar_rotate = function () {
 	if( $('#toolbar-switch').hasClass("active")) {
        $('#toolbar-switch').rotate({ animateTo:-25, duration: 500})
        $('#toolbar-switch').removeClass("active");
+
    } else {
        $('#toolbar-switch').rotate({ animateTo:0, duration: 500})
        $('#toolbar-switch').addClass("active"); }
+
    }
 
-   Module.index_filter = function (state) {
+Module.index_filter = function (state) {
     // console.log('Sort by ' + state)
     if (Module.index_filter_state === state) {
         state = 'reset'

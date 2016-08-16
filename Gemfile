@@ -38,6 +38,8 @@ gem 'rufus-scheduler'
 gem 'eve_online'
 # gem 'rails_12factor'
 gem 'seed_dump'
+gem 'will_paginate', '~> 3.0.5'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -13,9 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-rotate
-//= require turbolinks
+
 //= require what-input
 //= require foundation
+
 //= require app
 //= require_tree .
 

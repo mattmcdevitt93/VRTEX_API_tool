@@ -36,6 +36,7 @@ table tbody tr:nth-child(even)  {
 	border-right: 3px solid #222;
 	padding: 0px;
 	width: 230px;
+	min-height: 500px;
 }
 
 #toolbar-switch-anchor {
@@ -56,19 +57,16 @@ table tbody tr:nth-child(even)  {
 
 .content {
 	/*position: ;*/
-}
-
-.toolbar-table {
-	background-color: #666;
+	width: 1500px;
 }
 
 #toolbar-table {
 	border: 0px solid black;
+	background-color: #666;
 }
 
-#table-even {
-	background-color: #444;
-}
+#toolbar-table tr:nth-child(even) {background: #444 !important}
+#toolbar-table tr:nth-child(odd) {background: #666 !important}
 
 .inactive {
 	background-color: #666 !important;
@@ -76,11 +74,56 @@ table tbody tr:nth-child(even)  {
 
 .index_entry {
 	border: 1px solid #bbb;
-	font-size: 14px;
+	font-size: 12px;
 	margin: 0 auto;
+	white-space: nowrap;
+}
+
+.log_id {
+	white-space: pre; 
 }
 
 .badge {
 	margin: 1px;
 }
+
+.gauge {
+	width: 100px;
+	/*background-color: #EEE*/
+}
+
+.field {
+	margin-left: 15px;
+}
+
+.API_border{
+	border-style: solid;
+	border-width: 5px;
+	border-color: rgba(63, 89, 191, 0.5);
+	border-radius: 15px;
+	margin-bottom: 25px;
+	padding: 10px;
+	background-color: rgba(63, 89, 191, 0.1)
+}
+
+.warning_border {
+	border-style: solid;
+	border-width: 5px;
+	border-color: rgba(193, 66, 66, 0.5);
+	border-radius: 15px;
+	margin-bottom: 25px;
+	padding: 10px;
+	background-color: rgba(193, 66, 66, 0.1);
+}
+
+.password_border {
+	border-style: solid;
+	border-width: 5px;
+	border-color: rgba(63, 191, 70, 0.5);
+	border-radius: 15px;
+	margin-bottom: 25px;
+	padding: 10px;
+	background-color: rgba(63, 191, 70, 0.1);
+}
+
 

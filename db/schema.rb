@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729145201) do
+ActiveRecord::Schema.define(version: 20160810195940) do
+
+  create_table "logs", force: :cascade do |t|
+    t.string   "table"
+    t.string   "event"
+    t.string   "details"
+    t.string   "task_length"
+    t.integer  "event_code"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "timesheets", force: :cascade do |t|
+    t.string   "event"
+    t.datetime "event_time"
+    t.integer  "timer_type"
+    t.integer  "user_id"
+    t.integer  "urgency"
+    t.string   "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -32,6 +53,8 @@ ActiveRecord::Schema.define(version: 20160729145201) do
     t.string   "primary_character_name"
     t.boolean  "valid_api",              default: false, null: false
     t.boolean  "admin",                  default: false
+    t.string   "primary_timezone"
+    t.datetime "character_cake_day"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

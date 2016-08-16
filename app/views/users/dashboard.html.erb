@@ -1,5 +1,5 @@
 Dashboard Page
-	<%= link_to "Manual Validation", {:controller => "users", :action => "dashboard", :start_task => true }, class: "alert button float-right", id: "validate" %>
+	
 <div>
 	<% if current_user.blank? === false %>
 		<% if current_user.valid_api == true %>

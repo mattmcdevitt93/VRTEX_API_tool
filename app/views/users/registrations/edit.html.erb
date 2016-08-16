@@ -1,68 +1,85 @@
 <h2>Edit Account Details</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <div class='API_field'>
-  <div class="field">
+<%= devise_error_messages! %>
+
+<div class="row">
+  <div class="field columns medium-6">
+    <strong>Email / Username</strong>
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+  <div class="field columns medium-4">
+    <strong>Primary Timezone</strong>
+    <%= f.time_zone_select :primary_timezone, nil, default: "Eastern Time (US & Canada)" %>
+  </div>
+  <% if current_user.admin == true %>
+  <div class="columns medium-1">
+  <strong>Admin</strong>
+  <%= f.check_box :admin %>
+  </div>
+  <% end %>
+</div>
+
+
+    
+
+
+<div class='API_border medium-12 large-12 float-left'>
+  <h3>Character Details <span id="success-badge" class="primary badge" title="Note: Your key will need to validate, this is a scheduled task and can take up to 15 min.  However if you know the slot ID you can add that now.">!</span></h3>
+  <div class="field medium-4 large-4 float-left">
     <%= f.label :key_id %>
     <%= f.text_field :key_id %>
   </div>
-
-  <div class="field">
-    <%= f.label :v_code %>
-    <%= f.text_field :v_code %>
-  </div>
-
 
   <% char_list = ['Character Slot 1', 'Character Slot 2', 'Character Slot 3'] %>
   <% if current_user.key_id != nil and current_user.v_code != nil %>
   <% char_list = User.quick_lookup(current_user.id) %>
   <% end %>
-  <div class="field">
-    <%= f.label :primary_character %>
-    <strong>Note:</strong> your key will need to validate, this is a scheduled task and can take up to 15 min.  However if you know the slot ID you can add that now.
+  <div class="field medium-4 large-4 float-left">
+    Primary Character 
     <%= f.select :primary_character, [['None',nil],[char_list[0],0],[char_list[1],1],[char_list[2],2]] %>
   </div>
+
+  <div class="field medium-8 large-8 float-left">
+    <%= f.label :v_code %>
+    <%= f.text_field :v_code %>
   </div>
-  <br>
+</div>
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+<% end %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
-    <%= f.password_field :password, autocomplete: "off" %>
+<div id='password_fields'>
+  <div class="field" id='password_update'>
+    <strong>Change Password</strong> - <i>(leave blank if you don't want to change it)</i>
     <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+    <br />
+    <em><%= @minimum_password_length %> characters minimum</em>
     <% end %>
+    <%= f.password_field :password, autocomplete: "off" %>
   </div>
 
-  <div class="field">
+  <div class="field hidden" id='password_confirm'>
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
+</div>
 
+<div class='warning_border'>
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
-  <br>
-
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update", :class => "alert button" %>
   </div>
+</div>
 <% end %>
 
 <!-- <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p> -->
+  <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p> -->
 
-<%= link_to "Back", :back %>
+  <!-- <%= link_to "Back", :back %> -->

@@ -33,10 +33,12 @@
 
     <div class='masthead-buffer'></div>
     <div class=''>
+    <% unless current_page?(new_user_session_path) or current_page?(new_user_registration_path) %>
     <div class='columns float-left' id='toolbar'>
           <%= render :partial => 'users/toolbar' %>
     </div>
-    <div class='medium-9 large-9 columns content float-left'>
+    <% end %>
+    <div class='medium-9 large-9 columns content align-left float-left' id='yield'>
       <%= yield %>
     </div>
     </div>

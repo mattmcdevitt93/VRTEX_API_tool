@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
 
+  
     get 'users/new'
 
     get 'users/create'
     devise_for :users
     resources :users
-    resources :toolbox
+    resources :timesheets
     root 'users#dashboard'
     get '/index' => 'users#index'
-    get '/timesheet' => 'toolbox#timesheet'
+    get '/log_index' => 'toolbox#log_index'
 
+    # resources :log
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

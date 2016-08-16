@@ -1862,6 +1862,7 @@ select {
           transform: scaleY(-1); }
 
 .badge {
+  margin-bottom: 0.3em;
   display: inline-block;
   padding: 0.3em;
   min-width: 2.1em;
@@ -2756,7 +2757,7 @@ body {
     .orbit-bullets button.is-active {
       background-color: #8a8a8a; }
 
-.pagination {
+/*.pagination {
   margin-left: 0;
   margin-bottom: 1rem; }
   .pagination::before, .pagination::after {
@@ -2809,7 +2810,7 @@ body {
 .pagination-next.disabled::after {
   content: '\00bb';
   display: inline-block;
-  margin-left: 0.5rem; }
+  margin-left: 0.5rem; }*/
 
 .progress {
   background-color: #cacaca;
