@@ -1,5 +1,13 @@
 <table>
 	<tbody id='toolbar-table'>
+
+    <% if user_signed_in? %>
+    <tr>
+	<td><%= link_to('Edit Account', edit_user_registration_path) %></td>
+	</tr>
+	<% end %>
+
+	<% if current_user.admin == true %>
 	<tr>
 	<td><%= link_to 'User Index', users_path %></td>
 	</tr>
@@ -7,17 +15,22 @@
 	<td><%= link_to 'Log index', log_index_path %></td>
 	</tr>
 	<tr>
+	<td>Admin Dashboard</td>
+	</tr>
+	<% end %>
+
+	<% if current_user.valid_api == true %>
+	<tr>
 	<td><%= link_to 'Timer Utility', timesheets_path %></td>
 	</tr>
+	<% end %>
 	<tr>
-	<td>Market Watcher</td>
+	<td>SRP Request</td>
 	</tr>
 	<tr>
 	<td>Forum</td>
 	</tr>
-	<tr>
-	<td>_</td>
-	</tr>
+
 	<tr>
 	<td>_</td>
 	</tr>

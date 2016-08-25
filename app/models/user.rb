@@ -62,7 +62,7 @@ end
         status.concat(' Invalid Valid API code')
         flag = false
       end
-      # Rails.logger.info account.email + " - " +  flag.to_s + "/" + account.valid_api.to_s + " - " + status.to_s
+      Rails.logger.info account.email + " - " +  flag.to_s + "/" + account.valid_api.to_s + " - " + status.to_s
       task_end = Time.now
       task_length = User.time_diff(task_start, task_end)
       if flag != account.valid_api

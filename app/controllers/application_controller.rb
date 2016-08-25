@@ -8,6 +8,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def valid_check
+    if current_user.valid_api === false
+      redirect_to :root
+    end
+  end
+
   protected
 
   def configure_permitted_parameters

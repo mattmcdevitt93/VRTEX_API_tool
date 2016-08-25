@@ -1,29 +1,45 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Event:</strong>
+  <strong>Operation name:</strong>
   <%= @timesheet.event %>
 </p>
-
 <p>
   <strong>Event time:</strong>
   <%= @timesheet.event_time %>
 </p>
-
 <p>
-  <strong>User:</strong>
-  <%= @timesheet.user_id %>
+  <strong>Timer Creator:</strong>
+  <%= User.find(@timesheet.user_id).primary_character_name %>
 </p>
-
+<p>
+  <strong>Target:</strong>
+  <%= Timesheet.type_id(@timesheet.event_type) %>
+</p>
 <p>
   <strong>Urgency:</strong>
-  <%= @timesheet.urgency %>
+  <%= Timesheet.urgency_id(@timesheet.urgency) %>
 </p>
-
 <p>
   <strong>Notes:</strong>
   <%= @timesheet.notes %>
 </p>
-
+<p>
+<strong>Time to Event</strong>
+<% if @timesheet.event_time > Time.now %>
+<% timer = User.time_diff(@timesheet.event_time, Time.now) %>
+<% else %>
+<% timer = "Event Complete" %>
+<% end %>
+<%= timer %>
+</p>
+<p>
+  Updated at: <%= @timesheet.updated_at %>
+</p>
+<p>
+  Created at: <%= @timesheet.created_at %>
+</p>
+<% if @timesheet.user_id == current_user.id or current_user.admin == true %>
 <%= link_to 'Edit', edit_timesheet_path(@timesheet) %> |
+<% end %>
 <%= link_to 'Back', timesheets_path %>

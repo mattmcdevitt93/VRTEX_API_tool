@@ -126,4 +126,8 @@ table tbody tr:nth-child(even)  {
 	background-color: rgba(63, 191, 70, 0.1);
 }
 
+#event_time select {
+	width: 10%;
+}
+
 

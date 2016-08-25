@@ -1,10 +1,14 @@
 class TimesheetsController < ApplicationController
+  before_action :valid_check, only: [:index, :new, :show, :create, :destroy, :update]
+  before_action :admin_check, only: []
   before_action :set_timesheet, only: [:show, :edit, :update, :destroy]
+
 
   # GET /timesheets
   # GET /timesheets.json
   def index
-    @timesheets = Timesheet.all
+    @timesheets = Timesheet.paginate(:page => params[:page], :per_page => 15).order(event_time: :desc)
+    # @active_events = Timesheet.where("event_time >= ?", Time.now)
   end
 
   # GET /timesheets/1
@@ -41,7 +45,7 @@ class TimesheetsController < ApplicationController
   # PATCH/PUT /timesheets/1.json
   def update
     respond_to do |format|
-      if @timesheet.update(timesheet_params)
+      if @timesheet.update(timesheet_params) and ( current_user == @timesheet.user_id or current_user.admin == true)
         format.html { redirect_to @timesheet, notice: 'Timesheet was successfully updated.' }
         format.json { render :show, status: :ok, location: @timesheet }
       else
@@ -69,6 +73,6 @@ class TimesheetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def timesheet_params
-      params.require(:timesheet).permit(:event, :event_time, :user_id, :urgency, :notes)
+      params.require(:timesheet).permit(:event, :event_time, :event_type, :user_id, :urgency, :notes)
     end
 end

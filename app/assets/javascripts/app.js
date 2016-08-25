@@ -51,18 +51,27 @@ Module.index_filter = function (state) {
         $('#success-badge').removeClass("inactive");
         $('#alert-badge').removeClass("inactive");
         $('#warning-badge').removeClass("inactive");
+        $('#default-badge').removeClass("inactive");
     } else if (state === 'valid') {
         $('#success-badge').removeClass("inactive");
         $('#alert-badge').addClass("inactive");
         $('#warning-badge').addClass("inactive");
+        $('#default-badge').addClass("inactive");
     } else if (state === 'error') {
         $('#success-badge').addClass("inactive");
         $('#alert-badge').removeClass("inactive");
         $('#warning-badge').addClass("inactive");
-    } else if (state === 'incomplete') {
+        $('#default-badge').addClass("inactive");
+    } else if (state === 'warning') {
         $('#success-badge').addClass("inactive");
         $('#alert-badge').addClass("inactive");
         $('#warning-badge').removeClass("inactive");
+        $('#default-badge').addClass("inactive");
+    } else if (state === 'incoming') {
+        $('#success-badge').addClass("inactive");
+        $('#alert-badge').addClass("inactive");
+        $('#warning-badge').addClass("inactive");
+        $('#default-badge').removeClass("inactive");
     };
     Module.index_filter_state = state;
     // console.log(state)

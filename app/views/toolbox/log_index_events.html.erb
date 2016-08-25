@@ -1,0 +1,6 @@
+<div>
+Log Book | <%= link_to 'All Log Events', log_index_path %> <%= will_paginate @logs, class: "float-right" %>
+</div>
+
+<%= render :partial => 'toolbox/log_table' %>
+

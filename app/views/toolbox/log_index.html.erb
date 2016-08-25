@@ -1,11 +1,6 @@
-Log Book
+<div>
+Log Book | <%= link_to 'Change Log Events', log_index_events_path %> <%= will_paginate @logs, class: "float-right" %>
+</div>
 
- <%= will_paginate @logs %>
+<%= render :partial => 'toolbox/log_table' %>
 
-<table class='log'>
-<% @logs.each do |log| %>
-<tr>
-	<td class='index_entry log_id' > Task ID: <%= log.id %> </td><td class='index_entry'><%= log.created_at %> | <%= log.task_length %> : <%= log.table %> | (<%= log.event_code %>) <%= log.event %> - <%= log.details %></td>
-</tr>
-<% end %>
-</table>

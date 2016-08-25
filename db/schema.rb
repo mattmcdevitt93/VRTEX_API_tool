@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20160810195940) do
   create_table "timesheets", force: :cascade do |t|
     t.string   "event"
     t.datetime "event_time"
-    t.integer  "timer_type"
+    t.integer  "event_type"
     t.integer  "user_id"
     t.integer  "urgency"
     t.string   "notes"

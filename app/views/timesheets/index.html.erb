@@ -1,29 +1,61 @@
 <h1>Listing Timesheets</h1>
+<span id="default-badge" class="default badge" title="Incoming Timers" onclick="Module.index_filter('incoming')">I</span>
+<span id="success-badge" class="success badge" title="Active Timers" onclick="Module.index_filter('valid')">A</span>
+<span id="alert-badge" class="alert badge" title="Complete Timers" onclick="Module.index_filter('error')">C</span>
+<span id="warning-badge" class="warning badge" title="6 Hour Warning" onclick="Module.index_filter('warning')">6</span>
+<script>
+
+$(document).ready(function() {
+  Module.index_filter('incoming');
+});
+
+</script>
+<div>
+  <strong>Local time:</strong> <%= Time.now %> <strong> | EvE time / GMT:</strong> <%= Time.zone.now %>
+</div>
 
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>Event</th>
       <th>Event time</th>
-      <th>User</th>
       <th>Urgency</th>
       <th>Notes</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class='index_content'>
     <% @timesheets.each do |timesheet| %>
-      <tr>
-        <td><%= timesheet.event %></td>
-        <td><%= timesheet.event_time %></td>
-        <td><%= timesheet.user_id %></td>
-        <td><%= timesheet.urgency %></td>
-        <td><%= timesheet.notes %></td>
-        <td><%= link_to 'Show', timesheet %></td>
-        <td><%= link_to 'Edit', edit_timesheet_path(timesheet) %></td>
-        <td><%= link_to 'Destroy', timesheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% if (timesheet.event_time - Time.zone.now) <= 21600 and (timesheet.event_time - Time.zone.now) >= 0 %>
+    <tr class='index_entry warning incoming' title="Incoming Timer" id="<%= timesheet.id %>">
+      <td>
+        <span id='warning-badge' class="warning badge" title="6 Hour Warning">6</span>
+        <% elsif timesheet.event_time >= Time.zone.now %>
+    <tr class='index_entry valid incoming' id="<%= timesheet.id %>">
+      <td>
+        <span id='success-badge' class="success badge" title="Active Timer">A</span>
+        <% elsif timesheet.event_time <= Time.zone.now %>
+    <tr class='index_entry error' id="<%= timesheet.id %>">
+      <td>
+        <span id='alert-badge' class="alert badge" title="Complete Timer">C</span>
+        <% end %>
+        <% Rails.logger.info timesheet.event + ' | ' + timesheet.event_time.to_s + ' | ' + Time.now.to_s %>
+        <% Rails.logger.info Time.zone.now - timesheet.event_time %>
+      </td>
+      <td><%= link_to timesheet.event, timesheet %></td>
+      <td><%= timesheet.event_time %></td>
+      <td><%= timesheet.urgency %></td>
+      <td><%= timesheet.notes %></td>
+      <% if timesheet.user_id == current_user.id or current_user.admin == true %>
+      <td><%= link_to 'Edit', edit_timesheet_path(timesheet) %></td>
+      <td><%= link_to 'Destroy', timesheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% else %>
+      <td></td>
+      <td></td>
+      <% end %>
+    </tr>
     <% end %>
   </tbody>
 </table>
@@ -31,3 +63,6 @@
 <br>
 
 <%= link_to 'New Timesheet', new_timesheet_path %>
+
+<%= will_paginate @timesheets %>
+

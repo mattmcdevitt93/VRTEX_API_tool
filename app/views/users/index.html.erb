@@ -6,20 +6,20 @@
 </div>Users Index
 <span id="success-badge" class="success badge" title="Valid API" onclick="Module.index_filter('valid')">V</span>
 <span id="alert-badge" class="alert badge" title="Error" onclick="Module.index_filter('error')">E</span>
-<span id="warning-badge" class="warning badge" title="Incomplete API" onclick="Module.index_filter('incomplete')">I</span>
+<span id="warning-badge" class="warning badge" title="Incomplete API" onclick="Module.index_filter('warning')">I</span>
+
 
 <div class='index_content'>
 	<% @user.each do |user| %>
 		<% if user.valid_api == true %>
 		<div id="<%= user.id %>" class='index_entry valid'>
 		<span class="success badge" title="Valid API">V</span>
-		<% elsif user.valid_api == false and user.v_code == "" and user.key_id == "" %>
+		<% elsif user.valid_api == false and (user.v_code == "" and user.key_id == "") or (user.v_code == nil and user.key_id == nil) %>
 		<div id="<%= user.id %>" class='index_entry error'>
 		<span class="alert badge error" title="Error">E</span>
-		<% end %>
-		<% if user.v_code != "" and user.key_id != "" and user.valid_api == false %>
-		<div id="<%= user.id %>" class='index_entry incomplete'>
-		<span class="warning badge incomplete" title="Incomplete API">I</span>
+		<% elsif user.v_code != "" and user.key_id != "" and user.valid_api == false %>
+		<div id="<%= user.id %>" class='index_entry warning'>
+		<span class="warning badge warningplete" title="Incomplete API">I</span>
 		<% end %>
 		<%= user.id %> - <%= user.email %> / <%= user.primary_character_name %>  |  <%= link_to 'User Profile', user %>
 	</div>

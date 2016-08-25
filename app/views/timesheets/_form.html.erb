@@ -16,21 +16,23 @@
     <%= f.text_field :event %>
   </div>
   <div class="field">
+    Timer Type:
+    <%= f.select :event_type, [["None", 0],["Teritory Claim Unit", 1],["Infastructure Hub", 2], ["Outpost", 3], ["Player Owned Station", 4], ["Strategic Operation", 5]] %>
+  </div>
+  <div class="field" id="event_time">
     <%= f.label :event_time %><br>
     <%= f.datetime_select :event_time %>
   </div>
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :urgency %><br>
-    <%= f.text_field :urgency %>
+    Urgency:
+    <%= f.select :urgency, [["Offensive - Low Priority - Bash time...",1],["Offensive - Medium Priority - Alliance Objectives", 2],["Offensive - High Priority - Strategic Operation", 3],["Defence - Low Priority - Possible Timer Punt", 4],["Defence - High Priority - There will be a fight", 5], ["Defence - Ultra Hig Priority - Bat phone", 6]] %>
+
   </div>
   <div class="field">
     <%= f.label :notes %><br>
     <%= f.text_field :notes %>
   </div>
+  <%= f.hidden_field :user_id, value: current_user.id %>
   <div class="actions">
     <%= f.submit %>
   </div>
