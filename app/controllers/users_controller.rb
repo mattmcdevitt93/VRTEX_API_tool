@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :valid_check, only: [:index, :show]
+    before_action :valid_check, only: []
     before_action :admin_check, only: [:index, :show]
 
 

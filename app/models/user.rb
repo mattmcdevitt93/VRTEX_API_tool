@@ -10,7 +10,9 @@ class User < ActiveRecord::Base
     initial_user = User.where(admin: true)
     if initial_user == []
       Rails.logger.info "Resetting Admin Permissions"
-      User.find(1).update(admin: true)
+      user = User.find(1)
+      user.update(admin: true)
+      Log.create :event_code => 10, :table => "Users", :task_length => "00:00:00" , :event => "Admin Reset", :details => "No admin accounts on record, " + user.email + " Set to admin"
     end
   end
 

@@ -1,13 +1,13 @@
-<h1>Listing Timesheets</h1>
+<h2>Structure Timers</h2>
 <span id="default-badge" class="default badge" title="Incoming Timers" onclick="Module.index_filter('incoming')">I</span>
 <span id="success-badge" class="success badge" title="Active Timers" onclick="Module.index_filter('valid')">A</span>
 <span id="alert-badge" class="alert badge" title="Complete Timers" onclick="Module.index_filter('error')">C</span>
 <span id="warning-badge" class="warning badge" title="6 Hour Warning" onclick="Module.index_filter('warning')">6</span>
 <script>
 
-$(document).ready(function() {
-  Module.index_filter('incoming');
-});
+// $(document).ready(function() {
+//   Module.index_filter('incoming');
+// });
 
 </script>
 <div>
@@ -46,7 +46,7 @@ $(document).ready(function() {
       </td>
       <td><%= link_to timesheet.event, timesheet %></td>
       <td><%= timesheet.event_time %></td>
-      <td><%= timesheet.urgency %></td>
+      <td><%= Timesheet.urgency_id(timesheet.urgency) %></td>
       <td><%= timesheet.notes %></td>
       <% if timesheet.user_id == current_user.id or current_user.admin == true %>
       <td><%= link_to 'Edit', edit_timesheet_path(timesheet) %></td>

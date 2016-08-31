@@ -3,14 +3,18 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
 
   def admin_check
-    if current_user.admin === false
+    if current_user.admin == false
       redirect_to :root
     end
   end
 
   def valid_check
-    if current_user.valid_api === false
-      redirect_to :root
+    if current_user.valid_api == false
+      if current_user.admin == false
+        redirect_to :root
+      else
+        return
+      end
     end
   end
 

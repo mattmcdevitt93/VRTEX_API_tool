@@ -5,37 +5,42 @@
     <tr>
 	<td><%= link_to('Edit Account', edit_user_registration_path) %></td>
 	</tr>
-	<% end %>
-
-	<% if current_user.admin == true %>
 	<tr>
-	<td><%= link_to 'User Index', users_path %></td>
-	</tr>
-	<tr>
-	<td><%= link_to 'Log index', log_index_path %></td>
-	</tr>
-	<tr>
-	<td>Admin Dashboard</td>
+	<td>_</td>
 	</tr>
 	<% end %>
 
-	<% if current_user.valid_api == true %>
+	<% if current_user.valid_api == true or current_user.admin == true%>
 	<tr>
 	<td><%= link_to 'Timer Utility', timesheets_path %></td>
 	</tr>
-	<% end %>
 	<tr>
 	<td>SRP Request</td>
 	</tr>
 	<tr>
 	<td>Forum</td>
 	</tr>
+	<tr>
+	<td>_</td>
+	</tr>
+	<% end %>
 
+	<% if current_user.admin == true %>
 	<tr>
-	<td>_</td>
+	<td>Admin Dashboard</td>
+	</tr>
+	<tr>
+	<td><%= link_to 'Log index', log_index_path %></td>
+	</tr>
+	<tr>
+	<td><%= link_to 'User Index', users_path %></td>
+	</tr>
+	<tr>
+	<td>SRP Managment</td>
 	</tr>
 	<tr>
 	<td>_</td>
 	</tr>
+	<% end %>
 	</tbody>
 </table>

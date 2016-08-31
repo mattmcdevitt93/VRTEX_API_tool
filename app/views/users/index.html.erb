@@ -21,7 +21,7 @@
 		<div id="<%= user.id %>" class='index_entry warning'>
 		<span class="warning badge warningplete" title="Incomplete API">I</span>
 		<% end %>
-		<%= user.id %> - <%= user.email %> / <%= user.primary_character_name %>  |  <%= link_to 'User Profile', user %>
+		<%= user.id %> - <%= user.email %> / <%= user.primary_character_name %>  | <% if user.admin == true %>Admin<% end %>  <%= link_to 'User Profile', user %>
 	</div>
 	<% end %>
 </div>
