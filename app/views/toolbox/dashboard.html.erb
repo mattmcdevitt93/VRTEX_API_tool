@@ -1,0 +1,36 @@
+Admin Dashboard
+
+<table class='contact_list'>
+<% @contacts.each do |contacts| %>
+<tr>
+	<td class='index_entry medium-2' ><%= contacts.id %> | <%= contacts.name %> </td><td class='index_entry medium-1'><%= contacts.standing %></td><td class='index_entry'><%= contacts.notes %></td><td class='medium-1'><%= link_to 'Remove', contacts, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+</tr>
+<% end %>
+</table>
+
+<div class='API_border medium-12 new_contact float-left'>
+<%= form_for(@contact) do |f|  %>
+	<h3>New Contact</h3>
+  <div class="medium-3 field float-left">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="medium-1 field float-left">
+    <%= f.label :standing %><br>
+    <%= f.text_field :standing %>
+  </div>
+  <div class="medium-7 field float-left">
+    <%= f.label :notes %><br>
+    <%= f.text_field :notes %>
+  </div>
+  <hr>
+  <div class="actions float-left">
+    <%= f.submit %>
+  </div>
+<% end %>  
+</div>
+
+<% if current_user.admin === true %>
+<%= link_to "Manual Validation", {:controller => "toolbox", :action => "dashboard", :start_task => true }, class: "alert button float-left", id: "validate" %>
+<% end %>

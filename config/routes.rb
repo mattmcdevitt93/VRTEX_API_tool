@@ -7,11 +7,12 @@ Rails.application.routes.draw do
     devise_for :users
     resources :users
     resources :timesheets
+    resources :contacts
     root 'users#dashboard'
     get '/index' => 'users#index'
     get '/log_index' => 'toolbox#log_index'
     get '/log_index_events' => 'toolbox#log_index_events'
-
+    get '/dashboard' => 'toolbox#dashboard'
 
     # resources :log
   # The priority is based upon order of creation: first created -> highest priority.

@@ -27,7 +27,7 @@
 
 	<% if current_user.admin == true %>
 	<tr>
-	<td>Admin Dashboard</td>
+	<td><%= link_to 'Admin Dashboard', dashboard_path %></td>
 	</tr>
 	<tr>
 	<td><%= link_to 'Log index', log_index_path %></td>
