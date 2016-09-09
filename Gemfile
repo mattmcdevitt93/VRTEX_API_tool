@@ -41,7 +41,7 @@ gem 'eve_online'
 gem 'seed_dump'
 gem 'will_paginate', '~> 3.0.5'
 # heroku gem
-gem 'rails_12factor', group: :production
+gem 'rails_12factor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
