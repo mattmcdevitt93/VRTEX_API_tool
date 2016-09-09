@@ -72,10 +72,11 @@ end
       status = ''
       # check if key is valid
       if (account.key_id.to_s.length == 7) and (account.v_code != nil or account.v_code != "")
+        begin
         profile = EveOnline::Account::Characters.new(account.key_id, account.v_code)
         character = profile.characters[account.primary_character]
         standing = User.standing_check(character, Contact.all)
-        begin
+        
 
           if standing == true
             status.concat(' Valid API, Accepted')
