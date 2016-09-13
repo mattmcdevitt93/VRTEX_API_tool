@@ -72,37 +72,44 @@ end
       status = ''
       # check if key is valid
       if (account.key_id.to_s.length == 7) and (account.v_code != nil or account.v_code != "")
-        begin
-        profile = EveOnline::Account::Characters.new(account.key_id, account.v_code)
-        character = profile.characters[account.primary_character]
-        standing = User.standing_check(character, Contact.all)
-        
 
-          if standing == true
-            status.concat(' Valid API, Accepted')
-            flag = true
-          else 
-            # Valid key, primary character is out of group
-            status.concat(' Valid API, Out of Group Primary Character')
-            flag = false
-          end
+        begin
+          profile = EveOnline::Account::Characters.new(account.key_id, account.v_code)
+          character = profile.characters[account.primary_character]
+          standing = User.standing_check(character, Contact.all)
         rescue
           # Failed rescue, key is not nil or ni character selected
           status.concat('Error - Invalid character selection or key')
           flag = false
           character = nil
+          standing = false
         end
-      else
+
+        if standing == true
+          status.concat(' Valid API, Accepted')
+          flag = true
+        else 
+            # Valid key, primary character is out of group
+            status.concat(' Invalid API, Out of Group Primary Character')
+            flag = false
+        end
+
+        else
         # Invalid API key see line 49
         status.concat('Error - Invalid API code')
         flag = false
       end
-      Rails.logger.info account.email + " | Existing flag: " +  flag.to_s + " | New Flag: " + account.valid_api.to_s + " | " + status.to_s
+
+      Rails.logger.info account.email + " | New flag: " +  flag.to_s + " | Existing Flag: " + account.valid_api.to_s + " | " + status.to_s
       task_end = Time.now
       task_length = User.time_diff(task_start, task_end)
-      if flag != account.valid_api and character != nil
+      if flag != account.valid_api
         change = true
-        account.update(valid_api: flag, primary_character_name: character.character_name)
+        if character != nil
+          account.update(valid_api: flag, primary_character_name: character.character_name)
+        else 
+          account.update(valid_api: flag, primary_character_name: 'None')
+        end
         l = Log.create :event_code => 1, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => input + " - API Change - " + account.email + "/" + account.primary_character_name + " - " + status.to_s
       end
     end
