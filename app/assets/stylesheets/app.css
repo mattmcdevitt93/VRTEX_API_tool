@@ -85,6 +85,7 @@ table tbody tr:nth-child(even)  {
 
 .badge {
 	margin: 1px;
+	height: 20px;
 }
 
 .gauge {
@@ -132,6 +133,32 @@ table tbody tr:nth-child(even)  {
 	width: 10%;
 }
 
+.srp_request_info {
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
 .notice {
 	margin: 15px;
+}
+
+.accordion-content {
+	height: 75px;
+}
+
+.accordion-title {
+	padding: 5px !important;
+	font-size: 14px !important;
+}
+
+.srp_badge {
+	padding-top: 5px !important;
+}
+
+.srp-button {
+	margin-left: 20px;
+}
+
+.srp_item {
+	border: 1px solid #bbb;
 }

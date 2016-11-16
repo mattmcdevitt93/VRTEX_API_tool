@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @srp_request.link %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @srp_request.user_id %> | <%= @srp_request.user_name %> 
+</p>
+
+<p>
+  <strong>Ship:</strong>
+  <%= @srp_request.ship %>
+</p>
+
+<p>
+  <strong>User notes:</strong>
+  <%= @srp_request.user_notes %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= SrpRequest.Status_check(@srp_request.status) %>
+
+</p>
+
+<p>
+  <strong>Payment:</strong>
+  <%= @srp_request.payment_id %>
+</p>
+
+<p>
+  <strong>Srp amount:</strong>
+  <%= @srp_request.SRP_amount %>
+</p>
+
+<p>
+  <strong>Notes admin:</strong>
+  <%= @srp_request.admin_notes %>
+</p>
+<% if @srp_request.user_id == current_user.id or current_user.admin == true %>
+<%= link_to 'Delete Request', @srp_request, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+<% end %>
+<%= link_to 'Back', srp_requests_path %>

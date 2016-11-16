@@ -6,7 +6,7 @@
 	<td><%= link_to('Edit Account', edit_user_registration_path) %></td>
 	</tr>
 	<tr>
-	<td>_</td>
+	<td>User Tools</td>
 	</tr>
 	<% end %>
 
@@ -15,19 +15,19 @@
 	<td><%= link_to 'Timer Utility', timesheets_path %></td>
 	</tr>
 	<tr>
-	<td>SRP Request</td>
+	<td><%= link_to 'SRP Request', srp_requests_path %></td>
 	</tr>
-	<tr>
+<!-- 	<tr>
 	<td>Forum</td>
-	</tr>
-	<tr>
-	<td>_</td>
-	</tr>
+	</tr> -->
 	<% end %>
 
 	<% if current_user.admin == true %>
 	<tr>
-	<td><%= link_to 'Admin Dashboard', dashboard_path %></td>
+	<td>Director Tools</td>
+	</tr>
+	<tr>
+	<td><%= link_to 'Admin Dashboard', admin_dashboard_path %></td>
 	</tr>
 	<tr>
 	<td><%= link_to 'Log index', log_index_path %></td>
@@ -36,10 +36,16 @@
 	<td><%= link_to 'User Index', users_path %></td>
 	</tr>
 	<tr>
-	<td>SRP Managment</td>
+	<td><%= link_to 'SRP managment', admin_index_pending_path %></td>
 	</tr>
 	<tr>
-	<td>_</td>
+	<td>.</td>
+	</tr>
+	<tr>
+	<td>Active Intel Map</td>
+	</tr>
+	<tr>
+	<td>Moon logs</td>
 	</tr>
 	<% end %>
 	</tbody>

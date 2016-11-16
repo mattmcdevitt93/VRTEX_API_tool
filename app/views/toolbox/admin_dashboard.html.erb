@@ -32,5 +32,5 @@ Admin Dashboard
 </div>
 
 <% if current_user.admin === true %>
-<%= link_to "Manual Validation", {:controller => "toolbox", :action => "dashboard", :start_task => true }, class: "alert button float-left", id: "validate" %>
+<%= link_to "Manual Validation", {:controller => "toolbox", :action => "admin_dashboard", :start_task => true }, class: "alert button float-left", id: "validate" %>
 <% end %>

@@ -1,0 +1,48 @@
+<% if @srp_requests.empty? == false %>
+<ul class="accordion" data-accordion data-allow-all-closed="true">
+	<% @srp_requests.each do |request| %>
+	<li class="accordion-item srp_item" data-accordion-item>
+		<a href="#" class="accordion-title request-title">
+
+			<% if request.status == 0 %>
+			<span id="default-badge" class="default badge srp_badge" title="Pending Request">P</span>
+			<% elsif request.status == 1 %>
+			<span id="success-badge" class="success badge srp_badge" title="Accepted Request">A</span>
+			<% elsif request.status == 2 %>
+			<span id="warning-badge" class="warning badge srp_badge" title="Flagged Request">F</span>
+			<% elsif request.status == 3 %>
+			<span id="alert-badge" class="alert badge srp_badge" title="Denied Request">D</span>
+			<% end %>
+
+			SRP request ID: <%= request.id %> | Ship: <%= request.ship %> | Player: 
+			<%= request.user_name %>
+		</a>
+		<div class="accordion-content" data-tab-content>
+			<%= link_to 'Show Details', request, class: "button float-left srp-button" %>
+			<a class='button float-left srp-button' href='' >View Mail</a>
+			<% if request.status == 0 or request.status == 2 %>
+
+				<%= form_for(request) do |f| %>
+				<%= f.hidden_field :status, value: 1 %>
+				<%= f.submit "Accept Request" ,:class => 'success button float-left srp-button' %>
+				<% end %>
+
+				<%= form_for(request) do |f| %>
+				<%= f.hidden_field :status, value: 3 %>
+				<%= f.submit "Deny Request" ,:class => 'alert button float-left srp-button' %>
+				<% end %>
+			<% end %>
+			<% if request.status == 0 %> 
+				<%= form_for(request) do |f| %>
+				<%= f.hidden_field :status, value: 2 %>
+				<%= f.submit "Flag Request" ,:class => 'warning button float-left srp-button' %>
+				<% end %>
+			<% end %>
+		</li>
+		<% end %>
+	</ul>
+<% else %>
+	<ul>
+		<li>No pending requests... go back to playing EvE</li>
+	</ul>
+<% end %>

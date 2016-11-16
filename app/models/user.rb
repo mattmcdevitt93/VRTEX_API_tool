@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
   # after_create :Admin_initialize
+  # attr_encrypted :v_code, key: 'some other really long secret key'
+
 
   def self.Admin_initialize
     Rails.logger.info 'Admin Check'
@@ -16,7 +18,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.quick_lookup (user_id)
+  def self.quick_lookup (user_id, option)
     user = User.find(user_id)
     begin
       characters = EveOnline::Account::Characters.new(user.key_id, user.v_code)
@@ -27,9 +29,15 @@ class User < ActiveRecord::Base
        characters.characters[2].character_name + ' - ' + characters.characters[2].corporation_name
        )
     # Rails.logger.info char_list
-    return char_list
+    if option == 1
+      char = char_list[user.primary_character]
+      return char
+    else 
+      return char_list
+    end
+
   rescue
-    return ['Character Slot 1', 'Character Slot 2', 'Character Slot 3']
+      return ['Character Slot 1', 'Character Slot 2', 'Character Slot 3']
   end
 end
 
@@ -141,10 +149,6 @@ end
     "#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}:#{seconds.to_s.rjust(2, '0')}"
   end
 
-  s = Rufus::Scheduler.singleton
 
-  s.every '15m' do
-  	User.validation_task ('auto')
-  end
 
 end

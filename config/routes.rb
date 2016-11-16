@@ -8,11 +8,21 @@ Rails.application.routes.draw do
     resources :users
     resources :timesheets
     resources :contacts
+    resources :srp_requests
     root 'users#dashboard'
     get '/index' => 'users#index'
+    
     get '/log_index' => 'toolbox#log_index'
     get '/log_index_events' => 'toolbox#log_index_events'
-    get '/dashboard' => 'toolbox#dashboard'
+    get '/admin_dashboard' => 'toolbox#admin_dashboard'
+
+    get '/admin_index' => 'srp_requests#admin_index'
+    get '/admin_index_pending' => 'srp_requests#admin_index_pending'
+    get '/admin_index_all' => 'srp_requests#admin_index_all'
+    get '/admin_index_flagged' => 'srp_requests#admin_index_flagged'
+
+
+
 
     # resources :log
   # The priority is based upon order of creation: first created -> highest priority.

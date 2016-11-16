@@ -5,6 +5,7 @@ var Module = Module || {};
 $(document).ready(function() {
 	console.log('Ready!')
     Module.bindings();
+    $(document).foundation();
 });
 
 Module.bindings = function () {

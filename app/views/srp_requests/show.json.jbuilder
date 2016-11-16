@@ -1,0 +1,1 @@
+json.partial! "srp_requests/srp_request", srp_request: @srp_request
