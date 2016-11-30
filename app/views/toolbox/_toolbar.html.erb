@@ -1,21 +1,22 @@
 <table>
 	<tbody id='toolbar-table'>
 
+	<tr>
+	<td class='toolbar-row'><div id='toolbar-pilot'></div>User Tools</td>
+	</tr>
+
     <% if user_signed_in? %>
     <tr>
-	<td><%= link_to('Edit Account', edit_user_registration_path) %></td>
-	</tr>
-	<tr>
-	<td>User Tools</td>
+	<td class='toolbar-row'><%= link_to('Edit Account', edit_user_registration_path) %></td>
 	</tr>
 	<% end %>
 
 	<% if current_user.valid_api == true or current_user.admin == true%>
 	<tr>
-	<td><%= link_to 'Timer Utility', timesheets_path %></td>
+	<td class='toolbar-row'><%= link_to 'Active Timers', timesheets_path %></td>
 	</tr>
 	<tr>
-	<td><%= link_to 'SRP Request', srp_requests_path %></td>
+	<td class='toolbar-row'><%= link_to 'My SRP Requests', srp_requests_path %></td>
 	</tr>
 <!-- 	<tr>
 	<td>Forum</td>
@@ -24,28 +25,34 @@
 
 	<% if current_user.admin == true %>
 	<tr>
-	<td>Director Tools</td>
+	<td class='toolbar-row'>Director Tools</td>
 	</tr>
 	<tr>
-	<td><%= link_to 'Admin Dashboard', admin_dashboard_path %></td>
+	<td class='toolbar-row'><%= link_to 'Admin Dashboard', admin_dashboard_path %></td>
 	</tr>
 	<tr>
-	<td><%= link_to 'Log index', log_index_path %></td>
+	<td class='toolbar-row'><%= link_to 'Logs', log_index_path %></td>
 	</tr>
 	<tr>
-	<td><%= link_to 'User Index', users_path %></td>
+	<td class='toolbar-row'><%= link_to 'User Index', users_path %></td>
 	</tr>
 	<tr>
-	<td><%= link_to 'SRP managment', admin_index_pending_path %></td>
+	<td class='toolbar-row'><%= link_to 'SRP managment', admin_index_pending_path %></td>
 	</tr>
 	<tr>
-	<td>.</td>
+	<td class='toolbar-row'>.</td>
 	</tr>
 	<tr>
-	<td>Active Intel Map</td>
+	<td class='toolbar-row'>Active Intel Map</td>
 	</tr>
 	<tr>
-	<td>Moon logs</td>
+	<td class='toolbar-row'>Moon logs</td>
+	</tr>
+	<tr>
+	<td class='toolbar-row'>Forum</td>
+	</tr>
+	<tr>
+	<td class='toolbar-row'>Bullitens</td>
 	</tr>
 	<% end %>
 	</tbody>

@@ -37,7 +37,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'rufus-scheduler'
 gem 'eve_online'
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 gem 'seed_dump'
 gem 'will_paginate', '~> 3.0.5'
 gem 'attr_encrypted', '~> 3.0', '>= 3.0.3'

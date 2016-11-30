@@ -143,7 +143,7 @@ table tbody tr:nth-child(even)  {
 }
 
 .accordion-content {
-	height: 75px;
+	/*height: 75px;*/
 }
 
 .accordion-title {
@@ -161,4 +161,18 @@ table tbody tr:nth-child(even)  {
 
 .srp_item {
 	border: 1px solid #bbb;
+}
+
+#toolbar-pilot {
+	width: 25px;
+	height: 25px;
+	background-image: url(pilot_icon.png);
+	background-size: 25px 25px;
+	float: left;
+	margin: 5px;
+}
+
+.toolbar-row {
+	font-size: 15px;
+	padding-left: 15px;
 }

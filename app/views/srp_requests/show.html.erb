@@ -1,5 +1,4 @@
-<p id="notice"><%= notice %></p>
-
+<div class="API_border">
 <p>
   <strong>Link:</strong>
   <%= @srp_request.link %>
@@ -7,7 +6,7 @@
 
 <p>
   <strong>User:</strong>
-  <%= @srp_request.user_id %> | <%= @srp_request.user_name %> 
+    <%= @srp_request.user_name %> 
 </p>
 
 <p>
@@ -23,24 +22,25 @@
 <p>
   <strong>Status:</strong>
   <%= SrpRequest.Status_check(@srp_request.status) %>
-
 </p>
 
 <p>
-  <strong>Payment:</strong>
+  <strong>Payment ID:</strong>
   <%= @srp_request.payment_id %>
 </p>
 
+<% if @srp_request.SRP_amount != nil %>
 <p>
   <strong>Srp amount:</strong>
-  <%= @srp_request.SRP_amount %>
+  <%= @srp_request.SRP_amount %> Isk
 </p>
-
+<% end %>
 <p>
-  <strong>Notes admin:</strong>
+  <strong>Admin Notes:</strong>
   <%= @srp_request.admin_notes %>
 </p>
 <% if @srp_request.user_id == current_user.id or current_user.admin == true %>
 <%= link_to 'Delete Request', @srp_request, method: :delete, data: { confirm: 'Are you sure?' } %> | 
 <% end %>
 <%= link_to 'Back', srp_requests_path %>
+</div>

@@ -21,16 +21,16 @@
         <%= f.label :ship %><br>
         <%= f.text_field :ship %>
       </div>
-      <div class="field columns medium-10">
-        <%= f.label :user_notes %><br>
-        <%= f.text_field :user_notes %>
-      </div>
       <div class="field">
         <%= f.hidden_field :status, value: 0 %>
       </div>
       <div class="field columns medium-10">
         <%= f.label :link %><br>
         <%= f.text_field :link %>
+      </div>
+      <div class="field columns medium-10">
+        <%= f.label :user_notes %><br>
+        <%= f.text_area :user_notes %>
       </div>
       <div class="actions columns">
         <%= f.submit %>
@@ -41,6 +41,8 @@
   </div>
   <div class='medium-5 float-left warning_border srp_request_info'>
     A ship replacement program is intended to keep people in PvP capable ships while providing as low of a financial impact to the player as possible.
+    <hr>
+    Please fill out the form to the left and include the ship type, and a link to your loss mail from a third party site such as Zkillboard or EvE-kill.
   </div>
 </div>
   <div class='medium-12 float-left password_border'>
@@ -62,7 +64,9 @@
         <tr>
           <td><%= srp_request.id %></td>
           <td><%= srp_request.ship.capitalize %></td>
-          <td><%= srp_request.link %></td>
+          <td><%= link_to srp_request.link.to_s, "http://#{srp_request.link}" %>
+
+          </td>
           <td>
           <%= SrpRequest.Status_check(srp_request.status) %>
           </td>
