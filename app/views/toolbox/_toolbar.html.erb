@@ -1,8 +1,10 @@
 <table>
 	<tbody id='toolbar-table'>
-
 	<tr>
-	<td class='toolbar-row'><div id='toolbar-pilot'></div>User Tools</td>
+	<td class='toolbar-row'>.</td>
+	</tr>
+	<tr>
+	<td class='toolbar-row'><b>User Tools</b></td>
 	</tr>
 
     <% if user_signed_in? %>
@@ -18,14 +20,17 @@
 	<tr>
 	<td class='toolbar-row'><%= link_to 'My SRP Requests', srp_requests_path %></td>
 	</tr>
-<!-- 	<tr>
-	<td>Forum</td>
-	</tr> -->
+	<tr>
+	<td class='toolbar-row'>My Groups</td>
+	</tr>
+	<tr>
+	<td class='toolbar-row'>.</td>
+	</tr>
 	<% end %>
 
 	<% if current_user.admin == true %>
 	<tr>
-	<td class='toolbar-row'>Director Tools</td>
+	<td class='toolbar-row'><b>Director Tools</b></td>
 	</tr>
 	<tr>
 	<td class='toolbar-row'><%= link_to 'Admin Dashboard', admin_dashboard_path %></td>
@@ -38,6 +43,9 @@
 	</tr>
 	<tr>
 	<td class='toolbar-row'><%= link_to 'SRP managment', admin_index_pending_path %></td>
+	</tr>
+	<tr>
+	<td class='toolbar-row'>Group Managment</td>
 	</tr>
 	<tr>
 	<td class='toolbar-row'>.</td>

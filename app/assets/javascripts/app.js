@@ -24,10 +24,12 @@ Module.toolbar_slide = function () {
 	if( $('#toolbar').hasClass("toolbar-hidden")) {
     	// console.log('Slide Out')
         $('#toolbar').animate({"margin-left": '+=220'});
+        $('#yield').animate({"width": '-=220'});
         $('#toolbar').removeClass("toolbar-hidden");
     } else {
     	// console.log('Slide In')
         $('#toolbar').animate({"margin-left": '-=220'});
+        $('#yield').animate({"width": '+=220'});
         $('#toolbar').addClass("toolbar-hidden"); }
 
     // });

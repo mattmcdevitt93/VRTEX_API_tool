@@ -1,3 +1,7 @@
-Admin Index | <%= link_to 'Pending Requests', admin_index_pending_path %> | <%= link_to 'All Requests', admin_index_all_path %> | <b><%= link_to 'Flagged requests', admin_index_flagged_path %></b> | Search
+Admin Index
+<%= link_to 'P', admin_index_pending_path ,:class => 'inactive badge' ,:id => 'default-badge', :title=> 'Pending Requests' %>
+<%= link_to 'A', admin_index_all_path ,:class => 'inactive badge' ,:id => 'success-badge', :title=> 'All Requests' %>
+<%= link_to 'F', admin_index_flagged_path ,:class => 'warning badge' ,:id => 'warning-badge', :title=> 'Flagged Requests' %>
+Search
 
 <%= render 'admin_index' %>
