@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   # after_create :Admin_initialize
   # attr_encrypted :v_code, key: 'some other really long secret key'
 
+  has_many :memberships
+  has_many :groups, :through => :memberships
 
   def self.Admin_initialize
     Rails.logger.info 'Admin Check'

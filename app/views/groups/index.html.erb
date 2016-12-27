@@ -1,0 +1,70 @@
+  <h2>Group Managment</h2>
+  <ul class="accordion" data-accordion data-allow-all-closed="true">
+    <li class="accordion-item is-active" data-accordion-item>
+      <a href="#" class="accordion-title request-title">
+        User Groups
+      </a>
+      <div class="accordion-content" data-tab-content>
+
+        <h3>User Groups</h3>
+        <table class='medium-12'>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Level</th>
+              <th>Category</th>
+              <th>Notes</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @groups.each do |group| %>
+            <tr>
+              <td><%= group.id %></td>
+              <td><%= group.name %></td>
+              <td><%= group.level %></td>
+              <td><%= group.category %></td>
+              <td><%= group.note %></td>
+              <td><%= link_to 'Member List (WIP)', group %></td>
+              <td><%= link_to 'Edit', edit_group_path(group) %></td>
+              <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+
+
+      </div>
+    </li>
+    <li class="accordion-item srp_item" data-accordion-item>
+      <a href="#" class="accordion-title request-title">
+        New Group
+      </a>
+      <div class="accordion-content" data-tab-content>
+        <%= render 'form' %>
+
+      </div>
+    </li>
+    <li class="accordion-item srp_item" data-accordion-item>
+      <a href="#" class="accordion-title request-title">
+        Group Approvals
+      </a>
+      <div class="accordion-content" data-tab-content>
+        <% @approvals.each do |approval| %>
+        <% @group_name = Group.where('id' => approval.group_id) %>
+        <%= @group_name[0].name %>
+        <% @username = User.where('id' => approval.user_id) %>
+        <%= @username[0].primary_character_name %>
+        <%= form_for(approval) do |f| %>
+        <%= f.hidden_field :approved, value: true %>
+        <%= f.submit "Approve" ,:class => 'success button float-left' %>
+        <% end %>
+        <%= link_to 'Deny', approval, method: :delete, data: { confirm: 'Are you sure?' },:class => 'alert button float-left' %>
+        <hr>
+        <% end %>
+      </div>
+    </li>
+  </ul>

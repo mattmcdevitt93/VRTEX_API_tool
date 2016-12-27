@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   
+  resources :memberships
+  resources :groups
     get 'users/new'
 
     get 'users/create'
@@ -9,6 +11,8 @@ Rails.application.routes.draw do
     resources :timesheets
     resources :contacts
     resources :srp_requests
+    resources :groups
+    resources :memberships
     root 'users#dashboard'
     get '/index' => 'users#index'
     

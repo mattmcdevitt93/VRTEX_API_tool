@@ -15,6 +15,10 @@ $('#password_update').bind('input', function() {
     $('#password_fields').addClass("password_border")
 });
 
+$( "#newGroup" ).click(function() {
+    console.log('Toggle New Group')
+    $( "#group_form" ).toggle();
+});
 
 }
 

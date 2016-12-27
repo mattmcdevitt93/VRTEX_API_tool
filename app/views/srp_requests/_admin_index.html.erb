@@ -21,7 +21,7 @@
 		</a>
 		<div class="accordion-content" data-tab-content>
 			<%= link_to 'Show Details', request, class: "button float-left srp-button" %>
-			<%= link_to 'View Mail', "http://#{request.link}", class: "button float-left srp-button" %>
+			<%= link_to 'View Mail', "#{request.link}", class: "button float-left srp-button" %>
 			<% if request.status == 0 or request.status == 2 %>
 
 				<%= form_for(request) do |f| %>
