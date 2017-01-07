@@ -15,7 +15,7 @@
   <%= f.hidden_field :approved?, value: false %>
 
   <div class="field">
-    <%= f.label :group_id %><br>
+    <b>Apply for Group Membership</b>
     <% user_groups = [] %>
     <% @groups.each do |group| %>
       <% user_groups = user_groups.push([group.name, group.id]) %>

@@ -5,6 +5,7 @@ class MembershipsController < ApplicationController
   # GET /memberships.json
   def index
     @memberships = Membership.where('user_id' => current_user)
+    @membership = Membership.new
     @groups = Group.all
   end
 
@@ -40,7 +41,7 @@ class MembershipsController < ApplicationController
   def update
     respond_to do |format|
       if @membership.update(membership_params)
-        format.html { redirect_to memberships_path, notice: 'Membership was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Membership was successfully updated.' }
         format.json { render :show, status: :ok, location: @membership }
       else
         format.html { render :edit }
@@ -54,7 +55,7 @@ class MembershipsController < ApplicationController
   def destroy
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Membership was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

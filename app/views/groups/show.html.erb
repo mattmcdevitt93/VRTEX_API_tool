@@ -1,1 +1,12 @@
 User List
+
+<hr>
+<%= @group[0].name %>
+
+<% @members.each do |member| %>
+<hr>
+	<% if member.approved == true %>
+		<%= member.user_id %> | <%= User.where('id' => member.user_id)[0].primary_character_name %> | <%= link_to 'User Profile', user_path(:id => member.user_id) %>
+	<% end %>
+<% end %>
+

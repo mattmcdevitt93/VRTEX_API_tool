@@ -45,9 +45,9 @@ ActiveRecord::Schema.define(version: 20161214193322) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "group_id"
-    t.boolean  "approved"
+    t.integer  "user_id",    null: false
+    t.integer  "group_id",   null: false
+    t.boolean  "approved",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

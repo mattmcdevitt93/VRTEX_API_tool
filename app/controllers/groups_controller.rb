@@ -12,6 +12,8 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @group = Group.where('id' => params[:id])
+    @members = Membership.where('group_id' => params[:id])
   end
 
   # GET /groups/new
@@ -58,7 +60,7 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
+      format.html { redirect_to groups_path, notice: 'Group was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -71,6 +73,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name, :level, :category, :note)
+      params.require(:group).permit(:id, :name, :level, :category, :note)
     end
 end
