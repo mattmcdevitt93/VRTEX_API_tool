@@ -40,9 +40,11 @@
       </div>
     <li class="accordion-item srp_item" data-accordion-item>
       <a href="#" class="accordion-title request-title">
-        Group Approvals
+        Group Approvals - quick list
       </a>
       <div class="accordion-content" data-tab-content>
+      <%= link_to 'Full Approval list', full_index_path, :class => 'group_right_link' %>
+      <hr>
         <% @approvals.each do |approval| %>
         <% @group_name = Group.where('id' => approval.group_id) %>
         <b>Requested Group: </b>
@@ -50,7 +52,9 @@
          | 
         <% @username = User.where('id' => approval.user_id) %>
         <b>User: </b>
-        <%= @username[0].primary_character_name %>
+        <%= @username[0].primary_character_name %> | 
+        <b>Submitted at:</b>
+        <%= approval.created_at %>
         <%= form_for(approval) do |f| %>
         <%= f.hidden_field :approved, value: true %>
         <%= f.submit "Approve" ,:class => 'success button float-left' %>

@@ -1,5 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :set_pages
 
   # GET /memberships
   # GET /memberships.json
@@ -15,9 +16,8 @@ class MembershipsController < ApplicationController
     @groups = Group.all
   end
 
-  # GET /memberships/1/edit
-  def edit
-    @groups = Group.all
+  def full_index
+    @approvals = Membership.where('approved' => false).paginate(:page => params[:page], :per_page => @pages)
   end
 
   # POST /memberships
@@ -64,6 +64,10 @@ class MembershipsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_membership
       @membership = Membership.find(params[:id])
+    end
+
+    def set_pages
+     @pages = 10
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

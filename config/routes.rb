@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     get '/admin_index_all' => 'srp_requests#admin_index_all'
     get '/admin_index_flagged' => 'srp_requests#admin_index_flagged'
 
+    get '/full_index' => 'memberships#full_index'
+
+
 
 
 

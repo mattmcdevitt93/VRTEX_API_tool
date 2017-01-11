@@ -172,3 +172,8 @@ table tbody tr:nth-child(even)  {
 .badge:hover {
 	color: #FFF;
 }
+
+.group_right_link {
+	/*padding-right: 25px;*/
+	/*float: right;*/
+}

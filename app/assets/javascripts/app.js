@@ -5,6 +5,7 @@ var Module = Module || {};
 $(document).ready(function() {
 	console.log('Ready!')
     Module.bindings();
+    Module.toolbar_resize();
     $(document).foundation();
 });
 
@@ -20,8 +21,29 @@ $( "#newGroup" ).click(function() {
     $( "#group_form" ).toggle();
 });
 
+$( window ).resize(function() {
+    Module.toolbar_resize();
+});
+
+$( window ).scroll(function() {
+    Module.toolbar_resize();
+});
+
 }
 
+Module.toolbar_resize = function () {
+    console.log('resize')
+    var c= $('#yield').height();
+    var h = $(window).height();
+    var n = 0
+    // console.log(h, c)
+    if (h < c) {
+        n = c
+    } else {
+        n = h
+    };
+    $('#toolbar').height(n);
+}
 
 Module.toolbar_slide = function () {
 	// $('#toolbar-switch').click(function() {

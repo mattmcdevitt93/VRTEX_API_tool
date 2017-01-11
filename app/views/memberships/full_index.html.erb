@@ -1,0 +1,20 @@
+Full Index Membership | <%= will_paginate @approvals %>
+
+<hr>
+<% @approvals.each do |approval| %>
+<% @group_name = Group.where('id' => approval.group_id) %>
+<b>Requested Group: </b>
+<%= @group_name[0].name %>
+| 
+<% @username = User.where('id' => approval.user_id) %>
+<b>User: </b>
+<%= @username[0].primary_character_name %> | 
+<b>Submitted at:</b>
+<%= approval.created_at %>
+<%= form_for(approval) do |f| %>
+<%= f.hidden_field :approved, value: true %>
+<%= f.submit "Approve" ,:class => 'success button float-left' %>
+<% end %>
+<%= link_to 'Deny', approval, method: :delete, data: { confirm: 'Are you sure?' },:class => 'alert button float-left' %>
+<hr>
+<% end %>

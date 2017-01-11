@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.all
     @group = Group.new
-    @approvals = Membership.where('approved' => false)
+    @approvals = Membership.where('approved' => false).order("id DESC").limit(5)
   end
 
   # GET /groups/1
