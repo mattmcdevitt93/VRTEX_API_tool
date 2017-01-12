@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-
+    @test = nil
   end
 
   private

@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
   # after_create :Admin_initialize
-  # attr_encrypted :v_code, key: 'some other really long secret key'
+  # attr_encrypted_options.merge!(:encode => true)
+  # attr_encrypted :v_code, :key => ENV["VCODEKEY"]
+  # attr_encrypted :password, :key => ENV["PASSWORDKEY"]
 
   has_many :memberships
   has_many :groups, :through => :memberships

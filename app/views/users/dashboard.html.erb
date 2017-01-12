@@ -12,3 +12,13 @@ Dashboard Page
 	<% end %>
 
 </div>
+
+<div>
+Encryption testing
+<br>
+ <%= key = SecureRandom.random_bytes(32) %>
+<br>
+ <%= iv = SecureRandom.random_bytes(12) %>
+<br>
+ <%= @email = "Test@email.com" %>
+</div>

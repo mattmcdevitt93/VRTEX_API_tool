@@ -8,7 +8,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to dashboard_path, notice: 'Contact was successfully created.' }
+        format.html { redirect_to admin_dashboard_path, notice: 'Contact was successfully created.' }
         # format.json { render :show, status: :created, location: @contact }
       else
         format.html { render :new }
@@ -20,7 +20,7 @@ class ContactsController < ApplicationController
   def destroy
     @contact.destroy
     respond_to do |format|
-      format.html { redirect_to dashboard_path, notice: 'Contact was successfully destroyed.' }
+      format.html { redirect_to admin_dashboard_path, notice: 'Contact was successfully destroyed.' }
     end
   end
 

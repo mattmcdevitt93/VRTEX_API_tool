@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20161214193322) do
     t.datetime "updated_at",                             null: false
     t.string   "key_id"
     t.string   "v_code"
+    t.string   "encrypted_v_code"
     t.integer  "primary_character"
     t.string   "primary_character_name"
     t.boolean  "valid_api",              default: false, null: false
