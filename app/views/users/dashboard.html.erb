@@ -13,12 +13,7 @@ Dashboard Page
 
 </div>
 
-<div>
-Encryption testing
-<br>
- <%= key = SecureRandom.random_bytes(32) %>
-<br>
- <%= iv = SecureRandom.random_bytes(12) %>
-<br>
- <%= @email = "Test@email.com" %>
-</div>
+<hr>
+API Key: <%= User.decrypt(current_user.v_code) %>
+<hr>
+Encrypted API Key: <%= current_user.v_code %>

@@ -6,10 +6,22 @@ class User < ActiveRecord::Base
   # after_create :Admin_initialize
   # attr_encrypted_options.merge!(:encode => true)
   # attr_encrypted :v_code, :key => ENV["VCODEKEY"]
-  # attr_encrypted :password, :key => ENV["PASSWORDKEY"]
+  # attr_encrypted :v_code, :key => 'This is a key that is 256 bits!!', :iv => 'This is longer than 12 bytes'
 
   has_many :memberships
   has_many :groups, :through => :memberships
+
+  def self.encrypt (var)
+   key = ENV["VCODEKEY"]
+   encrypted_data = AES.encrypt(var, key)
+   return encrypted_data
+  end
+
+  def self.decrypt (var)
+   key = ENV["VCODEKEY"]
+   encrypted_data = AES.decrypt(var, key)
+   return encrypted_data
+  end
 
   def self.Admin_initialize
     Rails.logger.info 'Admin Check'
@@ -25,7 +37,7 @@ class User < ActiveRecord::Base
   def self.quick_lookup (user_id, option)
     user = User.find(user_id)
     begin
-      characters = EveOnline::Account::Characters.new(user.key_id, user.v_code)
+      characters = EveOnline::Account::Characters.new(user.key_id, User.decrypt(user.v_code))
       char_list = []
       char_list.push(
        characters.characters[0].character_name + ' - ' + characters.characters[0].corporation_name,
@@ -86,7 +98,7 @@ end
       if (account.key_id.to_s.length == 7) and (account.v_code != nil or account.v_code != "")
 
         begin
-          profile = EveOnline::Account::Characters.new(account.key_id, account.v_code)
+          profile = EveOnline::Account::Characters.new(account.key_id, User.decrypt(account.v_code))
           character = profile.characters[account.primary_character]
           standing = User.standing_check(character, Contact.all)
         rescue

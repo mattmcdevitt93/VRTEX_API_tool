@@ -42,7 +42,8 @@
 
   <div class="field medium-8 large-8 float-left">
     <%= f.label :v_code %>
-    <%= f.text_field :v_code %>
+    <% @data = User.decrypt(current_user.v_code) %>
+    <%= f.text_field :v_code, :value => @data.to_s %>
   </div>
 </div>
 
