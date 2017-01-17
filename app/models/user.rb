@@ -12,12 +12,18 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
 
   def self.encrypt (var)
+    if var === nil
+      return nil
+    end
    key = ENV["VCODEKEY"]
    encrypted_data = AES.encrypt(var, key)
    return encrypted_data
   end
 
   def self.decrypt (var)
+    if var === nil
+      return nil
+    end
    key = ENV["VCODEKEY"]
    encrypted_data = AES.decrypt(var, key)
    return encrypted_data
