@@ -42,7 +42,7 @@ gem 'seed_dump'
 gem 'will_paginate', '~> 3.0.5'
 # gem 'attr_encrypted', '~> 3.0', '>= 3.0.3'
 gem "figaro"
-gem 'aes'
+gem 'aes', group: :production
 # heroku gem
 
 group :development, :test do
