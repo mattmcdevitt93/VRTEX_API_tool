@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :event %><br>
-    <%= f.text_field :event %>
+    <%= f.text_field :event, :required => 'required' %>
   </div>
   <div class="field">
     Timer Type:
@@ -21,7 +21,7 @@
   </div>
   <div class="field" id="event_time">
     <%= f.label :event_time %><br>
-    <%= f.datetime_select :event_time %>
+    <%= f.datetime_select :event_time, :required => 'required' %>
   </div>
   <div class="field">
     Urgency:

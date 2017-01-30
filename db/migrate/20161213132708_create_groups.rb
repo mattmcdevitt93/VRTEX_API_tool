@@ -3,7 +3,7 @@ class CreateGroups < ActiveRecord::Migration
     create_table :groups do |t|
       t.string :name, null: false
       t.string :category, null: false      
-      t.integer :level
+      t.boolean :is_admin
       t.string :note
       
 

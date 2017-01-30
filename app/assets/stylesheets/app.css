@@ -163,6 +163,10 @@ table tbody tr:nth-child(even)  {
 	border: 1px solid #bbb;
 }
 
+.new_group {
+	min-height: 300px;
+}
+
 .toolbar-row {
 	font-size: 15px;
 	padding-left: 15px;

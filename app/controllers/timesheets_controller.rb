@@ -1,6 +1,6 @@
 class TimesheetsController < ApplicationController
   before_action :valid_check, only: [:index, :new, :show, :create, :destroy, :update]
-  before_action :admin_check, only: []
+  before_action :admin_check
   before_action :set_timesheet, only: [:show, :edit, :update, :destroy]
 
 

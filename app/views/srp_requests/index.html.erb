@@ -19,14 +19,14 @@
       </div>
       <div class="field columns medium-10">
         <%= f.label :ship %><br>
-        <%= f.text_field :ship %>
+        <%= f.text_field :ship, :required => 'required' %>
       </div>
       <div class="field">
         <%= f.hidden_field :status, value: 0 %>
       </div>
       <div class="field columns medium-10">
         <%= f.label :link %><br>
-        <%= f.text_field :link %>
+        <%= f.text_field :link, :required => 'required' %>
       </div>
       <div class="field columns medium-10">
         <%= f.label :user_notes %><br>

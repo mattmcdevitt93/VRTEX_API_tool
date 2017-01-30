@@ -29,6 +29,17 @@ class User < ActiveRecord::Base
    return encrypted_data
   end
 
+  def self.get_groups (id)
+    Rails.logger.info 'Group Check'
+      user_groups = Membership.where('user_id' => id, 'approved' => true)
+      output = ""
+      user_groups.each do |group|
+        group_name = Group.find(group.group_id)
+        output = output + "[" + group_name.name.to_s + "] "
+      end
+      return output
+  end
+
   def self.Admin_initialize
     Rails.logger.info 'Admin Check'
     initial_user = User.where(admin: true)
@@ -38,6 +49,26 @@ class User < ActiveRecord::Base
       user.update(admin: true)
       Log.create :event_code => 10, :table => "Users", :task_length => "00:00:00" , :event => "Admin Reset", :details => "No admin accounts on record, " + user.email + " Set to admin"
     end
+  end
+
+  def self.Admin_check_groups (user)
+    groups = Membership.where('user_id' => user, 'approved' => true)
+    update = false
+    groups.each do |group|
+      group_name = Group.find(group.group_id)
+      # Rails.logger.info group_name.name.to_s + ' | ' + group_name.is_admin.to_s
+      if group_name.is_admin === true
+        update = true
+      end
+    end
+      user_id = User.find(user)
+    if update === true
+      user_id.update(admin: true)
+    else
+      user_id.update(admin: false)
+    end
+    Rails.logger.info 'Admin Group Check - ' + user.to_s + ' | User is admin? ' + update.to_s
+
   end
 
   def self.quick_lookup (user_id, option)
@@ -138,10 +169,13 @@ end
         if character != nil
           account.update(valid_api: flag, primary_character_name: character.character_name)
         else 
-          account.update(valid_api: flag, primary_character_name: 'None')
+          account.update(valid_api: flag)
         end
         l = Log.create :event_code => 1, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => input + " - API Change - " + account.email + "/" + account.primary_character_name + " - " + status.to_s
       end
+
+      User.Admin_check_groups(account.id)
+
     end
 
     if change == false

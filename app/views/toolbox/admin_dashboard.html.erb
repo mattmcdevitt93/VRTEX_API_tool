@@ -14,11 +14,11 @@ Admin Dashboard
 	<h3>New Contact</h3>
   <div class="medium-3 field float-left">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :required => 'required' %>
   </div>
   <div class="medium-1 field float-left">
     <%= f.label :standing %><br>
-    <%= f.text_field :standing %>
+    <%= f.text_field :standing, :required => 'required' %>
   </div>
   <div class="medium-7 field float-left">
     <%= f.label :notes %><br>

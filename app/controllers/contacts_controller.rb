@@ -5,11 +5,9 @@ class ContactsController < ApplicationController
 
   def create
     @contact = Contact.new(contact_params)
-
     respond_to do |format|
       if @contact.save
         format.html { redirect_to admin_dashboard_path, notice: 'Contact was successfully created.' }
-        # format.json { render :show, status: :created, location: @contact }
       else
         format.html { render :new }
         format.json { render json: @contact.errors, status: :unprocessable_entity }

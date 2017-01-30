@@ -1,5 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :valid_check
   before_action :set_pages
 
   # GET /memberships
@@ -23,9 +24,13 @@ class MembershipsController < ApplicationController
   # POST /memberships
   # POST /memberships.json
   def create
-    @membership = Membership.new(membership_params)
 
+    @membership = Membership.new(membership_params)
     respond_to do |format|
+      if @membership.group_id === nil
+      redirect_to memberships_path, notice: 'You must apply for a group.'
+      return
+      end
       if @membership.save
         format.html { redirect_to memberships_path, notice: 'Membership was successfully created.' }
         format.json { render :show, status: :created, location: @membership }
