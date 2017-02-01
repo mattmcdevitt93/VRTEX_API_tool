@@ -70,8 +70,8 @@
         New Group
       </a>
       <div class="accordion-content new_group" data-tab-content>
-
-          <%= form_for(@group) do |f| %>
+        <%= render 'form' %>
+<!--           <%= form_for(@group) do |f| %>
           <% if @group.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
@@ -104,7 +104,7 @@
           <div class="field columns actions">
             <%= f.submit %>
           </div>
-          <% end %>
+          <% end %> -->
 
       </div>
     </li>
