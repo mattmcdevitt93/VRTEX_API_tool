@@ -8,6 +8,9 @@
 	</tr>
 
     <% if user_signed_in? %>
+ 	<tr>
+	<td class='toolbar-row'><%= link_to 'My Profile', current_user %></td>
+	</tr>
     <tr>
 	<td class='toolbar-row'><%= link_to('Edit Account', edit_user_registration_path) %></td>
 	</tr>

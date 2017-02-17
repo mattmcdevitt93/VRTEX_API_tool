@@ -20,8 +20,6 @@ class ToolboxController < ApplicationController
 
 	end
 
-
-
 	private
 
 	def contact_params

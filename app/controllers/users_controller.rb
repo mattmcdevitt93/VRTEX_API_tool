@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     before_action :valid_check, only: []
-    before_action :admin_check, only: [:index, :show]
+    before_action :admin_check, only: [:index]
 
 
 	def index
@@ -9,7 +9,12 @@ class UsersController < ApplicationController
 	end
 
   def show
-    @user = User.find(params[:id])
+    @stats = 5
+    if current_user.admin == true or current_user.id.to_s == params[:id]
+      @user = User.find(params[:id])
+    else
+      redirect_to :root
+    end
   end
 
   def dashboard

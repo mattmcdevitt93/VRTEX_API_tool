@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20161214193322) do
     t.string   "v_code"
     t.string   "encrypted_v_code"
     t.integer  "primary_character"
+    t.integer  "primary_character_id"
     t.string   "primary_character_name"
     t.boolean  "valid_api",              default: false, null: false
     t.boolean  "admin",                  default: false

@@ -37,6 +37,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string  :v_code
       t.string  :encrypted_v_code
       t.integer :primary_character, default: nil
+      t.integer :primary_character_id
       t.string  :primary_character_name
       t.boolean :valid_api, null: false, default: false
       t.boolean :admin, default: false

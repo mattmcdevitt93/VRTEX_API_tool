@@ -181,3 +181,7 @@ table tbody tr:nth-child(even)  {
 	/*padding-right: 25px;*/
 	/*float: right;*/
 }
+
+.skill_sheet {
+	border: 1px solid black;
+}
