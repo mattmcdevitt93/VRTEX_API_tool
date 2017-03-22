@@ -21,6 +21,16 @@ $( "#newGroup" ).click(function() {
     $( "#group_form" ).toggle();
 });
 
+$( "#newTopic" ).click(function() {
+    console.log('Toggle New Topic')
+    $( "#topicform" ).toggle();
+});
+
+$( "#newPost" ).click(function() {
+    console.log('Toggle New Topic')
+    $( "#postform" ).toggle();
+});
+
 $( window ).resize(function() {
     Module.toolbar_resize();
 });

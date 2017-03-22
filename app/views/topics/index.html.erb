@@ -1,0 +1,112 @@
+<span class='forum-header'>
+<% if @topic_id != nil %>
+<h1><%= @topic_id_name.title %></h1>
+<% else %>
+<h1>Message Board</h1>
+<% end %>
+<!-- <%= @access %> | <%= @user_groups %> -->
+</span>
+
+<table>
+
+  <% if @topics.blank? == false %>
+    <tr class='row'><td>Topics</td></tr>
+  <% end %>
+
+
+  <% user_groups = Topic.forum_groups(current_user.id) %>  
+  <% @topics.each do |topic| %>
+
+  <% access = user_groups.include?(topic.group_type) %>
+  <% if topic.group_required == false && access == true ||  topic.group_required == nil ||topic.group_required == true || current_user.admin == true %>
+      
+      <tr class='row'>
+        <td class='forum-topic'>
+          <div class='columns medium-10'>
+            <% identicon_name = topic.title + current_user.id.to_s %>
+            <% base64_identicon = RubyIdenticon.create_base64(identicon_name) %>
+            <div class='forum-topic-image float-left'>
+              <%= raw "<img src='data:image/png;base64,#{base64_identicon}' style='height: 60px; width: 60px;'>" %>
+            </div>
+
+            <div class='forum-topic-title forum-entry-headder'><%= link_to topic.title, topics_path(:topic_id => topic.id) %></div>
+
+            <!-- <%= User.find(topic.user_id).primary_character_name %> -->
+            <div class=>
+              <span class='forum-topic-sub'><%= topic.description %> <!-- | <%= topic.group_required%> --></span>
+            </div>
+          </div>
+          <div class='columns medium-2'>
+            <%= link_to 'Edit', edit_topic_path(topic) %>
+            <% child_topics = Topic.where('topic_id' => topic.id) %>
+            <% if child_topics.blank? == true %>
+            <%= link_to 'Remove', topic, method: :delete, data: { confirm: 'Are you sure?' }  %>
+            <% end %>
+          </div>
+        </td>
+      
+      </tr>
+    <% end %>
+  <% end %>
+
+
+  <% if @posts.blank? == false %>
+  <tr class='row' ><td>Posts</td></tr>
+  <% end %>
+
+  <% @posts.each do |post| %>
+    <tr class='row'>
+      <td class='forum-topic'>
+        <div class='columns medium-10'>
+          <% identicon_name = User.find(post.user_id) %>
+          <% base64_identicon = RubyIdenticon.create_base64(identicon_name.email) %>
+          <div class='forum-topic-image float-left'>
+            <%= raw "<img src='data:image/png;base64,#{base64_identicon}' style='height: 60px; width: 60px;'>" %>
+          </div>
+          <div class="forum-entry-headder">
+            <% user = User.find(post.user_id) %>
+            <%= user.primary_character_name %>
+            <span class='float-right'>
+              <% if post.updated_at != post.created_at %>
+              *
+              <% end %>
+              <%= post.updated_at %>
+            </span>
+          </div>
+          <div class="forum-entry-content" >
+            <%= post.contents %>
+          </div>
+        </div>
+        <div class='columns medium-2'>
+          <% if post.user_id === current_user.id or current_user.admin? == true %>
+          <%= link_to 'Edit', edit_post_path(post) %>
+          <%= link_to 'Remove', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+
+</table>
+
+<hr>
+
+<% if params[:topic_id] != nil %>
+  <%= link_to 'Back to Root', topics_path, class: 'default button float-left' %>
+<% end %>
+<% if current_user.admin == true || params[:topic_id] != nil %>
+  <% if current_user.admin == true || @topic_id_name.allow_topics == true %>
+    <div class='default button float-left' id='newTopic'>New Topic</div>
+  <% end %>
+<% end %>
+<% if current_user.admin == true || params[:topic_id] != nil %>
+  <% if current_user.admin == true || @topic_id_name.allow_posts == true %>
+    <div class='default button float-left' id='newPost'>New Post</div>
+  <% end %>
+<% end %>
+<div class='password_border medium-12 large-12 float-left' id='postform' style="display:none" >
+  <%= render 'posts/form' %>
+</div>
+<div class='API_border medium-12 large-12 float-left' id='topicform' style="display:none" >
+  <%= render 'form' %>
+</div>

@@ -5,7 +5,7 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all
+    @groups = Group.all.order("id ASC")
     @group = Group.new
     @approvals = Membership.where('approved' => false).order("id DESC").limit(5)
   end
@@ -33,7 +33,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to groups_path, notice: 'Group was successfully created.' }
+        format.html { redirect_to :back, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }

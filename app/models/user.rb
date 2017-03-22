@@ -3,10 +3,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
-  # after_create :Admin_initialize
-  # attr_encrypted_options.merge!(:encode => true)
-  # attr_encrypted :v_code, :key => ENV["VCODEKEY"]
-  # attr_encrypted :v_code, :key => 'This is a key that is 256 bits!!', :iv => 'This is longer than 12 bytes'
 
   has_many :memberships
   has_many :groups, :through => :memberships
@@ -132,7 +128,6 @@ class User < ActiveRecord::Base
     "#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}:#{seconds.to_s.rjust(2, '0')}"
   end
 
-  # refactor #1
   def self.validation_task (input)
     Rails.logger.info "=================================="
     Rails.logger.info "Start Validation Task - Refactor 1"
@@ -216,8 +211,4 @@ class User < ActiveRecord::Base
     Rails.logger.info "=================================="
   end
 
-
-
 end
-
-

@@ -14,7 +14,7 @@ class Timesheet < ActiveRecord::Base
 		elsif rank == 5
 			notification = 'Defence - High Priority - There will be a fight'
 		elsif rank == 6
-			notification = 'Defence - Ultra Hig Priority - Bat phone'
+			notification = 'Defence - Ultra High Priority - Bat phone'
 		end
 		return notification
 	end
@@ -30,7 +30,7 @@ class Timesheet < ActiveRecord::Base
 		elsif rank == 3
 			notification = 'Outpost'
 		elsif rank == 4
-			notification = 'Player Owned Station'
+			notification = 'Player Owned Station / Citidel'
 		elsif rank == 5
 			notification = 'Strategic Operation'
 		elsif rank == 6 

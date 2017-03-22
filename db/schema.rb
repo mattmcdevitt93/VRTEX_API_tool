@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214193322) do
+ActiveRecord::Schema.define(version: 20170301194140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 20161214193322) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.string   "contents"
+    t.boolean  "removed?"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "srp_requests", force: :cascade do |t|
     t.string   "link",        null: false
     t.integer  "user_id",     null: false
@@ -76,6 +85,20 @@ ActiveRecord::Schema.define(version: 20161214193322) do
     t.string   "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.integer  "user_id",        null: false
+    t.integer  "topic_id"
+    t.string   "title",          null: false
+    t.string   "description"
+    t.boolean  "group_required"
+    t.integer  "group_type"
+    t.boolean  "allow_topics"
+    t.boolean  "allow_posts"
+    t.integer  "rank"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "users", force: :cascade do |t|

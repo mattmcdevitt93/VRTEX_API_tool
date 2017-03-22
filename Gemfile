@@ -43,6 +43,7 @@ gem 'will_paginate', '~> 3.0.5'
 # gem 'attr_encrypted', '~> 3.0', '>= 3.0.3'
 gem "figaro"
 gem 'aes'
+gem 'ruby_identicon'
 # heroku gem
 
 group :development, :test do

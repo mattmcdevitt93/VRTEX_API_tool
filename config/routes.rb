@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
   
-  resources :memberships
-  resources :groups
+  resources :posts
+    resources :topics
+    resources :memberships
+    resources :groups
     get 'users/new'
 
     get 'users/create'

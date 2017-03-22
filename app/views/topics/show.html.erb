@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @topic.user_id %>
+</p>
+
+<p>
+  <strong>Topic:</strong>
+  <%= @topic.topic_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @topic.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @topic.description %>
+</p>
+
+<p>
+  <strong>Group required:</strong>
+  <%= @topic.group_required %>
+</p>
+
+<p>
+  <strong>Group type:</strong>
+  <%= @topic.group_type %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @topic.rank %>
+</p>
+
+<%= link_to 'Edit', edit_topic_path(@topic) %> |
+<%= link_to 'Back', topics_path %>
