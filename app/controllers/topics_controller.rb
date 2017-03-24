@@ -14,18 +14,18 @@ class TopicsController < ApplicationController
         # access_check.push(@topic_id_name.group_type.to_f)
         access_check = Topic.parent_group_check(@topic_id)
 
-        Rails.logger.info "Access Check: " + access_check.to_s
+        # Rails.logger.info "Access Check: " + access_check.to_s
 
         @access = true
-        Rails.logger.info "User Check:" + @user_groups.to_s
+        # Rails.logger.info "User Check:" + @user_groups.to_s
           access_check.each do |x|
             a = @user_groups.include?(x)
-            Rails.logger.info "Permission check: " + x.to_s + " | " + a.to_s
+            # Rails.logger.info "Permission check: " + x.to_s + " | " + a.to_s
             if a == false
               @access = a
             end
           end
-         Rails.logger.info "Permission? " + @access.to_s + " | " + current_user.admin.to_s + " | " + @topic_id_name.group_required.to_s
+         # Rails.logger.info "Permission? " + @access.to_s + " | Admin: " + current_user.admin.to_s + " | " + @topic_id_name.group_required.to_s
         if @access == false && current_user.admin == false
           Rails.logger.info "======================"
           Rails.logger.info "Redirect_to Forum Root"
@@ -37,7 +37,7 @@ class TopicsController < ApplicationController
     @topics = Topic.where('topic_id' => @topic_id).order(rank: :desc)
     @topic = Topic.new
 
-    @posts = Post.where('topic_id' => @topic_id)
+    @posts = Post.where('topic_id' => @topic_id).paginate(:page => params[:page], :per_page => 10)
     @post = Post.new
 
     @groups = Group.all

@@ -28,7 +28,7 @@
   <h3>Character Details <span id="success-badge" class="primary badge" title="Note: Your key will need to validate, this is a scheduled task and can take up to 15 min.  However if you know the slot ID you can add that now.">!</span></h3>
   <div class="field medium-4 large-4 float-left">
     <%= f.label :key_id %>
-    <%= f.text_field :key_id %>
+    <%= f.text_field :key_id, :required => true %>
   </div>
 
   <% char_list = ['Character Slot 1', 'Character Slot 2', 'Character Slot 3'] %>
@@ -43,7 +43,7 @@
   <div class="field medium-8 large-8 float-left">
     <%= f.label :v_code %>
     <% @data = User.decrypt(current_user.v_code) %>
-    <%= f.text_field :v_code, :value => @data.to_s %>
+    <%= f.text_field :v_code, :value => @data.to_s, :required => true %>
   </div>
 </div>
 

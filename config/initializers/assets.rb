@@ -11,5 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 $server_id = Random.new.rand(1000000..1999999)
+# API Validation - All accounts have access if FALSE
+$SETTING_REQUIRE_API = false
 
 require 'uri'

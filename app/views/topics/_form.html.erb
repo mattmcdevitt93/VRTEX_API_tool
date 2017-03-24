@@ -22,12 +22,12 @@
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
-  <div class="field columns medium-2">
-    group_required | 
+  <div class="field columns medium-2" id="required_group_form">
+    group_required
     <%= f.select :group_required, [["No Requirement",nil],["Require level (WIP)", true],["Require Group",false]] %>
   </div>
-  <div class="field columns medium-2">
-    group_type | 
+  <div class="field columns medium-2" id="required_group_entry">
+    Required Group 
 
       <% group_list = [['None',nil]] %>
       <% @groups.each do |group| %>
@@ -36,19 +36,20 @@
 
     <%= f.select :group_type, group_list %>
   </div>
-  <div class="field columns medium-2">
-    allow_posts | 
+  <div class="field columns medium-1">
+    Allow posts 
     <%= f.check_box :allow_posts %>
   </div>
-  <div class="field columns medium-2">
-    allow_topics |
+  <div class="field columns medium-1">
+    Allow topics
     <%= f.check_box :allow_topics %>
   </div>
   <div class="field columns medium-2">
-    Page Rank (ordering) | 
+    Topic Order
     <%= f.number_field :rank %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'default button float-left' %>
   </div>
 <% end %>
+<script>Module.topic_form_toggle();</script>

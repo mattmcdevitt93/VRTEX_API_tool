@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get '/log_index' => 'toolbox#log_index'
     get '/log_index_events' => 'toolbox#log_index_events'
     get '/admin_dashboard' => 'toolbox#admin_dashboard'
+
     get '/char_sheet' => 'toolbox#char_sheet'
 
     get '/admin_index' => 'srp_requests#admin_index'

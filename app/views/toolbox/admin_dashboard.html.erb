@@ -32,5 +32,18 @@ Admin Dashboard
 </div>
 
 <% if current_user.admin === true %>
-<%= link_to "Manual Validation", {:controller => "toolbox", :action => "admin_dashboard", :start_task => true }, class: "alert button float-left", id: "validate" %>
+
+<% if $SETTING_REQUIRE_API == false %>
+  <% button_class = "alert button float-left has-tip" %>
+  <% button_tooltip = "API Validtion is currently Disabled" %>
+<% else %>
+  <% button_class = "success button float-left has-tip" %>
+  <% button_tooltip = "API Validtion is enabled" %>
+
+<% end %>
+
+<%= link_to "Toggle Validation Requirement", {:controller => "toolbox", :action => "admin_dashboard", :toggle_validation => true }, class: button_class, id: "validate", data: { confirm: 'Are you sure you want to do this (it can be really bad)?  Current Validation Requirement: ' + $SETTING_REQUIRE_API.to_s }, title: button_tooltip %>
+
+<%= link_to "Manual Validation", {:controller => "toolbox", :action => "admin_dashboard", :start_task => true }, class: "default button float-left", id: "validate" %>
+
 <% end %>

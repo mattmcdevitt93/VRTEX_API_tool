@@ -18,6 +18,15 @@ class ToolboxController < ApplicationController
 			User.validation_task ('Manual')
 		end
 
+		if params[:toggle_validation] == 'true' and current_user.admin == true
+			Log.create :event_code => 100, :table => "Admin", :task_length => "00:00:00", :event => "Managment Task", :details => "API validation was turned to " + $SETTING_REQUIRE_API.to_s + " By " + current_user.email
+
+			Rails.logger.info "Toggle_Validation:" + $SETTING_REQUIRE_API.to_s
+			$SETTING_REQUIRE_API = !$SETTING_REQUIRE_API
+		end
+
+
+
 	end
 
 	private

@@ -24,11 +24,15 @@ $( "#newGroup" ).click(function() {
 $( "#newTopic" ).click(function() {
     console.log('Toggle New Topic')
     $( "#topicform" ).toggle();
+    window.scrollTo(0,document.body.scrollHeight);
+    Module.toolbar_resize();
 });
 
 $( "#newPost" ).click(function() {
     console.log('Toggle New Topic')
     $( "#postform" ).toggle();
+    window.scrollTo(0,document.body.scrollHeight);
+    Module.toolbar_resize();
 });
 
 $( window ).resize(function() {
@@ -39,11 +43,26 @@ $( window ).scroll(function() {
     Module.toolbar_resize();
 });
 
+
+$( "#required_group_form" ).change(function() {
+    Module.topic_form_toggle();
+});
+
 }
+
+Module.topic_form_toggle = function () {
+    var text = $("#required_group_form :selected").text();
+    console.log('Topic form check: ' + text);
+    if (text === "Require Group") {
+        $( "#required_group_entry" ).show();
+    } else {
+        $( "#required_group_entry" ).hide();
+    };
+};
 
 Module.toolbar_resize = function () {
     console.log('resize')
-    var c= $('#yield').height();
+    var c = $('#yield').height();
     var h = $(window).height();
     var n = 0
     // console.log(h, c)

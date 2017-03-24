@@ -15,7 +15,7 @@ class Topic < ActiveRecord::Base
 			output = []
 			topic = Topic.find(id)
 			parent_topic = topic.topic_id
-			output.push(topic.group_required)
+			output.push(topic.group_type)
 			x = 0
 			until parent_topic == nil || x > 10
 				# Rails.logger.info "Parent Check: " + parent_topic.to_s

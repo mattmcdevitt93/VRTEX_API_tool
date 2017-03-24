@@ -51,7 +51,8 @@
 
 
   <% if @posts.blank? == false %>
-  <tr class='row' ><td>Posts</td></tr>
+  <tr class='row' ><td>Posts <span class='float-right'><%= will_paginate @posts %></span>
+</td></tr>
   <% end %>
 
   <% @posts.each do |post| %>

@@ -16,9 +16,9 @@
   <%= f.hidden_field :removed?, value: false %>
   <div class="field">
     <%= f.label :contents %><br>
-    <%= f.text_area :contents %>
+    <%= f.text_area :contents, :style => 'height: 250px;' %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'default button float-left' %>
   </div>
 <% end %>

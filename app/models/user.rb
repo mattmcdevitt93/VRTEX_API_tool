@@ -186,6 +186,12 @@ class User < ActiveRecord::Base
       task_end = Time.now
       task_length = User.time_diff(task_start, task_end)
 
+      if $SETTING_REQUIRE_API == false
+        Rails.logger.info "<<<<Validation Disabled>>>>"
+        Log.create :event_code => 99, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => "API validation Disabled - No verification required (granting access to: " + account.email
+        flag = true
+      end
+
       if flag != account.valid_api
         change = true
         if character != nil
