@@ -1,3 +1,5 @@
+<% if user_signed_in? %>
+
 <table>
 	<tbody id='toolbar-table'>
 	<tr>
@@ -7,16 +9,13 @@
 	<td class='toolbar-row'><b>User Tools</b></td>
 	</tr>
 
-    <% if user_signed_in? %>
  	<tr>
 	<td class='toolbar-row'><%= link_to 'My Profile', current_user %></td>
 	</tr>
     <tr>
 	<td class='toolbar-row'><%= link_to('Edit Account', edit_user_registration_path) %></td>
 	</tr>
-	<% end %>
-
-	<% if current_user.valid_api == true or current_user.admin == true %>
+	<% if current_user.valid_api == true || current_user.admin == true %>
 	<tr>
 	<td class='toolbar-row'><%= link_to 'Active Timers', timesheets_path %></td>
 	</tr>
@@ -74,3 +73,4 @@
 	<% end %>
 	</tbody>
 </table>
+<% end %>

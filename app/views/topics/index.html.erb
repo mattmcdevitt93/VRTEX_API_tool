@@ -66,7 +66,11 @@
           </div>
           <div class="forum-entry-headder">
             <% user = User.find(post.user_id) %>
+            <% if user.primary_character_name != nil %>
             <%= user.primary_character_name %>
+            <% else %>
+            Anonomyous Coward (<%= post.user_id.to_s %>)
+            <% end %>
             <span class='float-right'>
               <% if post.updated_at != post.created_at %>
               *

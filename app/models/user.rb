@@ -186,7 +186,7 @@ class User < ActiveRecord::Base
       task_end = Time.now
       task_length = User.time_diff(task_start, task_end)
 
-      if $SETTING_REQUIRE_API == false
+      if $SETTING_REQUIRE_API == false && flag != account.valid_api
         Rails.logger.info "<<<<Validation Disabled>>>>"
         Log.create :event_code => 99, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => "API validation Disabled - No verification required (granting access to: " + account.email
         flag = true
@@ -199,7 +199,7 @@ class User < ActiveRecord::Base
         else 
           account.update(valid_api: flag)
         end
-        l = Log.create :event_code => 1, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => input + " - API Change - " + account.email + "/" + account.primary_character_name + " - " + status.to_s
+        l = Log.create :event_code => 1, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s
       end
       User.Admin_check_groups(account.id)
     end
