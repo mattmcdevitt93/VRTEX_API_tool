@@ -41,7 +41,8 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to :back, notice: 'Post was successfully updated.' }
+
+        format.html { redirect_to(topics_url(:topic_id => @post.topic_id), :notice => 'Post was successfully Updated.') }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -53,7 +54,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    if current_user.admin === true
+    if current_user.admin === true || @post.user_id == current_user.id
       @post.destroy
       respond_to do |format|
         format.html { redirect_to :back, notice: 'Post was successfully destroyed.' }

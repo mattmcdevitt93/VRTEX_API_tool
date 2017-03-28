@@ -11,42 +11,45 @@ $(document).ready(function() {
 
 Module.bindings = function () {
 
-$('#password_update').bind('input', function() { 
-    $('#password_confirm').removeClass("hidden")
-    $('#password_fields').addClass("password_border")
-});
+    $('#password_update').bind('input', function() { 
+        $('#password_confirm').removeClass("hidden")
+        $('#password_fields').addClass("password_border")
+    });
 
-$( "#newGroup" ).click(function() {
-    console.log('Toggle New Group')
-    $( "#group_form" ).toggle();
-});
+    $( "#newGroup" ).click(function() {
+        console.log('Toggle New Group')
+        $( "#group_form" ).toggle();
+    });
 
-$( "#newTopic" ).click(function() {
-    console.log('Toggle New Topic')
-    $( "#topicform" ).toggle();
-    window.scrollTo(0,document.body.scrollHeight);
-    Module.toolbar_resize();
-});
+    $( "#newTopic" ).click(function() {
+        console.log('Toggle New Topic')
+        $( "#topicform" ).toggle();
+        window.scrollTo(0,document.body.scrollHeight);
+        Module.toolbar_resize();
+    });
 
-$( "#newPost" ).click(function() {
-    console.log('Toggle New Topic')
-    $( "#postform" ).toggle();
-    window.scrollTo(0,document.body.scrollHeight);
-    Module.toolbar_resize();
-});
+    $( "#newPost" ).click(function() {
+        console.log('Toggle New Topic')
+        $( "#postform" ).toggle();
+        window.scrollTo(0,document.body.scrollHeight);
+        Module.toolbar_resize();
+    });
 
-$( window ).resize(function() {
-    Module.toolbar_resize();
-});
+    $( window ).resize(function() {
+        Module.toolbar_resize();
+    });
 
-$( window ).scroll(function() {
-    Module.toolbar_resize();
-});
+    $( window ).scroll(function() {
+        Module.toolbar_resize();
+    });
 
 
-$( "#required_group_form" ).change(function() {
-    Module.topic_form_toggle();
-});
+    $( "#required_group_form" ).change(function() {
+        Module.topic_form_toggle();
+    });
+
+    Module.inherit_parent_width_check = null;
+
 
 }
 
@@ -74,9 +77,19 @@ Module.toolbar_resize = function () {
     $('#toolbar').height(n);
 }
 
+Module.inherit_parent_width = function (id, parent) {
+    // Check Bindings for reset
+    var width = $( parent ).width();
+    if (Module.inherit_parent_width_check == null) {
+        Module.inherit_parent_width_check = width
+    };
+    $( id ).css("max-width", Module.inherit_parent_width_check);
+    // console.log('resize frame' + Module.inherit_parent_width_check);
+};
+
 Module.toolbar_slide = function () {
 	// $('#toolbar-switch').click(function() {
-	if( $('#toolbar').hasClass("toolbar-hidden")) {
+       if( $('#toolbar').hasClass("toolbar-hidden")) {
     	// console.log('Slide Out')
         $('#toolbar').animate({"margin-left": '+=220'});
         $('#yield').animate({"width": '-=220'});
@@ -93,16 +106,16 @@ Module.toolbar_slide = function () {
 Module.toolbar_rotate = function () {
 	console.log('rotate')
 	if( $('#toolbar-switch').hasClass("active")) {
-       $('#toolbar-switch').rotate({ animateTo:-25, duration: 500})
-       $('#toolbar-switch').removeClass("active");
+     $('#toolbar-switch').rotate({ animateTo:-25, duration: 500})
+     $('#toolbar-switch').removeClass("active");
 
-   } else {
-       $('#toolbar-switch').rotate({ animateTo:0, duration: 500})
-       $('#toolbar-switch').addClass("active"); }
+ } else {
+     $('#toolbar-switch').rotate({ animateTo:0, duration: 500})
+     $('#toolbar-switch').addClass("active"); }
 
-   }
+ }
 
-Module.index_filter = function (state) {
+ Module.index_filter = function (state) {
     // console.log('Sort by ' + state)
     if (Module.index_filter_state === state) {
         state = 'reset'

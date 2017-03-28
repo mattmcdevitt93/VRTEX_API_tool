@@ -1,6 +1,6 @@
 class TimesheetsController < ApplicationController
   before_action :valid_check, only: [:index, :new, :show, :create, :destroy, :update]
-  before_action :admin_check
+  # before_action :admin_check
   before_action :set_timesheet, only: [:show, :edit, :update, :destroy]
 
 
@@ -32,10 +32,10 @@ class TimesheetsController < ApplicationController
 
     respond_to do |format|
       if @timesheet.save
-        format.html { redirect_to @timesheet, notice: 'Timesheet was successfully created.' }
+        format.html { redirect_to timesheets_url, notice: 'Timesheet was successfully created.' }
         format.json { render :show, status: :created, location: @timesheet }
       else
-        format.html { render :new }
+        format.html { redirect_to timesheets_url }
         format.json { render json: @timesheet.errors, status: :unprocessable_entity }
       end
     end
@@ -45,11 +45,11 @@ class TimesheetsController < ApplicationController
   # PATCH/PUT /timesheets/1.json
   def update
     respond_to do |format|
-      if @timesheet.update(timesheet_params) and ( current_user == @timesheet.user_id or current_user.admin == true)
-        format.html { redirect_to @timesheet, notice: 'Timesheet was successfully updated.' }
+      if @timesheet.update(timesheet_params) && ( current_user.id == @timesheet.user_id || current_user.admin == true)
+        format.html { redirect_to timesheets_url, notice: 'Timesheet was successfully updated.' }
         format.json { render :show, status: :ok, location: @timesheet }
       else
-        format.html { render :edit }
+        format.html { redirect_to timesheets_url, notice: 'Timesheet not updated.' }
         format.json { render json: @timesheet.errors, status: :unprocessable_entity }
       end
     end

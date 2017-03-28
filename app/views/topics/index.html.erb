@@ -1,8 +1,8 @@
 <span class='forum-header'>
 <% if @topic_id != nil %>
-<h1><%= @topic_id_name.title %></h1>
+<h2><%= @topic_id_name.title %></h2>
 <% else %>
-<h1>Message Board</h1>
+<h2>Message Board</h2>
 <% end %>
 <!-- <%= @access %> | <%= @user_groups %> -->
 </span>
@@ -64,7 +64,7 @@
           <div class='forum-topic-image float-left'>
             <%= raw "<img src='data:image/png;base64,#{base64_identicon}' style='height: 60px; width: 60px;'>" %>
           </div>
-          <div class="forum-entry-headder">
+          <div class="forum-entry-headder", id="forum-entry-headder">
             <% user = User.find(post.user_id) %>
             <% if user.primary_character_name != nil %>
             <%= user.primary_character_name %>
@@ -79,7 +79,7 @@
             </span>
           </div>
           <div class="forum-entry-content" >
-            <%= post.contents %>
+            <%= sanitize post.contents, tags: %w(strong em a p), attributes: %w(href) %>
           </div>
         </div>
         <div class='columns medium-2'>

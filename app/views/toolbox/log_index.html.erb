@@ -1,5 +1,5 @@
 <div>
-Log Book | <%= link_to 'Change Log Events', log_index_events_path %> <%= will_paginate @logs, class: "float-right" %>
+<h2>Log Book</h2> | <%= link_to 'Change Log Events', log_index_events_path %> <%= will_paginate @logs, class: "float-right" %>
 </div>
 
 <%= render :partial => 'toolbox/log_table' %>

@@ -37,7 +37,7 @@ class TopicsController < ApplicationController
     @topics = Topic.where('topic_id' => @topic_id).order(rank: :desc)
     @topic = Topic.new
 
-    @posts = Post.where('topic_id' => @topic_id).paginate(:page => params[:page], :per_page => 10)
+    @posts = Post.where('topic_id' => @topic_id).paginate(:page => params[:page], :per_page => 10).order(created_at: :asc)
     @post = Post.new
 
     @groups = Group.all
