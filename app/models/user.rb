@@ -197,7 +197,10 @@ class User < ActiveRecord::Base
       if flag != account.valid_api
         change = true
         if character != nil
-          account.update(valid_api: flag, primary_character_name: character.character_name, primary_character_id: character.character_id)
+          if character.character_name != nil || character.character_name != ""
+            account.update(primary_character_name: character.character_name)
+          end
+          account.update(valid_api: flag, primary_character_id: character.character_id)
         else 
           account.update(valid_api: flag)
         end

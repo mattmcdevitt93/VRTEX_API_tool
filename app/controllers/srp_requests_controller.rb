@@ -56,6 +56,13 @@ class SrpRequestsController < ApplicationController
         else
           url_check = false
         end
+
+        duplicate_check = SrpRequest.exists?('link' => srp_request_params[:link].to_s)
+        Rails.logger.info 'duplicate_check: ' + duplicate_check.to_s
+        if duplicate_check == true
+          url_check = false
+        end
+
       rescue
         url_check = false
         Rails.logger.info "failed URL check"
@@ -72,7 +79,7 @@ class SrpRequestsController < ApplicationController
           format.json { render json: @srp_request.errors, status: :unprocessable_entity }
         end
       else
-        format.html { redirect_to srp_requests_path, notice: 'Error creating request. - Invalid site' }
+        format.html { redirect_to srp_requests_path, notice: 'Error creating request. - Invalid site or Duplicate' }
       end
       Rails.logger.info '======================'
       Rails.logger.info 'URI Check - Finish'
