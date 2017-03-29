@@ -18,7 +18,7 @@
   <% @topics.each do |topic| %>
 
   <% access = user_groups.include?(topic.group_type) %>
-  <% if topic.group_required == false && access == true ||  topic.group_required == nil ||topic.group_required == true || current_user.admin == true %>
+  <% if topic.group_required == false && access == true ||  topic.group_required == nil || topic.group_required == true || current_user.admin == true %>
       
       <tr class='row'>
         <td class='forum-topic'>
