@@ -12,6 +12,6 @@ Rails.application.config.assets.version = '1.0'
 
 $server_id = Random.new.rand(1000000..1999999)
 # API Validation - All accounts have access if FALSE
-$SETTING_REQUIRE_API = false
+$SETTING_REQUIRE_API = true
 
 require 'uri'
