@@ -10,6 +10,13 @@ class ToolboxController < ApplicationController
 		@logs = Log.where("event_code != 0").paginate(:page => params[:page], :per_page => 50).order(created_at: :desc)
 	end
 
+	def log_file
+	end
+
+	def dev_notes
+
+	end
+
 	def admin_dashboard
 		@contacts = Contact.all.order(standing: :desc)
 		@contact = Contact.new

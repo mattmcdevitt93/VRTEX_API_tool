@@ -1,0 +1,15 @@
+<div>
+<h2>Log File</h2> | <%= link_to 'Change Log Events', log_index_events_path %> | <%= link_to 'All Log Events', log_index_path %>
+</div>
+
+<!-- <%= @logs.to_s %> -->
+<table class='log'>
+<% @logs = File.open("log/user_log.txt").lines %>
+<% @logs.each do |log| %>
+	<tr>
+	<td class='index_entry'>
+		<%= log %>
+	</td>
+</tr>
+<% end %>
+</table>

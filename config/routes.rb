@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     
     get '/log_index' => 'toolbox#log_index'
     get '/log_index_events' => 'toolbox#log_index_events'
+    get '/log_file' => 'toolbox#log_file'
+    get '/dev_notes' => 'toolbox#dev_notes'
     get '/admin_dashboard' => 'toolbox#admin_dashboard'
 
     get '/char_sheet' => 'toolbox#char_sheet'
