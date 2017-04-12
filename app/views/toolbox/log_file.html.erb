@@ -4,7 +4,8 @@
 
 <!-- <%= @logs.to_s %> -->
 <table class='log'>
-<% @logs = File.open("log/user_log.txt").lines %>
+<% @log_file = File.open("log/user_log.txt", 'w+') %>
+<% @logs = @log_file.lines %>
 <% @logs.each do |log| %>
 	<tr>
 	<td class='index_entry'>

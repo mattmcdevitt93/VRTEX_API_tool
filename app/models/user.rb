@@ -37,14 +37,16 @@ class User < ActiveRecord::Base
   end
 
   def self.Admin_initialize
+    # @Log_file = File.open('log/user_log.txt', 'w+')
     Rails.logger.info 'Admin Check'
     initial_user = User.where(admin: true)
     if initial_user == []
       Rails.logger.info "Resetting Admin Permissions"
       user = User.find(1)
       user.update(admin: true)
-      $Log_file.puts (DateTime.now.to_s + " | 00:00:00 | Admin Reset | No admin accounts on record, " + user.email + " Set to admin")
+      # @Log_file.puts (DateTime.now.to_s + " | 00:00:00 | Admin Reset | No admin accounts on record, " + user.email + " Set to admin")
       Log.create :event_code => 10, :table => "Users", :task_length => "00:00:00" , :event => "Admin Reset", :details => "No admin accounts on record, " + user.email + " Set to admin"
+      # @Log_file.close
     end
   end
 
@@ -133,6 +135,7 @@ class User < ActiveRecord::Base
     Rails.logger.info "=================================="
     Rails.logger.info "Start Validation Task - Refactor 1"
     Rails.logger.info "=================================="
+    # @Log_file = File.open('log/user_log.txt', 'w+')
     task_start = Time.now
     user = User.all
     change = false
@@ -190,7 +193,8 @@ class User < ActiveRecord::Base
       if $SETTING_REQUIRE_API == false 
         Rails.logger.info "<<<<Validation Disabled>>>>"
         if flag != account.valid_api 
-        # Log.create :event_code => 99, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => "API validation Disabled - No verification required (granting access to: " + account.email
+        $Log_count = 0
+        Log.create :event_code => 0, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => "API validation Disabled - No verification required (granting access to: " + account.email
         end
         flag = true
       end
@@ -212,7 +216,7 @@ class User < ActiveRecord::Base
         end
         l = Log.create :event_code => 1, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s
         $Log_count = 0
-        $Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | " + input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s)
+        # @Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | " + input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s)
       end
       User.Admin_check_groups(account.id)
     end
@@ -222,11 +226,12 @@ class User < ActiveRecord::Base
       task_length = User.time_diff(task_start, task_end)
       last_entry = Log.last
       Log.update(last_entry.id, :event_code => $Log_count)
-      # l = Log.create :event_code => $Log_count, :table => "Users", :task_length => task_length, :event => "Validation Task", :details =>  input + " - No changes made "
+        if $Log_count === 0
+          Log.create :event_code => $Log_count, :table => "Users", :task_length => task_length, :event => "Validation Task", :details =>  input + " - No changes made "
+        end
       $Log_count = $Log_count + 1
-      $Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | No changes made ")
+      # @Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | No changes made ")
     end
-
     User.Admin_initialize
 
     Rails.logger.info "=================================="

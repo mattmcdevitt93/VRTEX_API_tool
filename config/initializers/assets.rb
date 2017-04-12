@@ -14,8 +14,10 @@ $server_id = Random.new.rand(1000000..1999999)
 # API Validation - All accounts have access if FALSE
 $SETTING_REQUIRE_API = true
 
-$Log_file = File.open('log/user_log.txt', 'a+')
-$Log_file.puts (DateTime.now.to_s + " | User Log | Server Start")
+# Commented out file logging
+# @Log_file = File.open('log/user_log.txt', 'w+')
+# @Log_file.puts (DateTime.now.to_s + " | User Log | Server Start")
+# @Log_file.close
 $Log_count = 0
 
 require 'uri'
