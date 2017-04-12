@@ -46,4 +46,5 @@
 
 <%= link_to "Manual Validation", {:controller => "toolbox", :action => "admin_dashboard", :start_task => true }, class: "default button float-left", id: "validate" %>
 
+<%= link_to "Clear Logs", {:controller => "toolbox", :action => "admin_dashboard", :clear_logs => true }, class: "default button float-left", id: "validate", data: { confirm: 'Are you sure you want to do this (it can be really bad)?' } %>
 <% end %>

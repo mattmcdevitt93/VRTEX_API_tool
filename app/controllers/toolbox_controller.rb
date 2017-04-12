@@ -33,7 +33,11 @@ class ToolboxController < ApplicationController
 			$SETTING_REQUIRE_API = !$SETTING_REQUIRE_API
 		end
 
-
+		if params[:clear_logs] == 'true' and current_user.admin == true
+			Rails.logger.info "Clear All DB Logs:"
+			Log.delete_all
+			Log.create :event_code => 0, :table => "Admin", :task_length => "00:00:00", :event => "All Logs cleared", :details => "Old contents moved to Log File"
+		end
 
 	end
 
