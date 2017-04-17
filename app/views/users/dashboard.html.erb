@@ -11,7 +11,7 @@ Dashboard Page
 	<% end %>
 	<% end %>
 </div>
-<% if current_user.valid_api == true || current_user.admin == true %>
+<% if current_user.blank? === false %>
 
 <table>
 	<tr class='row'><td>Recent Posts</td></tr>
