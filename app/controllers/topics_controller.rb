@@ -9,22 +9,27 @@ class TopicsController < ApplicationController
       if @topic_id != nil
         @topic_id_name = Topic.find(@topic_id)
 
-        @user_groups = Topic.forum_groups(current_user.id)
+        # @user_groups = Topic.forum_groups(current_user.id)
 
         # access_check.push(@topic_id_name.group_type.to_f)
-        access_check = Topic.parent_group_check(@topic_id)
+        # access_check = Topic.parent_group_check(@topic_id)
 
         # Rails.logger.info "Access Check: " + access_check.to_s
+        @access = Topic.parent_group_access(@topic_id, current_user.id)
 
-        @access = true
-        # Rails.logger.info "User Check:" + @user_groups.to_s
-          access_check.each do |x|
-            a = @user_groups.include?(x)
-            # Rails.logger.info "Permission check: " + x.to_s + " | " + a.to_s
-            if a == false
-              @access = a
-            end
-          end
+        # Moved to Topic.parent_group_access
+
+        # @access = true
+        # # Rails.logger.info "User Check:" + @user_groups.to_s
+        #   access_check.each do |x|
+        #     a = @user_groups.include?(x)
+        #     # Rails.logger.info "Permission check: " + x.to_s + " | " + a.to_s
+        #     if a == false
+        #       @access = a
+        #     end
+        #   end
+
+
          # Rails.logger.info "Permission? " + @access.to_s + " | Admin: " + current_user.admin.to_s + " | " + @topic_id_name.group_required.to_s
         if @access == false && current_user.admin == false
           Rails.logger.info "======================"

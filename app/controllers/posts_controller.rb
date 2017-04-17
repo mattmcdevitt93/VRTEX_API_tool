@@ -27,6 +27,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     respond_to do |format|
       if @post.save
+        if @post.topic_id != nil
+          Topic.update(@post.topic_id, :updated_at => DateTime.now)
+        end
         format.html { redirect_to :back, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
@@ -61,7 +64,7 @@ class PostsController < ApplicationController
         format.json { head :no_content }
       end
     else
-      format.html { redirect_to :back, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Insufficent Permission to remove post.' }
     end
   end
 

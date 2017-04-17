@@ -1,6 +1,7 @@
 <span class='forum-header'>
 <% if @topic_id != nil %>
 <h2><%= @topic_id_name.title %></h2>
+<%= @topic_id_name.updated_at.to_s %>
 <% else %>
 <h2>Message Board</h2>
 <% end %>
@@ -32,7 +33,7 @@
             <div class='forum-topic-title forum-entry-headder'><%= link_to topic.title, topics_path(:topic_id => topic.id) %></div>
 
             <!-- <%= User.find(topic.user_id).primary_character_name %> -->
-            <div class=>
+            <div class="">
               <span class='forum-topic-sub'><%= topic.description %> <!-- | <%= topic.group_required%> --></span>
             </div>
           </div>

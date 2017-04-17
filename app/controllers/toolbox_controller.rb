@@ -35,6 +35,10 @@ class ToolboxController < ApplicationController
 
 		if params[:clear_logs] == 'true' and current_user.admin == true
 			Rails.logger.info "Clear All DB Logs:"
+			@log_dump = Log.all
+			@log_dump.each do |log|
+				Rails.logger.info "Move Row ID:" + log.id.to_s + " to file."
+			end
 			Log.delete_all
 			Log.create :event_code => 0, :table => "Admin", :task_length => "00:00:00", :event => "All Logs cleared", :details => "Old contents moved to Log File"
 		end

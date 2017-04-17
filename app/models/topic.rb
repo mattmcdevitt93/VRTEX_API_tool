@@ -29,4 +29,18 @@ class Topic < ActiveRecord::Base
 		end
 	end
 
+	def self.parent_group_access (topic_id, user_id)
+		access_check = Topic.parent_group_check(topic_id)
+		user_groups = Topic.forum_groups(user_id)
+		access = true
+          access_check.each do |x|
+            a = user_groups.include?(x)
+            # Rails.logger.info "Permission check: " + x.to_s + " | " + a.to_s
+            if a == false
+              access = a
+            end
+          end
+        return access
+	end
+
 end

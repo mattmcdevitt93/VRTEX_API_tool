@@ -1,14 +1,67 @@
 Dashboard Page
-	
+
 <div>
 	<% if current_user.blank? === false %>
-		<% if current_user.valid_api == true %>
-		Everything is right in the world - API complete
-		<% elsif current_user.valid_api == false and current_user.v_code != nil && current_user.key_id != nil %>
-		Select Primary Character - <%= link_to('Account Details', edit_user_registration_path) %>
-		<% elsif current_user.v_code == nil && current_user.key_id == nil %>
-		Requires API Key - <%= link_to('Account Details', edit_user_registration_path) %>
+	<% if current_user.valid_api == true %>
+	Everything is right in the world - API complete
+	<% elsif current_user.valid_api == false and current_user.v_code != nil && current_user.key_id != nil %>
+	Select Primary Character - <%= link_to('Account Details', edit_user_registration_path) %>
+	<% elsif current_user.v_code == nil && current_user.key_id == nil %>
+	Requires API Key - <%= link_to('Account Details', edit_user_registration_path) %>
+	<% end %>
+	<% end %>
+</div>
+
+<table>
+	<tr class='row'><td>Recent Posts</td></tr>
+	<% user_groups = Topic.forum_groups(current_user.id) %>  
+
+	<% @recent_posts.each do |post| %>
+
+	<% topic_required = Topic.find(post.topic_id) %>
+	<% post.topic_id %>
+	<% parent_groups = Topic.parent_group_access(post.topic_id, current_user.id) %>
+
+	<% if parent_groups == false %>
+		<% access = user_groups.include?(post.topic_id) %>
+	<% else %>
+		<% access = true %>
+	<% end %>
+		<% if access == true || current_user.admin == true %>
+
+			<tr class='row'>
+				<td class='forum-topic'>
+					<div class='columns medium-10'>
+						<% identicon_name = User.find(post.user_id) %>
+						<% base64_identicon = RubyIdenticon.create_base64(identicon_name.email) %>
+						<div class='forum-topic-image float-left'>
+							<%= raw "<img src='data:image/png;base64,#{base64_identicon}' style='height: 60px; width: 60px;'>" %>
+						</div>
+						<div class="forum-entry-headder", id="forum-entry-headder">
+							<% user = User.find(post.user_id) %>
+							<% if user.primary_character_name != nil %>
+							<%= user.primary_character_name %>
+							<% else %>
+							Anonomyous Coward (<%= post.user_id.to_s %>)
+							<% end %>
+							: <%= topic_required.title.to_s %>
+							<span class='float-right'>
+								<% if post.updated_at != post.created_at %>
+								*
+								<% end %>
+								<%= post.updated_at %>
+							</span>
+						</div>
+						<div class="forum-entry-content" >
+							<%= sanitize post.contents, tags: %w(strong em a p), attributes: %w(href) %>
+						</div>
+					</div>
+						<div class='columns medium-2'>
+						<%= link_to "Link To Topic", topics_path(:topic_id => post.topic_id) %>
+						</div>
+				</td>
+			</tr>
 		<% end %>
 	<% end %>
 
-</div>
+</table>

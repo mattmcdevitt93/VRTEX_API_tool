@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-
+    @recent_posts = Post.order(updated_at: :desc).limit(5)
   end
 
   private
