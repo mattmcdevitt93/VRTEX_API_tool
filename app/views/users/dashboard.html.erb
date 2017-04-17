@@ -45,7 +45,7 @@ Dashboard Page
 							<% else %>
 							Anonomyous Coward (<%= post.user_id.to_s %>)
 							<% end %>
-							: <%= topic_required.title.to_s %>
+							: <%= @topic_requiredtitle.to_s %>
 							<span class='float-right'>
 								<% if post.updated_at != post.created_at %>
 								*

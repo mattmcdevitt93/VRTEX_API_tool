@@ -19,6 +19,8 @@ class UsersController < ApplicationController
 
   def dashboard
     @recent_posts = Post.order(updated_at: :desc).limit(5)
+    @topic_required = Topic.find(post.topic_id)
+
   end
 
   private
