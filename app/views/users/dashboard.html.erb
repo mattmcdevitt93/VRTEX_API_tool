@@ -19,7 +19,6 @@ Dashboard Page
 
 	<% @recent_posts.each do |post| %>
 
-	<!-- <% topic_required = Topic.find(post.topic_id) %> -->
 	<% post.topic_id %>
 	<% parent_groups = Topic.parent_group_access(post.topic_id, current_user.id) %>
 
@@ -45,7 +44,6 @@ Dashboard Page
 							<% else %>
 							Anonomyous Coward (<%= post.user_id.to_s %>)
 							<% end %>
-							<!-- : <%= topic_required.title.to_s %> -->
 							<span class='float-right'>
 								<% if post.updated_at != post.created_at %>
 								*
