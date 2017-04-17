@@ -11,15 +11,15 @@ Dashboard Page
 	<% end %>
 	<% end %>
 </div>
+	<% if current_user.valid_api == true || current_user.admin == true %>
 
-<% if current_user.valid_api == true || current_user.admin == true %>
 <table>
 	<tr class='row'><td>Recent Posts</td></tr>
 	<% user_groups = Topic.forum_groups(current_user.id) %>  
 
 	<% @recent_posts.each do |post| %>
 
-	<% topic_required = Topic.find(post.topic_id) %>
+	<!-- <% topic_required = Topic.find(post.topic_id) %> -->
 	<% post.topic_id %>
 	<% parent_groups = Topic.parent_group_access(post.topic_id, current_user.id) %>
 
@@ -45,7 +45,7 @@ Dashboard Page
 							<% else %>
 							Anonomyous Coward (<%= post.user_id.to_s %>)
 							<% end %>
-							: <%= @topic_requiredtitle.to_s %>
+							<!-- : <%= topic_required.title.to_s %> -->
 							<span class='float-right'>
 								<% if post.updated_at != post.created_at %>
 								*
