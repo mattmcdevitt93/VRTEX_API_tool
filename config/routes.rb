@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     get '/admin_dashboard' => 'toolbox#admin_dashboard'
 
     get '/char_sheet' => 'toolbox#char_sheet'
+    get '/recent_topics' => 'topics#recent_topics'
 
     get '/admin_index' => 'srp_requests#admin_index'
     get '/admin_index_pending' => 'srp_requests#admin_index_pending'
