@@ -19,9 +19,4 @@ require 'rufus-scheduler'
       # @char = character.character_name
       # @corp = character.corporation_name
 
-  s = Rufus::Scheduler.singleton
-
-
-  s.every '15m' do
-  	User.validation_task ('auto')
-  end
+  $s = Rufus::Scheduler.singleton

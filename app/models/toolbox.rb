@@ -1,5 +1,9 @@
 class Toolbox < ActiveRecord::Base
 
+	$s.every '15m' do
+	  	User.validation_task ('auto')
+	end
+
 	def self.env_var_check 
 		if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_TOKEN"] != nil
 			return true
