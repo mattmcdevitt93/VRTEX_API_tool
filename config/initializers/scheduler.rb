@@ -25,5 +25,3 @@ require 'rufus-scheduler'
   s.every '15m' do
   	User.validation_task ('auto')
   end
-
-  User.validation_task ('Initial')

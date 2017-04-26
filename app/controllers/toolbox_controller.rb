@@ -21,6 +21,7 @@ class ToolboxController < ApplicationController
 	def admin_dashboard
 		@contacts = Contact.all.order(standing: :desc)
 		@contact = Contact.new
+		@env_check = Toolbox.env_var_check()
 
 		if params[:start_task] == 'true' and current_user.admin == true
 			User.validation_task ('Manual')
@@ -45,6 +46,12 @@ class ToolboxController < ApplicationController
 			Log.delete_all
 			Log.create :event_code => 0, :table => "Admin", :task_length => "00:00:00", :event => "All Logs cleared", :details => "Old contents moved to Log File"
 		end
+
+		if params[:discord_check] == 'true' and current_user.admin == true
+			Log.create :event_code => 0, :table => "Admin", :task_length => "00:00:00", :event => "Managment Task", :details => "Discord Check"
+			Toolbox.discord_check($bot)
+		end
+
 
 	end
 

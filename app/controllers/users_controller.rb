@@ -18,11 +18,12 @@ class UsersController < ApplicationController
   end
 
   def dashboard
+
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:v_code, :email, :password, :password_confirmation, :remember_me)
+    params.require(:user).permit(:v_code, :discord_user_id, :email, :password, :password_confirmation, :remember_me)
   end
 end

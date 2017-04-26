@@ -45,6 +45,13 @@
     <% @data = User.decrypt(current_user.v_code) %>
     <%= f.text_field :v_code, :value => @data.to_s, :required => true %>
   </div>
+
+  <% #if current_user.discord_user_id == nil %>
+  <div class="field medium-8 large-8 float-left">
+    Discord User ID (note: This may only be entered once)
+  <%= f.number_field :discord_user_id %>
+  </div>
+  <% #end %>
 </div>
 
 <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

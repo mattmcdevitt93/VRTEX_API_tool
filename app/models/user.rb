@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
       user = User.find(1)
       user.update(admin: true)
       # @Log_file.puts (DateTime.now.to_s + " | 00:00:00 | Admin Reset | No admin accounts on record, " + user.email + " Set to admin")
-      Log.create :event_code => 10, :table => "Users", :task_length => "00:00:00" , :event => "Admin Reset", :details => "No admin accounts on record, " + user.email + " Set to admin"
+      Log.create :event_code => $Log_count, :table => "Users", :task_length => "00:00:00" , :event => "Admin Reset", :details => "No admin accounts on record, " + user.email + " Set to admin"
       # @Log_file.close
     end
   end
@@ -136,6 +136,10 @@ class User < ActiveRecord::Base
     Rails.logger.info "Start Validation Task - Refactor 1"
     Rails.logger.info "=================================="
     # @Log_file = File.open('log/user_log.txt', 'w+')
+
+    if Log.last == nil
+      Log.create :event_code => 0, :table => "Users", :task_length => "00:00:00", :event => "Validation Task", :details => "New Logs for validation_task"
+    end
     task_start = Time.now
     user = User.all
     change = false
@@ -219,6 +223,7 @@ class User < ActiveRecord::Base
         # @Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | " + input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s)
       end
       User.Admin_check_groups(account.id)
+      Toolbox.discord_check($bot)
     end
 
     if change == false

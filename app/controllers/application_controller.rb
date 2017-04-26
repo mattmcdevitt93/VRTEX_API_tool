@@ -22,6 +22,6 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     # devise_parameter_sanitizer.permit(:sign_up, keys: [:v_code, :key_id])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:v_code, :key_id, :primary_character, :valid_api, :primary_character_name, :admin, :primary_timezone, :character_cake_day])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:v_code, :key_id, :primary_character, :discord_user_id, :valid_api, :primary_character_name, :admin, :primary_timezone, :character_cake_day])
   end
 end

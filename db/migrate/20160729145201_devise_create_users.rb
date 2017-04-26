@@ -43,6 +43,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.boolean :admin, default: false
       t.string :primary_timezone
       t.datetime :character_cake_day
+      t.string :discord_user_id, unique: true
 
 
     end

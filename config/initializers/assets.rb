@@ -15,9 +15,6 @@ $server_id = Random.new.rand(1000000..1999999)
 $SETTING_REQUIRE_API = true
 
 # Commented out file logging
-# @Log_file = File.open('log/user_log.txt', 'w+')
-# @Log_file.puts (DateTime.now.to_s + " | User Log | Server Start")
-# @Log_file.close
 $Log_count = 0
 
 require 'uri'

@@ -47,4 +47,32 @@
 <%= link_to "Manual Validation", {:controller => "toolbox", :action => "admin_dashboard", :start_task => true }, class: "default button float-left", id: "validate" %>
 
 <%= link_to "Clear Logs", {:controller => "toolbox", :action => "admin_dashboard", :clear_logs => true }, class: "default button float-left", id: "validate", data: { confirm: 'Are you sure you want to do this (it can be really bad)?' } %>
+
+<%= link_to "Discord Validation", {:controller => "toolbox", :action => "admin_dashboard", :discord_check => true }, class: "default button float-left", id: "validate" %>
+
+<% if @env_check == true %>
+  <span class="success button float-left" id="validate" >Discord ENVs Active</span>
+<% else %>
+  <span class="alert button float-left" id="validate">Discord ENV Error</span>
+
+  <div class='API_border medium-12 float-left'>
+  <h3>ENV Update Required</h3>
+  <div class="medium-5 field float-left">
+    DISCORD_TOKEN 
+    <%= ENV["DISCORD_TOKEN"] %>
+  </div>
+  <hr>
+  <div class="medium-1 field float-left">
+    DISCORD_SERVER
+    <%= ENV["DISCORD_SERVER"] %>
+  </div>
+  <hr>
+  <div class="medium-1 field float-left">
+    DISCORD_CLIENT
+    <%= ENV["DISCORD_CLIENT"] %>
+  </div>
+
+  </div>
+<% end %>
+
 <% end %>

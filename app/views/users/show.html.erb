@@ -16,6 +16,9 @@
       <td>Character Name : </td> <td><%= @user.primary_character_name %> | <%= @user.primary_character_id %> | <%= @user.primary_character %></td>
     </tr>
     <tr>
+      <td>Discord ID : </td> <td><%= @user.discord_user_id %></td>
+    </tr>
+    <tr>
       <td>Groups : </td> <td><%= User.get_groups(@user.id) %></td>
     </tr>
     <tr>

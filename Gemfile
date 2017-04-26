@@ -44,7 +44,7 @@ gem 'will_paginate', '~> 3.0.5'
 gem "figaro"
 gem 'aes'
 gem 'ruby_identicon'
-# heroku gem
+# discord gem
 gem 'discordrb'
 
 group :development, :test do
