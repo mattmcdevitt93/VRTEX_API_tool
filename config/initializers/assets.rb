@@ -17,4 +17,7 @@ $SETTING_REQUIRE_API = true
 # Commented out file logging
 $Log_count = 0
 
+# Discord bot setting
+$Discord_bot_active = false
+
 require 'uri'

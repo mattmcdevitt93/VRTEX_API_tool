@@ -39,7 +39,6 @@
 <% else %>
   <% button_class = "success button float-left has-tip" %>
   <% button_tooltip = "API Validtion is enabled" %>
-
 <% end %>
 
 <%= link_to "Toggle Validation Requirement", {:controller => "toolbox", :action => "admin_dashboard", :toggle_validation => true }, class: button_class, id: "validate", data: { confirm: 'Are you sure you want to do this (it can be really bad)?  Current Validation Requirement: ' + $SETTING_REQUIRE_API.to_s }, title: button_tooltip %>
@@ -50,13 +49,19 @@
 
 <%= link_to "Discord Validation", {:controller => "toolbox", :action => "admin_dashboard", :discord_check => true }, class: "default button float-left", id: "validate" %>
 
-<% if @env_check == true %>
+<%= link_to "Toggle Discord Activation", {:controller => "toolbox", :action => "admin_dashboard", :discord_active => true }, class: "default button float-left", id: "validate" %>
+
+<% if @env_check == true  %>
   <span class="success button float-left" id="validate" >Discord ENVs Active</span>
 <% else %>
   <span class="alert button float-left" id="validate">Discord ENV Error</span>
 
   <div class='API_border medium-12 float-left'>
   <h3>ENV Update Required</h3>
+  <% if $Discord_bot_active == false %>
+    Discord Bot Requires Activation
+    <hr>
+  <% end %>
   <div class="medium-5 field float-left">
     DISCORD_TOKEN 
     <%= ENV["DISCORD_TOKEN"] %>
@@ -71,7 +76,7 @@
     DISCORD_CLIENT
     <%= ENV["DISCORD_CLIENT"] %>
   </div>
-
+  <hr>
   </div>
 <% end %>
 

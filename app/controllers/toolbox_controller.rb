@@ -25,6 +25,7 @@ class ToolboxController < ApplicationController
 
 		if params[:start_task] == 'true' and current_user.admin == true
 			User.validation_task ('Manual')
+			redirect_to admin_dashboard_path
 		end
 
 		if params[:toggle_validation] == 'true' and current_user.admin == true
@@ -32,6 +33,7 @@ class ToolboxController < ApplicationController
 
 			Rails.logger.info "Toggle_Validation:" + $SETTING_REQUIRE_API.to_s
 			$SETTING_REQUIRE_API = !$SETTING_REQUIRE_API
+			redirect_to admin_dashboard_path
 		end
 
 		if params[:clear_logs] == 'true' and current_user.admin == true
@@ -45,12 +47,20 @@ class ToolboxController < ApplicationController
 			@Log_file.close
 			Log.delete_all
 			Log.create :event_code => 0, :table => "Admin", :task_length => "00:00:00", :event => "All Logs cleared", :details => "Old contents moved to Log File"
+			redirect_to admin_dashboard_path
 		end
 
 		if params[:discord_check] == 'true' and current_user.admin == true
 			Log.create :event_code => 0, :table => "Admin", :task_length => "00:00:00", :event => "Managment Task", :details => "Discord Check"
 			Toolbox.discord_check($bot)
+			redirect_to admin_dashboard_path
 		end
+
+		if params[:discord_active] == 'true' and current_user.admin == true
+    		Rails.logger.info "toggle Discord Bot"
+    		$Discord_bot_active = !$Discord_bot_active
+    		redirect_to admin_dashboard_path
+   		end
 
 
 	end

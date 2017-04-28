@@ -26,12 +26,14 @@ ActiveRecord::Schema.define(version: 20170301194140) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "category",   null: false
+    t.string   "name",            null: false
+    t.string   "category",        null: false
     t.boolean  "is_admin"
+    t.boolean  "is_chat_group"
+    t.string   "chat_group_name"
     t.string   "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "logs", force: :cascade do |t|

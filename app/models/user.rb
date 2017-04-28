@@ -36,6 +36,19 @@ class User < ActiveRecord::Base
     return output
   end
 
+  def self.get_chat_groups (id)
+    Rails.logger.info 'Chat Group Check'
+    user_groups = Membership.where('user_id' => id, 'approved' => true)
+    output = []
+    user_groups.each do |group|
+      group = Group.find(group.group_id)
+      if group.is_chat_group == true
+        output = output.push(group.chat_group_name.to_s)
+      end
+    end
+    return output
+  end
+
   def self.Admin_initialize
     # @Log_file = File.open('log/user_log.txt', 'w+')
     Rails.logger.info 'Admin Check'

@@ -1,11 +1,7 @@
 class Toolbox < ActiveRecord::Base
 
-	$s.every '15m' do
-	  	User.validation_task ('auto')
-	end
-
 	def self.env_var_check 
-		if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_TOKEN"] != nil
+		if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_TOKEN"] != nil && $Discord_bot_active == true
 			return true
 		else
 			return false
@@ -22,7 +18,16 @@ class Toolbox < ActiveRecord::Base
 		target_users.each do |target|
 			# Rails.logger.info "target - " + target.primary_character_name.to_s + " | " + target.discord_user_id
 			if target.valid_api == true
-				Toolbox.discord_add_roles(bot, target, "Member")
+					user_chat_groups = User.get_chat_groups(target.id)
+					Rails.logger.info "User Chat Groups: " + user_chat_groups.to_s
+					user_chat_groups.each do |chat_group|
+						begin
+							Rails.logger.info "Add user Group: " + chat_group.to_s
+							Toolbox.discord_add_roles(bot, target, chat_group.to_s)
+						rescue
+							Rails.logger.info "discord_check - Group Error"
+						end
+					end
 			else
 				Toolbox.discord_clear_roles(bot, target.discord_user_id)
 			end
