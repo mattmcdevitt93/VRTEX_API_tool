@@ -18,6 +18,10 @@ $SETTING_REQUIRE_API = true
 $Log_count = 0
 
 # Discord bot setting
-$Discord_bot_active = false
+if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_TOKEN"] != nil
+	$Discord_bot_active = true
+else
+	$Discord_bot_active = false
+end
 
 require 'uri'

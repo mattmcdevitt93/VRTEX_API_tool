@@ -38,8 +38,8 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 	end
 
 	$bot.ready do |event|
-		$bot.game = "Work In Progress"
-		$bot.send_message(ENV["DISCORD_SERVER"], 'VRTEX-bot is online!... Sorta', tts = false, embed = nil)
+		$bot.game = "Alpha version 0.1"
+		$bot.send_message(ENV["DISCORD_SERVER"], 'VRTEX-bot is online!', tts = false, embed = nil)
 	end
 
 	$bot.run :async

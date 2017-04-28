@@ -10,7 +10,8 @@
       <td>Key ID: </td> <td><%= @user.key_id %></td>
     </tr>
     <tr>
-      <td>Verification Code: </td> <td><%= User.decrypt(@user.v_code) %></td>
+      <!-- <td>Verification Code: </td> <td><%= User.decrypt(@user.v_code) %></td> -->
+      <td>Verification Code: </td> <td><strong><"REDACTED"></strong></td>
     </tr>
     <tr>
       <td>Character Name : </td> <td><%= @user.primary_character_name %> | <%= @user.primary_character_id %> | <%= @user.primary_character %></td>
