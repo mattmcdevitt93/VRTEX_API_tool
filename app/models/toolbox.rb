@@ -42,6 +42,7 @@ class Toolbox < ActiveRecord::Base
 			Rails.logger.info "discord_check - ENV failure"
 			return
 		end
+		begin
 		Rails.logger.info user_id.primary_character_name.to_s + ": Valid API - Activate Discord - " + user_id.discord_user_id.to_s
 		server = bot.servers[ENV["DISCORD_SERVER"].to_i]
 		role_to_add = server.roles.find {|role| role.name == role_name}
@@ -49,6 +50,9 @@ class Toolbox < ActiveRecord::Base
 		member = server.members.find {|user| user.id == user_id.discord_user_id.to_i}
 		# Rails.logger.info "active member - " + member.to_s
 		member.add_role(role_to_add)
+		rescue
+			Rails.logger.info "target - add all roles - Error"
+		end
 	end
 
 	def self.discord_clear_roles (bot, user_id)
