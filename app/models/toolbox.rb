@@ -56,9 +56,13 @@ class Toolbox < ActiveRecord::Base
 			Rails.logger.info "discord_check - ENV failure"
 			return
 		end
+		begin
 		user = bot.servers[ENV["DISCORD_SERVER"].to_i].members.find {|s| s.id == user_id.to_i}
 		user.remove_role(user.roles)
 		Rails.logger.info "target - clear all roles - " + user.name.to_s
+		rescue
+			Rails.logger.info "target - clear all roles - Error"
+		end
 		# bot.send_message(ENV["DISCORD_SERVER"], 'Discord Bot Action clear all roles of ' + user.name.to_s, tts = false, embed = nil)
 	end
 end
