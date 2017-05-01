@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   def self.get_chat_groups (id)
-    Rails.logger.info 'Chat Group Check'
+    Rails.logger.info 'Chat Group Check for - ' + id.to_s
     user_groups = Membership.where('user_id' => id, 'approved' => true)
     output = []
     user_groups.each do |group|
@@ -236,7 +236,6 @@ class User < ActiveRecord::Base
         # @Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | " + input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s)
       end
       User.Admin_check_groups(account.id)
-      Toolbox.discord_check($bot)
     end
 
     if change == false
@@ -251,6 +250,7 @@ class User < ActiveRecord::Base
       # @Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | No changes made ")
     end
     User.Admin_initialize
+    Toolbox.discord_check($bot)
 
     Rails.logger.info "=================================="
     Rails.logger.info "End of API check"
