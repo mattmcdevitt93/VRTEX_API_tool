@@ -71,7 +71,7 @@ class Toolbox < ActiveRecord::Base
 		user = server.members.find {|user| user.id == user_id.discord_user_id.to_i}
 		user_roles = user.roles.find {|role| role.name == role_name}
 			if user_roles == nil
-			Rails.logger.info "Added Role to member - " + user.name.to_s
+			Rails.logger.info "Added Role to member - " + user.name.to_s + " | " + role_name.to_s
 			user.add_role(role_to_add)
 			end
 		rescue
