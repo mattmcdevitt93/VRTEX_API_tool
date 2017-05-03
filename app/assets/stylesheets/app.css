@@ -237,4 +237,9 @@ table tbody tr:nth-child(odd):hover  {
 	padding-left: 20px;
 }
 
+.discord_images {
+	border: 3px solid #999;
+	margin: 2px;
+}
+
 
