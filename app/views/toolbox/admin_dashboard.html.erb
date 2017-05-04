@@ -41,13 +41,22 @@
   <% button_tooltip = "API Validtion is enabled" %>
 <% end %>
 
-<%= link_to "Toggle Validation Requirement", {:controller => "toolbox", :action => "admin_dashboard", :toggle_validation => true }, class: button_class, id: "validate", data: { confirm: 'Are you sure you want to do this (it can be really bad)?  Current Validation Requirement: ' + $SETTING_REQUIRE_API.to_s }, title: button_tooltip %>
-
-<%= link_to "Manual Validation", {:controller => "toolbox", :action => "admin_dashboard", :start_task => true }, class: "default button float-left", id: "validate" %>
+<ul class="dropdown vertical menu default float-left" id="validate" data-dropdown-menu>
+  <li>
+    <a class="default button float-left hollow">User Validation</a>
+    <ul class="menu">
+      <li><%= link_to "EvE Auth Validation", {:controller => "toolbox", :action => "admin_dashboard", :start_task => true }, class: "default float-left", id: "validate" %></li>
+      <li><%= link_to "Discord Validation", {:controller => "toolbox", :action => "admin_dashboard", :discord_check => true }, class: "default float-left", id: "validate" %>
+      </li>
+      <li><%= link_to "Full User Validation", {:controller => "toolbox", :action => "admin_dashboard", :full_user_check => true }, class: "default float-left", id: "validate" %>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 <%= link_to "Clear Logs", {:controller => "toolbox", :action => "admin_dashboard", :clear_logs => true }, class: "default button float-left", id: "validate", data: { confirm: 'Are you sure you want to do this (it can be really bad)?' } %>
 
-<%= link_to "Discord Validation", {:controller => "toolbox", :action => "admin_dashboard", :discord_check => true }, class: "default button float-left", id: "validate" %>
+<%= link_to "Toggle Validation Requirement", {:controller => "toolbox", :action => "admin_dashboard", :toggle_validation => true }, class: button_class, id: "validate", data: { confirm: 'Are you sure you want to do this (it can be really bad)?  Current Validation Requirement: ' + $SETTING_REQUIRE_API.to_s }, title: button_tooltip %>
 
 <%= link_to "Toggle Discord Activation", {:controller => "toolbox", :action => "admin_dashboard", :discord_active => true }, class: "default button float-left", id: "validate" %>
 

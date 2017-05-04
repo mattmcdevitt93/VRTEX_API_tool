@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   before_action :admin_check, only: [:index, :show, :create, :update, :destroy]
   before_action :set_group, only: [:show, :edit, :update, :destroy]
-
+  before_action :clear_members, only: [:destroy]
   # GET /groups
   # GET /groups.json
   def index
@@ -70,6 +70,12 @@ class GroupsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])
+    end
+
+    def clear_members
+      Membership.where(group_id: params[:id]).destroy_all
+      Rails.logger.info "Clear All Members - " + params[:id]
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

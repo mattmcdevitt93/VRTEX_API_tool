@@ -254,7 +254,7 @@ class User < ActiveRecord::Base
       # @Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | No changes made ")
     end
     User.Admin_initialize
-    Toolbox.discord_check($bot)
+
 
     Rails.logger.info "=================================="
     Rails.logger.info "End of API check"

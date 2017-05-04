@@ -30,6 +30,7 @@ class Topic < ActiveRecord::Base
 	end
 
 	def self.parent_group_access (topic_id, user_id)
+		begin
 		access_check = Topic.parent_group_check(topic_id)
 		user_groups = Topic.forum_groups(user_id)
 		access = true
@@ -40,6 +41,9 @@ class Topic < ActiveRecord::Base
               access = a
             end
           end
+        rescue
+        	access = false
+        end
         return access
 	end
 

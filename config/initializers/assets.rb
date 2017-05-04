@@ -23,5 +23,6 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 else
 	$Discord_bot_active = false
 end
+	$Discord_bot_active = false
 
 require 'uri'

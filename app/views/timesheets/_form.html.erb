@@ -25,11 +25,10 @@
   </div>
   <div class="field">
     Urgency:
-    <%= f.select :urgency, [["Offensive - Low Priority - Bash time...",1],["Offensive - Medium Priority - Alliance Objectives", 2],["Offensive - High Priority - Strategic Operation", 3],["Defence - Low Priority - Possible Timer Punt", 4],["Defence - High Priority - There will be a fight", 5], ["Defence - Ultra Hig Priority - Bat phone", 6]] %>
-
+    <%= f.select :urgency, [["Offensive - Low Priority - Bash time...",1],["Offensive - Medium Priority - Alliance Objectives", 2],["Offensive - High Priority - Strategic Operation", 3],["Defence - Low Priority - Possible Timer Punt", 4],["Defence - High Priority - There will be a fight", 5], ["Defence - Ultra High Priority - Bat phone", 6]] %>
   </div>
   <div class="field">
-    <%= f.label :notes %><br>
+    Notes / Location<br>
     <%= f.text_field :notes %>
   </div>
   <%= f.hidden_field :user_id, value: current_user.id %>

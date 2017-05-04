@@ -56,6 +56,13 @@ class ToolboxController < ApplicationController
 			redirect_to admin_dashboard_path
 		end
 
+		if params[:full_user_check] == 'true' and current_user.admin == true
+			User.validation_task ('Manual')
+			Toolbox.discord_check($bot)
+			redirect_to admin_dashboard_path
+		end
+
+
 		if params[:discord_active] == 'true' and current_user.admin == true
     		Rails.logger.info "toggle Discord Bot"
     		$Discord_bot_active = !$Discord_bot_active

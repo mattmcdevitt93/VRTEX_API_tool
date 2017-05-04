@@ -6,4 +6,5 @@ require 'rufus-scheduler'
 
       $s.every '15m' do
             User.validation_task ('auto')
+            Toolbox.discord_check($bot)
       end
