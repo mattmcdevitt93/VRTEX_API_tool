@@ -67,10 +67,14 @@ class User < ActiveRecord::Base
     groups = Membership.where('user_id' => user, 'approved' => true)
     update = false
     groups.each do |group|
+      begin
       group_name = Group.find(group.group_id)
       # Rails.logger.info group_name.name.to_s + ' | ' + group_name.is_admin.to_s
       if group_name.is_admin === true
         update = true
+      end
+      rescue
+        update = false
       end
     end
     user_id = User.find(user)
