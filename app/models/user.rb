@@ -41,9 +41,9 @@ class User < ActiveRecord::Base
     user_groups = Membership.where('user_id' => id, 'approved' => true)
     output = []
     user_groups.each do |group|
-      group = Group.find(group.group_id)
-      if group.is_chat_group == true
-        output = output.push(group.chat_group_name.to_s)
+      group_id = Group.find(group.group_id)
+      if group_id.is_chat_group == true && group_id.chat_group_name.blank? == false
+        output = output.push(group_id.chat_group_name.to_s)
       end
     end
     return output

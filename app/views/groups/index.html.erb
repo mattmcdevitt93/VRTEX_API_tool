@@ -40,39 +40,115 @@
 
 
       </div>
-    <li class="accordion-item srp_item" data-accordion-item>
-      <a href="#" class="accordion-title request-title">
-        Group Approvals - quick list
-      </a>
-      <div class="accordion-content" data-tab-content>
-      <%= link_to 'Full Approval list', full_index_path, :class => 'group_right_link' %>
-      <hr>
-        <% @approvals.each do |approval| %>
-        <% @group_name = Group.where('id' => approval.group_id) %>
-        <b>Requested Group: </b>
-        <%= @group_name[0].name %>
-         | 
-        <% @username = User.where('id' => approval.user_id) %>
-        <b>User: </b>
-        <%= @username[0].primary_character_name %> | 
-        <b>Submitted at:</b>
-        <%= approval.created_at %>
-        <%= form_for(approval) do |f| %>
-        <%= f.hidden_field :approved, value: true %>
-        <%= f.submit "Approve" ,:class => 'success button float-left' %>
-        <% end %>
-        <%= link_to 'Deny', approval, method: :delete, data: { confirm: 'Are you sure?' },:class => 'alert button float-left' %>
-        <hr>
-        <% end %>
-      </div>
+      <li class="accordion-item srp_item" data-accordion-item>
+        <a href="#" class="accordion-title request-title">
+          Group Approvals - quick list
+        </a>
+        <div class="accordion-content" data-tab-content>
+          <%= link_to 'Full Approval list', full_index_path, :class => 'group_right_link' %>
+          <hr>
+          <% @approvals.each do |approval| %>
+          <% @group_name = Group.where('id' => approval.group_id) %>
+          <b>Requested Group: </b>
+          <%= @group_name[0].name %>
+          | 
+          <% @username = User.where('id' => approval.user_id) %>
+          <b>User: </b>
+          <%= @username[0].primary_character_name %> | 
+          <b>Submitted at:</b>
+          <%= approval.created_at %>
+          <%= form_for(approval) do |f| %>
+          <%= f.hidden_field :approved, value: true %>
+          <%= f.submit "Approve" ,:class => 'success button float-left' %>
+          <% end %>
+          <%= link_to 'Deny', approval, method: :delete, data: { confirm: 'Are you sure?' },:class => 'alert button float-left' %>
+          <hr>
+          <% end %>
+        </div>
+      </li>
     </li>
-        </li>
     <li class="accordion-item srp_item" data-accordion-item>
       <a href="#" class="accordion-title request-title">
         New Group
       </a>
       <div class="accordion-content new_group" data-tab-content>
-        <%= render 'form' %>
-      </div>
-    </li>
-  </ul>
+        <%= form_for(@group) do |f| %>
+        <% if @group.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+          <ul>
+            <% @group.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+
+        <div class="field columns medium-4">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, :required => 'required' %>
+        </div>
+        <div class="field columns medium-2">
+          <%= f.label :category %><br>
+          <%= f.select :category, [['General','General'],['Special Intrest Group (SIG)','SIG'],['Managment','Managment']] %>
+        </div>
+
+        <div class="field columns medium-3">
+          <%= f.label :chat_group_name %><br>
+          <%= f.text_field :chat_group_name %>
+        </div>
+        <div class="field columns medium-2">
+          <span> Elevated roles <br>
+            <%= f.check_box :is_admin %>
+          </div>
+          <div class="field columns medium-2">
+            <span> Is Chat Group? <br>
+              <%= f.check_box :is_chat_group %>
+            </div>
+            <div class="field columns medium-12">
+              <%= f.label :note %><br>
+              <%= f.text_area :note %>
+            </div>
+            <div class="field columns actions">
+              <%= f.submit %>
+            </div>
+            <% end %>
+          </div>
+        </li>
+        <li class="accordion-item srp_item" data-accordion-item>
+          <a href="#" class="accordion-title request-title">
+            Add User to Group
+          </a>
+          <div class="accordion-content row" data-tab-content>
+            <%= form_for(@membership) do |f| %>
+            <div class="field columns medium-12">
+            <b>Add Group to Member</b> - this auto-approves users for groups.
+            </div>
+            <div class="field columns medium-4">
+              <% user_list = [] %>
+              <% @users.each do |user| %>
+              <% if user.primary_character_name.blank? == false %>
+              <% title = user.id.to_s + " | " + user.primary_character_name.to_s  %>
+              <% else %> 
+              <% title = user.id.to_s  + " | " + user.email.to_s  %>
+              <% end %>
+              <% user_list = user_list.push([title, user.id]) %>
+              <% end %>
+              <%= f.select :user_id, user_list %>
+            </div>
+            <div class="field columns medium-4">
+              <% user_groups = [] %>
+              <% @groups.each do |group| %>
+              <% user_groups = user_groups.push([group.name, group.id]) %>
+              <% end %>
+              <%= f.select :group_id, user_groups %>
+            </div>
+            <%= f.hidden_field :approved?, value: true %>
+            <div class=" field columns medium-2"> 
+              <%= f.submit "Add user to Group", class: "default button float-left" %>
+            </div>
+            <% end %>
+          </div>
+        </li>
+      </ul>

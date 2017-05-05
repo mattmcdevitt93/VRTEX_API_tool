@@ -61,32 +61,36 @@
 <%= link_to "Toggle Discord Activation", {:controller => "toolbox", :action => "admin_dashboard", :discord_active => true }, class: "default button float-left", id: "validate" %>
 
 <% if @env_check == true  %>
-  <span class="success button float-left" id="validate" >Discord ENVs Active</span>
-<% else %>
-  <span class="alert button float-left" id="validate">Discord ENV Error</span>
+    <span class="success button float-left" id="validate" >Discord ENVs Active</span>
+  <% else %>
+    <span class="alert button float-left" id="validate">Discord ENV Error</span>
 
-  <div class='API_border medium-12 float-left'>
-  <h3>ENV Update Required</h3>
-  <% if $Discord_bot_active == false %>
-    Discord Bot Requires Activation
+    <div class='warning_border medium-12 float-left'>
+    <h3>ENV Update Required</h3>
+    <% if $Discord_bot_active == false %>
+      Discord Bot Requires Activation
+      <hr>
+    <% end %>
+    <div class="medium-5 field float-left">
+      DISCORD_TOKEN 
+      <%= ENV["DISCORD_TOKEN"] %>
+    </div>
     <hr>
+    <div class="medium-1 field float-left">
+      DISCORD_SERVER
+      <%= ENV["DISCORD_SERVER"] %>
+    </div>
+    <hr>
+    <div class="medium-1 field float-left">
+      DISCORD_CLIENT
+      <%= ENV["DISCORD_CLIENT"] %>
+    </div>
+    <hr>
+    </div>
   <% end %>
-  <div class="medium-5 field float-left">
-    DISCORD_TOKEN 
-    <%= ENV["DISCORD_TOKEN"] %>
-  </div>
-  <hr>
-  <div class="medium-1 field float-left">
-    DISCORD_SERVER
-    <%= ENV["DISCORD_SERVER"] %>
-  </div>
-  <hr>
-  <div class="medium-1 field float-left">
-    DISCORD_CLIENT
-    <%= ENV["DISCORD_CLIENT"] %>
-  </div>
-  <hr>
-  </div>
-<% end %>
 
 <% end %>
+<hr>
+<div class="API_border">
+  <strong>Feature Groups</strong> - Work in Progress
+</div>

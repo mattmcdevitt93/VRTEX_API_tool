@@ -24,10 +24,12 @@
             <%= f.label :chat_group_name %><br>
             <%= f.text_field :chat_group_name %>
           </div>
+          <% if current_user.admin == true %>
           <div class="field columns medium-2">
             <span> Elevated roles <br>
             <%= f.check_box :is_admin %>
           </div>
+          <% end %>
           <div class="field columns medium-2">
             <span> Is Chat Group? <br>
             <%= f.check_box :is_chat_group %>

@@ -7,7 +7,9 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.all.order("id ASC")
     @group = Group.new
+    @membership = Membership.new
     @approvals = Membership.where('approved' => false).order("id DESC").limit(5)
+    @users = User.all.order("primary_character_name ASC")
   end
 
   # GET /groups/1
