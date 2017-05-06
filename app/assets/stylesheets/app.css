@@ -71,14 +71,14 @@ h2 {
 
 #toolbar-switch-anchor {
 	height: 60px;
-	padding: 10px;
+	padding: 5px;
 }
 
 #toolbar-switch {
-	width: 40px;
-	height: 40px;
+	width: 50px;
+	height: 50px;
 	background-image: url(Mani_logo_1.png);
-	background-size: 40px 40px;
+	background-size: 50px 50px;
 }
 
 #validate {
