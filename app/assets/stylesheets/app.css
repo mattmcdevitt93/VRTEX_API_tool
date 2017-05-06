@@ -26,6 +26,10 @@ table tbody tr:nth-child(odd):hover  {
   	background-color: #d9d9d9;
 }
 
+h2 {
+	font-family: 'Black Ops One', regular !important;
+}
+
 .hidden {
 	visibility: hidden;
 	display: none;
@@ -41,12 +45,19 @@ table tbody tr:nth-child(odd):hover  {
 	/*position: fixed;*/
 }
 
+.title_card {
+	font-family: 'Black Ops One', regular;
+}
+
 .masthead-buffer {
 	/*height: 60px;*/
 }
 
 .login {
 	padding-left: 10px;
+	height: 60px;
+	padding-right: 50px;
+	background-color: #FFF;
 }
 
 #toolbar {

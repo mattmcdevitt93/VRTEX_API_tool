@@ -5,13 +5,14 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
 </head>
 <body>
   <div class='small-12 medium-12 large-12 columns masthead'>
     <div class="float-left" id='toolbar-switch-anchor' >
       <div class='active' id='toolbar-switch' onclick="Module.toolbar_slide(), Module.toolbar_rotate()"></div>
     </div>
-    <h2 class='float-left'><%= link_to 'Manifesto. Alliance API Tool', root_path %></h2>
+    <h2 class='float-left title_card'><%= link_to 'Manifesto. Alliance API Tool', root_path %></h2>
 
     <div class="login float-right">
       <% if user_signed_in? %>
