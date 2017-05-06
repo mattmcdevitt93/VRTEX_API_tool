@@ -2,6 +2,9 @@ body {
 	min-width: 1024px !important;
 }
 
+a {
+	color: rgba(255, 100, 100, 1) !important;
+}
 
 table tbody td {
 	padding-left: 5px;
@@ -63,7 +66,7 @@ table tbody tr:nth-child(odd):hover  {
 #toolbar-switch {
 	width: 40px;
 	height: 40px;
-	background-image: url(tool-toggle.png);
+	background-image: url(Mani_logo_1.png);
 	background-size: 40px 40px;
 }
 
@@ -102,6 +105,7 @@ table tbody tr:nth-child(odd):hover  {
 .badge {
 	margin: 1px;
 	height: 20px;
+	color: #FFF !important; 
 }
 
 .gauge {
@@ -113,7 +117,9 @@ table tbody tr:nth-child(odd):hover  {
 	margin-left: 15px;
 }
 
-
+.button {
+	color: #FFF !important;
+}
 
 .API_border{
 	border-style: solid;
@@ -240,6 +246,10 @@ table tbody tr:nth-child(odd):hover  {
 .discord_images {
 	border: 3px solid #999;
 	margin: 2px;
+}
+
+#dropdown_auth_menu {
+	color: rgba(255, 100, 100, 1) !important;
 }
 
 
