@@ -78,7 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Mail recovery settings - This requires you to turn on "Allow Less Secure Apps on Google"
-  config.action_mailer.default_url_options = { :host => 'vrtex-api-tool.herokuapp.com' } 
+  config.action_mailer.default_url_options = { :host => 'manifesto-auth-tool.herokuapp.com' } 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp 
   config.action_mailer.default :charset => "utf-8" 

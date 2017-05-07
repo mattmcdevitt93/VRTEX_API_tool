@@ -39,7 +39,7 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 
 	$bot.ready do |event|
 		$bot.game = "Beta version 0.1"
-		$bot.send_message(ENV["DISCORD_SERVER"], 'Auth-bot is online!', tts = false, embed = nil)
+		# $bot.send_message(ENV["DISCORD_SERVER"], 'Auth-bot is online!', tts = false, embed = nil)
 	end
 
 	$bot.run :async
