@@ -222,7 +222,7 @@ class User < ActiveRecord::Base
 
       if character != nil
         Rails.logger.info 'Name:' + account.primary_character_name.to_s
-        if account.primary_character_name == nil || account.primary_character_name == ""
+        if account.primary_character_name == character.character_name
               Rails.logger.info 'Name update'
               account.update(primary_character_name: character.character_name)
         end
