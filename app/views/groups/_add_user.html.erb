@@ -1,0 +1,37 @@
+<%= form_for(@members) do |f| %>
+  <div class="field columns medium-12">
+    <b>Add Group to Member</b> - this auto-approves users for groups.
+  </div>
+
+  <div class="field columns medium-4">
+    <% user_list = [] %>
+    <% @users = User.all.order("primary_character_name ASC") %>
+    <% @users.each do |user| %>
+    <% if user.primary_character_name.blank? == false %>
+    <% title = user.id.to_s + " | " + user.primary_character_name.to_s  %>
+    <% else %> 
+    <% title = user.id.to_s  + " | " + user.email.to_s  %>
+    <% end %>
+    <% user_list = user_list.push([title, user.id]) %>
+    <% end %>
+    <%= f.select :user_id, user_list %>
+  </div>
+
+  <div class="field columns medium-4">
+    <% if params[:id].blank? == true %>
+      <% user_groups = [] %>
+      <% @groups = Group.all.order("id ASC") %>
+      <% @groups.each do |group| %>
+      <% user_groups = user_groups.push([group.name, group.id]) %>
+      <% end %>
+    <%= f.select :group_id, user_groups %>
+    <% else %>
+    <%= f.hidden_field :group_id, value: @group.id.to_s %>
+    <% end %>
+  </div>
+
+  <%= f.hidden_field :approved?, value: true %>
+  <div class=" field columns medium-2"> 
+    <%= f.submit "Add user to Group", class: "default button float-left" %>
+  </div>
+<% end %>

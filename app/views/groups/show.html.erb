@@ -1,12 +1,38 @@
-User List
+<h2>Member List - <%= @group.name %></h2>
+<%= will_paginate @memberships, class: "float-right" %>
 
-<hr>
-<%= @group[0].name %>
+<div class='row'>
+<%= render 'add_user' %>
+</div>
 
-<% @members.each do |member| %>
-<hr>
+<div class='row'>
+
+<% @memberships.each do |member| %>
 	<% if member.approved == true %>
-		<%= member.user_id %> | <%= User.where('id' => member.user_id)[0].primary_character_name %> | <%= link_to 'User Profile', user_path(:id => member.user_id) %> | <%= link_to 'Remove From Group', member, method: :delete, data: { confirm: 'Are you sure?' } %>
+		<% user = User.find(member.user_id) %>
+
+		<% if user.valid_api == true %>
+			<div id="<%= user.id %>" class='index_entry valid'>
+			<span class="success badge" title="Valid API">V</span>
+		<% elsif user.valid_api == false and (user.v_code == "" and user.key_id == "") or (user.v_code == nil and user.key_id == nil) %>
+			<div id="<%= user.id %>" class='index_entry error'>
+			<span class="alert badge error" title="Error - No API Key">E</span>
+		<% else %>
+			<div id="<%= user.id %>" class='index_entry warning'>
+			<span class="warning badge warningplete" title="Warning - Standing Error or Invalid Key">S</span>
+		<% end %>
+		<%= member.user_id %> | 
+		<% if user.primary_character_name.blank? == false %>
+		<%= user.primary_character_name %>
+		<% else %>
+		<%= user.email %>
+		<% end %>
+		<span class="float-right">
+		 | <%= link_to 'User Profile', user_path(:id => member.user_id) %> | <%= link_to 'Remove From Group', member, method: :delete, data: { confirm: 'Are you sure?' } %>
+		 </span>
+		 </div>
 	<% end %>
 <% end %>
+</div>
+
 

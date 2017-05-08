@@ -7,16 +7,16 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.all.order("id ASC")
     @group = Group.new
-    @membership = Membership.new
+    @members = Membership.new
     @approvals = Membership.where('approved' => false).order("id DESC").limit(5)
-    @users = User.all.order("primary_character_name ASC")
   end
 
   # GET /groups/1
   # GET /groups/1.json
   def show
-    @group = Group.where('id' => params[:id])
-    @members = Membership.where('group_id' => params[:id])
+    @group = Group.find(params[:id])
+    @members = Membership.new
+    @memberships = Membership.where('group_id' => params[:id]).paginate(:page => params[:page], :per_page => 50).order(id: :desc)
   end
 
   # GET /groups/new

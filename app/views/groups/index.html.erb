@@ -116,39 +116,13 @@
             <% end %>
           </div>
         </li>
+
         <li class="accordion-item srp_item" data-accordion-item>
           <a href="#" class="accordion-title request-title">
             Add User to Group
           </a>
           <div class="accordion-content row" data-tab-content>
-            <%= form_for(@membership) do |f| %>
-            <div class="field columns medium-12">
-            <b>Add Group to Member</b> - this auto-approves users for groups.
-            </div>
-            <div class="field columns medium-4">
-              <% user_list = [] %>
-              <% @users.each do |user| %>
-              <% if user.primary_character_name.blank? == false %>
-              <% title = user.id.to_s + " | " + user.primary_character_name.to_s  %>
-              <% else %> 
-              <% title = user.id.to_s  + " | " + user.email.to_s  %>
-              <% end %>
-              <% user_list = user_list.push([title, user.id]) %>
-              <% end %>
-              <%= f.select :user_id, user_list %>
-            </div>
-            <div class="field columns medium-4">
-              <% user_groups = [] %>
-              <% @groups.each do |group| %>
-              <% user_groups = user_groups.push([group.name, group.id]) %>
-              <% end %>
-              <%= f.select :group_id, user_groups %>
-            </div>
-            <%= f.hidden_field :approved?, value: true %>
-            <div class=" field columns medium-2"> 
-              <%= f.submit "Add user to Group", class: "default button float-left" %>
-            </div>
-            <% end %>
+          <%= render 'add_user' %>
           </div>
         </li>
       </ul>

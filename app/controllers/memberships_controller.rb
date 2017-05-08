@@ -32,7 +32,7 @@ class MembershipsController < ApplicationController
       return
       end
       if @membership.save
-        format.html { redirect_to memberships_path, notice: 'Membership was successfully created.' }
+        format.html { redirect_to :back, notice: 'Membership was successfully created.' }
         format.json { render :show, status: :created, location: @membership }
       else
         format.html { render :new }

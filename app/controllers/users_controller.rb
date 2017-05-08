@@ -4,8 +4,7 @@ class UsersController < ApplicationController
 
 
 	def index
-    @user = User.all
-    # User.validation_task
+    @user = User.paginate(:page => params[:page], :per_page => 50).order(id: :desc)
 	end
 
   def show
