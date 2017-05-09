@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     @members = Membership.new
-    @memberships = Membership.where('group_id' => params[:id]).paginate(:page => params[:page], :per_page => 50).order(id: :desc)
+    @memberships = Membership.where('group_id' => params[:id]).paginate(:page => params[:page], :per_page => 25).order(id: :desc)
   end
 
   # GET /groups/new

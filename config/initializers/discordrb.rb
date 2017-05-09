@@ -35,6 +35,9 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 
 	$bot.mention() do |event|
 		event.respond Time.now.to_s
+		# event.respond event.author.name.to_s
+
+		event.respond event.message.to_s
 	end
 
 	$bot.ready do |event|
