@@ -55,10 +55,6 @@ Time = Tells you the time of all the major time zones (* marks current prime tim
 
 			if note.include? "time"
 
-				zone = ActiveSupport::TimeZone.new("Etc/UTC")
-				prime = Time.now.in_time_zone(zone).prime? ? '*' : ''
-				event.respond "UTC" + prime + " - " + Time.now.in_time_zone(zone).to_s
-
 				zone = ActiveSupport::TimeZone.new("Eastern Time (US & Canada)")
 				prime = Time.now.in_time_zone(zone).prime? ? '*' : ''
 				event.respond "EST" + prime + " - " + Time.now.in_time_zone(zone).to_s
@@ -66,6 +62,10 @@ Time = Tells you the time of all the major time zones (* marks current prime tim
 				zone = ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
 				prime = Time.now.in_time_zone(zone).prime? ? '*' : ''
 				event.respond "PST" + prime + " - " + Time.now.in_time_zone(zone).to_s
+
+				zone = ActiveSupport::TimeZone.new("Etc/UTC")
+				prime = Time.now.in_time_zone(zone).prime? ? '*' : ''
+				event.respond "UTC/EvE" + prime + " - " + Time.now.in_time_zone(zone).to_s
 
 				zone = ActiveSupport::TimeZone.new("Australia/Sydney")
 				prime = Time.now.in_time_zone(zone).prime? ? '*' : ''
@@ -81,6 +81,12 @@ Time = Tells you the time of all the major time zones (* marks current prime tim
 				event.respond "I'm afraid I can't do that."
 
 			end
+
+			if note.include? "speak"
+				text = ["Woof!", "Bark!", "Cluck!", "Woof", "Greetings Human", "Beep Boop", "Bark", "Woof!", "Shut up you Goomba faced idiot or i'll kill you with my nose", "Woof!", "Bark!", "Her name is Caroline", "I dont hate you", "Goodbye now", "Dont get angry, make lemonaid", "This is all your fault", "R2-D2 where are you?", "But Turrner, im just trying to return these hedge clippers... into your face!", "Woof!", "Bark!"]
+				event.respond text[rand(0...text.length)].to_s
+			end
+
 		end
 	end
 
