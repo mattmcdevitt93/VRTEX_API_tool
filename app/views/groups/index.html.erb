@@ -14,6 +14,7 @@
               <th>Name</th>
               <th>Admin?</th>
               <th>Chat Group?</th>
+              <th>Hidden?</th>
               <th>Category</th>
               <th>Notes</th>
               <th colspan="3"></th>
@@ -27,6 +28,7 @@
               <td><%= group.name %></td>
               <td><%= group.is_admin %></td>
               <td><%= group.is_chat_group %></td>
+              <td><%= group.is_hidden %></td>
               <td><%= group.category %></td>
               <td><%= group.note %></td>
               <td><%= link_to 'Member List', group %></td>
@@ -72,48 +74,7 @@
         New Group
       </a>
       <div class="accordion-content new_group" data-tab-content>
-        <%= form_for(@group) do |f| %>
-        <% if @group.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
-
-          <ul>
-            <% @group.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-        <% end %>
-
-        <div class="field columns medium-4">
-          <%= f.label :name %><br>
-          <%= f.text_field :name, :required => 'required' %>
-        </div>
-        <div class="field columns medium-2">
-          <%= f.label :category %><br>
-          <%= f.select :category, [['General','General'],['Special Intrest Group (SIG)','SIG'],['Managment','Managment']] %>
-        </div>
-
-        <div class="field columns medium-3">
-          <%= f.label :chat_group_name %><br>
-          <%= f.text_field :chat_group_name %>
-        </div>
-        <div class="field columns medium-2">
-          <span> Elevated roles <br>
-            <%= f.check_box :is_admin %>
-          </div>
-          <div class="field columns medium-2">
-            <span> Is Chat Group? <br>
-              <%= f.check_box :is_chat_group %>
-            </div>
-            <div class="field columns medium-12">
-              <%= f.label :note %><br>
-              <%= f.text_area :note %>
-            </div>
-            <div class="field columns actions">
-              <%= f.submit %>
-            </div>
-            <% end %>
+      <%= render 'form' %>
           </div>
         </li>
 

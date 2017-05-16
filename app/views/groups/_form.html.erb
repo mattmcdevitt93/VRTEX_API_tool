@@ -1,44 +1,47 @@
-          <%= form_for(@group) do |f| %>
-          <% if @group.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+        <%= form_for(@group) do |f| %>
+        <% if @group.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
 
-            <ul>
-              <% @group.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-              <% end %>
-            </ul>
-          </div>
-          <% end %>
+          <ul>
+            <% @group.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
 
-          <div class="field columns medium-4">
-            <%= f.label :name %><br>
-            <%= f.text_field :name, :required => 'required' %>
-          </div>
-          <div class="field columns medium-2">
-            <%= f.label :category %><br>
-            <%= f.select :category, [['General','General'],['Special Intrest Group (SIG)','SIG'],['Managment','Managment']] %>
-          </div>
+        <div class="field columns medium-4">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, :required => 'required' %>
+        </div>
+        <div class="field columns medium-2">
+          <%= f.label :category %><br>
+          <%= f.select :category, [['General','General'],['Special Intrest Group (SIG)','SIG'],['Managment','Managment']] %>
+        </div>
 
-          <div class="field columns medium-3">
-            <%= f.label :chat_group_name %><br>
-            <%= f.text_field :chat_group_name %>
-          </div>
-          <% if current_user.admin == true %>
-          <div class="field columns medium-2">
-            <span> Elevated roles <br>
+        <div class="field columns medium-3">
+          <%= f.label :chat_group_name %><br>
+          <%= f.text_field :chat_group_name %>
+        </div>
+        <div class="field columns medium-2">
+          <span> Elevated roles
             <%= f.check_box :is_admin %>
+          </span>
+          <br>
+          <span> Hidden roles
+            <%= f.check_box :is_hidden %>
+          </span>
+          <br>
+          <span> Is Chat Group?
+              <%= f.check_box :is_chat_group %>
+          </span>
           </div>
-          <% end %>
-          <div class="field columns medium-2">
-            <span> Is Chat Group? <br>
-            <%= f.check_box :is_chat_group %>
-          </div>
-          <div class="field columns medium-12">
-            <%= f.label :note %><br>
-            <%= f.text_area :note %>
-          </div>
-          <div class="field columns actions">
-            <%= f.submit %>
-          </div>
-          <% end %>
+            <div class="field columns medium-12">
+              <%= f.label :note %><br>
+              <%= f.text_area :note %>
+            </div>
+            <div class="field columns actions">
+              <%= f.submit %>
+            </div>
+            <% end %>

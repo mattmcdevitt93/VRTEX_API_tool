@@ -8,7 +8,7 @@ class MembershipsController < ApplicationController
   def index
     @memberships = Membership.where('user_id' => current_user)
     @membership = Membership.new
-    @groups = Group.all
+    @groups = Group.where('is_hidden' => false)
   end
 
   # GET /memberships/new

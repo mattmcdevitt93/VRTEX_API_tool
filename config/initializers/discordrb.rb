@@ -55,28 +55,42 @@ Time = Tells you the time of all the major time zones (* marks current prime tim
 
 			if note.include? "time"
 
-				zone = ActiveSupport::TimeZone.new("Eastern Time (US & Canada)")
-				prime = Time.now.in_time_zone(zone).prime? ? '*' : ''
-				event.respond "EST" + prime + " - " + Time.now.in_time_zone(zone).to_s
+				est = ActiveSupport::TimeZone.new("Eastern Time (US & Canada)")
+				est_prime = Time.now.in_time_zone(est).prime? ? '*' : ''
+				# event.respond "EST" + prime + " - " + Time.now.in_time_zone(zone).to_s
 
-				zone = ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
-				prime = Time.now.in_time_zone(zone).prime? ? '*' : ''
-				event.respond "PST" + prime + " - " + Time.now.in_time_zone(zone).to_s
+				pst = ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
+				pst_prime = Time.now.in_time_zone(pst).prime? ? '*' : ''
+				# event.respond "PST" + prime + " - " + Time.now.in_time_zone(zone).to_s
 
-				zone = ActiveSupport::TimeZone.new("Etc/UTC")
-				prime = Time.now.in_time_zone(zone).prime? ? '*' : ''
-				event.respond "UTC/EvE" + prime + " - " + Time.now.in_time_zone(zone).to_s
+				utc = ActiveSupport::TimeZone.new("Etc/UTC")
+				utc_prime = Time.now.in_time_zone(utc).prime? ? '*' : ''
+				# event.respond "UTC/EvE" + prime + " - " + Time.now.in_time_zone(zone).to_s
 
-				zone = ActiveSupport::TimeZone.new("Australia/Sydney")
-				prime = Time.now.in_time_zone(zone).prime? ? '*' : ''
-				event.respond "AEST" + prime + " - " + Time.now.in_time_zone(zone).to_s
+				cst = ActiveSupport::TimeZone.new("Asia/Shanghai")
+				cst_prime = Time.now.in_time_zone(cst).prime? ? '*' : ''
 
-				zone = ActiveSupport::TimeZone.new("Europe/Moscow")
-				prime = Time.now.in_time_zone(zone).prime? ? '*' : ''
-				event.respond "MSK" + prime + " - " + Time.now.in_time_zone(zone).to_s
+				aest = ActiveSupport::TimeZone.new("Australia/Sydney")
+				aest_prime = Time.now.in_time_zone(aest).prime? ? '*' : ''
+				# event.respond "AEST" + prime + " - " + Time.now.in_time_zone(zone).to_s
+
+				msk = ActiveSupport::TimeZone.new("Europe/Moscow")
+				msk_prime = Time.now.in_time_zone(msk).prime? ? '*' : ''
+				# event.respond "MSK" + prime + " - " + Time.now.in_time_zone(zone).to_s
+				event.respond "
+				Major Time Zones
+
+				PST" + pst_prime + " - " + Time.now.in_time_zone(pst).to_s + "
+				EST" + est_prime + " - " + Time.now.in_time_zone(est).to_s + "
+				UTC" + utc_prime + " - " + Time.now.in_time_zone(utc).to_s + " (EvE Server time)
+				MSK" + msk_prime + " - " + Time.now.in_time_zone(msk).to_s + "
+				CST" + cst_prime + " - " + Time.now.in_time_zone(cst).to_s + "
+				AEST" + aest_prime + " - " + Time.now.in_time_zone(aest).to_s + "
+				(* marks current prime times)"
+				
 			end
 
-			if note.include? "openthepodbaydoorshal" or note.include? "openthepodbaydoors"
+			if note.include? "openthepodbaydoor"
 				event.respond "I'm sorry, Dave."
 				event.respond "I'm afraid I can't do that."
 
@@ -87,12 +101,15 @@ Time = Tells you the time of all the major time zones (* marks current prime tim
 				event.respond text[rand(0...text.length)].to_s
 			end
 
+			if note.include? "wholivesinapineappleunderthesea"
+				event.respond "Spongebob Squarepants!!!"
+			end
 		end
 	end
 
 	$bot.ready do |event|
-		$bot.game = "Beta version 0.2"
-		# $bot.send_message(ENV["DISCORD_SERVER"], 'Auth-bot is online!', tts = false, embed = nil)
+		$bot.game = "Beta version 0.21"
+		# $bot.send_message(307641304425168896, 'Auth-bot is online!', tts = false, embed = nil)
 	end
 
 	$bot.run :async
