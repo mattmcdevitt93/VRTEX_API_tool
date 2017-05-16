@@ -1,5 +1,7 @@
 class ToolboxController < ApplicationController
 	before_action :admin_check, only: [:log_index, :log_index_events, :dashboard]
+	before_action :valid_check, only: [:temp_broadcast]
+
 
 
 	def log_index
@@ -8,6 +10,24 @@ class ToolboxController < ApplicationController
 
 	def log_index_events
 		@logs = Log.where("event_code != 0").paginate(:page => params[:page], :per_page => 50).order(created_at: :desc)
+	end
+
+	def temp_broadcast
+
+		@input.new
+
+   		if params[:test] == 'true' and current_user.admin == true
+    		Rails.logger.info "Test Function: " + params.to_s
+
+
+#     		$bot.send_message(ENV["DISCORD_DEFAULT_CHANNEL"], '@here
+
+# this is a Test Ping from authbot on a non-default channel
+
+# ' + current_user.primary_character_name.to_s + ' did it.', tts = false, embed = nil)
+    		redirect_to temp_broadcast_path
+   		end
+
 	end
 
 	def log_file
@@ -68,8 +88,6 @@ class ToolboxController < ApplicationController
     		$Discord_bot_active = !$Discord_bot_active
     		redirect_to admin_dashboard_path
    		end
-
-
 	end
 
 	private

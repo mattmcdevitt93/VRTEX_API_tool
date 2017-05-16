@@ -1,7 +1,10 @@
 body {
-	min-width: 1024px !important;
+	min-width: 1200px !important;
 }
 
+a {
+	color: rgba(255, 100, 100, 1) !important;
+}
 
 table tbody td {
 	padding-left: 5px;
@@ -23,6 +26,10 @@ table tbody tr:nth-child(odd):hover  {
   	background-color: #d9d9d9;
 }
 
+h2 {
+	font-family: 'Black Ops One', regular !important;
+}
+
 .hidden {
 	visibility: hidden;
 	display: none;
@@ -38,12 +45,19 @@ table tbody tr:nth-child(odd):hover  {
 	/*position: fixed;*/
 }
 
+.title_card {
+	font-family: 'Black Ops One', regular;
+}
+
 .masthead-buffer {
 	/*height: 60px;*/
 }
 
 .login {
 	padding-left: 10px;
+	height: 60px;
+	padding-right: 50px;
+	background-color: #FFF;
 }
 
 #toolbar {
@@ -57,14 +71,14 @@ table tbody tr:nth-child(odd):hover  {
 
 #toolbar-switch-anchor {
 	height: 60px;
-	padding: 10px;
+	padding: 5px;
 }
 
 #toolbar-switch {
-	width: 40px;
-	height: 40px;
+	width: 50px;
+	height: 50px;
 	background-image: url(tool-toggle.png);
-	background-size: 40px 40px;
+	background-size: 50px 50px;
 }
 
 #validate {
@@ -102,6 +116,7 @@ table tbody tr:nth-child(odd):hover  {
 .badge {
 	margin: 1px;
 	height: 20px;
+	color: #FFF !important; 
 }
 
 .gauge {
@@ -113,7 +128,9 @@ table tbody tr:nth-child(odd):hover  {
 	margin-left: 15px;
 }
 
-
+.button {
+	color: #FFF !important;
+}
 
 .API_border{
 	border-style: solid;
@@ -240,6 +257,10 @@ table tbody tr:nth-child(odd):hover  {
 .discord_images {
 	border: 3px solid #999;
 	margin: 2px;
+}
+
+#dropdown_auth_menu {
+	color: rgba(255, 100, 100, 1) !important;
 }
 
 

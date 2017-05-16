@@ -32,7 +32,6 @@
 </div>
 
 <% if current_user.admin === true %>
-
 <% if $SETTING_REQUIRE_API == false %>
   <% button_class = "alert button float-left has-tip" %>
   <% button_tooltip = "API Validtion is currently Disabled" %>
@@ -43,7 +42,7 @@
 
 <ul class="dropdown vertical menu default float-left" id="validate" data-dropdown-menu>
   <li>
-    <a class="default button float-left hollow">User Validation</a>
+    <a class="alert button float-left hollow" id="dropdown_auth_menu">User Validation</a>
     <ul class="menu">
       <li><%= link_to "EvE Auth Validation", {:controller => "toolbox", :action => "admin_dashboard", :start_task => true }, class: "default float-left", id: "validate" %></li>
       <li><%= link_to "Discord Validation", {:controller => "toolbox", :action => "admin_dashboard", :discord_check => true }, class: "default float-left", id: "validate" %>
@@ -90,7 +89,7 @@
   <% end %>
 
 <% end %>
-<hr>
+<!-- <hr>
 <div class="API_border">
   <strong>Feature Groups</strong> - Work in Progress
-</div>
+</div> -->

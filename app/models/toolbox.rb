@@ -49,7 +49,7 @@ class Toolbox < ActiveRecord::Base
 			else
 				Toolbox.discord_clear_roles(bot, target.discord_user_id)
 			end
-			sleep 2
+			sleep 1
 			Rails.logger.info "===++++++++++++++++++++++++++++==="
 		end
 		# bot.send_message(ENV["DISCORD_SERVER"], 'Discord Bot Action from server - Model Check', tts = false, embed = nil)

@@ -12,7 +12,7 @@ class SrpRequestsController < ApplicationController
   end
 
   def admin_index_all
-    @srp_requests = SrpRequest.all.paginate(:page => params[:page], :per_page => @pages)
+    @srp_requests = SrpRequest.all.paginate(:page => params[:page], :per_page => @pages).order(updated_at: :desc)
   end
 
   def admin_index_pending

@@ -17,7 +17,7 @@
 			<% end %>
 
 			SRP request ID: <%= request.id %> | Ship: <%= request.ship %> | Player: 
-			<%= request.user_name %>
+			<%= request.user_name %> <span class="float-right"><%= request.created_at.strftime("Created at %m/%d/%Y %T")  %></span>
 		</a>
 		<div class="accordion-content" data-tab-content>
 			<%= link_to 'Show Details', request, class: "button float-left srp-button" %>

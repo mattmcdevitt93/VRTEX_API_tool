@@ -1,5 +1,11 @@
 require 'discordrb'
 
+class Time
+  def prime?
+    hour >= 18
+  end
+end
+
 if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_TOKEN"] != nil
 
 	$bot = Discordrb::Commands::CommandBot.new token: ENV["DISCORD_TOKEN"], client_id: ENV["DISCORD_CLIENT"]
@@ -34,12 +40,76 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 
 
 	$bot.mention() do |event|
-		event.respond Time.now.to_s
+		note = event.message.to_s.downcase.gsub!(/\s+/, '')
+		Rails.logger.info "Discord Mention: " + note.to_s
+		if note.to_s.blank? or note.include? "help" or note.include? "list" or note.include? "commands"
+			event.respond "
+
+Bot Command List: 
+
+Help = This is redundant... you just asked for help.
+Time = Tells you the time of all the major time zones (* marks current prime times)
+
+			"
+		else
+
+			if note.include? "time"
+
+				est = ActiveSupport::TimeZone.new("Eastern Time (US & Canada)")
+				est_prime = Time.now.in_time_zone(est).prime? ? '*' : ''
+				# event.respond "EST" + prime + " - " + Time.now.in_time_zone(zone).to_s
+
+				pst = ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
+				pst_prime = Time.now.in_time_zone(pst).prime? ? '*' : ''
+				# event.respond "PST" + prime + " - " + Time.now.in_time_zone(zone).to_s
+
+				utc = ActiveSupport::TimeZone.new("Etc/UTC")
+				utc_prime = Time.now.in_time_zone(utc).prime? ? '*' : ''
+				# event.respond "UTC/EvE" + prime + " - " + Time.now.in_time_zone(zone).to_s
+
+				cst = ActiveSupport::TimeZone.new("Asia/Shanghai")
+				cst_prime = Time.now.in_time_zone(cst).prime? ? '*' : ''
+
+				aest = ActiveSupport::TimeZone.new("Australia/Sydney")
+				aest_prime = Time.now.in_time_zone(aest).prime? ? '*' : ''
+				# event.respond "AEST" + prime + " - " + Time.now.in_time_zone(zone).to_s
+
+				msk = ActiveSupport::TimeZone.new("Europe/Moscow")
+				msk_prime = Time.now.in_time_zone(msk).prime? ? '*' : ''
+				# event.respond "MSK" + prime + " - " + Time.now.in_time_zone(zone).to_s
+				event.respond "
+				Major Time Zones
+
+				PST" + pst_prime + " - " + Time.now.in_time_zone(pst).to_s + "
+				EST" + est_prime + " - " + Time.now.in_time_zone(est).to_s + "
+				UTC" + utc_prime + " - " + Time.now.in_time_zone(utc).to_s + " (EvE Server time)
+				MSK" + msk_prime + " - " + Time.now.in_time_zone(msk).to_s + "
+				CST" + cst_prime + " - " + Time.now.in_time_zone(cst).to_s + "
+				AEST" + aest_prime + " - " + Time.now.in_time_zone(aest).to_s + "
+				(* marks current prime times)"
+				
+			end
+
+			if note.include? "openthepodbaydoor"
+				event.respond "I'm sorry, Dave."
+				event.respond "I'm afraid I can't do that."
+
+			end
+
+			if note.include? "speak"
+				text = ["Woof!", "Bark!", "Cluck!", "Woof", "Greetings Human", "Beep Boop", "Bark", "Woof!", "Shut up you Goomba faced idiot or i'll kill you with my nose", "Woof!", "Bark!", "Her name is Caroline", "I dont hate you", "Goodbye now", "Dont get angry, make lemonaid", "This is all your fault", "R2-D2 where are you?", "But Turrner, im just trying to return these hedge clippers... into your face!", "Woof!", "Bark!"]
+				event.respond text[rand(0...text.length)].to_s
+			end
+
+			if note.include? "wholivesinapineappleunderthesea"
+				event.respond "Spongebob Squarepants!!!"
+			end
+		end
 	end
 
 	$bot.ready do |event|
-		$bot.game = "Alpha version 0.1"
-		$bot.send_message(ENV["DISCORD_SERVER"], 'VRTEX-bot is online!', tts = false, embed = nil)
+		$bot.game = "Beta version 0.21"
+		# $bot.send_message(307641304425168896, 'Auth-bot is online!', tts = false, embed = nil)
 	end
 
 	$bot.run :async

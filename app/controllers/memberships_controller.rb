@@ -8,7 +8,7 @@ class MembershipsController < ApplicationController
   def index
     @memberships = Membership.where('user_id' => current_user)
     @membership = Membership.new
-    @groups = Group.all
+    @groups = Group.where('is_hidden' => false)
   end
 
   # GET /memberships/new
@@ -32,7 +32,7 @@ class MembershipsController < ApplicationController
       return
       end
       if @membership.save
-        format.html { redirect_to memberships_path, notice: 'Membership was successfully created.' }
+        format.html { redirect_to :back, notice: 'Membership was successfully created.' }
         format.json { render :show, status: :created, location: @membership }
       else
         format.html { render :new }

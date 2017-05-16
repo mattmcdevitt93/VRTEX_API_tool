@@ -1,59 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>VRTEXApiTool</title>
+  <title>Manifesto Auth Tool</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <% if ENV["SITE_ICON_URL"] != nil %>
+    <%= favicon_link_tag ENV["SITE_ICON_URL"].to_s %>
+    <Style>
+      #toolbar-switch {
+        background-image: url(<%= ENV["SITE_ICON_URL"] %>) !important;
+      }
+    </Style>
+  <% else %>
+    <%= favicon_link_tag 'tool-toggle.png' %>
+  <% end %>
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
 </head>
 <body>
   <div class='small-12 medium-12 large-12 columns masthead'>
     <div class="float-left" id='toolbar-switch-anchor' >
       <div class='active' id='toolbar-switch' onclick="Module.toolbar_slide(), Module.toolbar_rotate()"></div>
     </div>
-    <h2 class='float-left'><%= link_to 'VRTEX API Tool', root_path %></h2>
-
-    <div class="login float-right">
-      <% if user_signed_in? %>
-      <li>
-        Signed in as <%= current_user.email %>
-      </li>
-      <li>
-        <%= link_to('Edit Account', edit_user_registration_path) %> | <%= link_to('Logout', destroy_user_session_path, :method => :delete) %> | <%= current_user.id %>
-        <% if current_user.admin == true %>
-         Admin
-      <% end %>
-      </li>
+    <h2 class='float-left title_card'>
+      <% if ENV["SITE_NAME"] != nil %>
+      <%= link_to ENV["SITE_NAME"].to_s, root_path %></h2>
       <% else %>
-      <li>
-        <%= link_to('Login', new_user_session_path)  %>  
-      </li>
-      <li>
-        <%= link_to('Sign Up', new_user_registration_path)  %>
-      </li>
+      <%= link_to "VRTEX Auth Tool", root_path %></h2>
       <% end %>
-    </div>
-        <% if user_signed_in? %> 
-          <% identicon_name = User.find(current_user.id) %>
-          <% base64_identicon = RubyIdenticon.create_base64(identicon_name.email) %>
-          <div class='forum-topic-image float-right'>
-            <%= raw "<img src='data:image/png;base64,#{base64_identicon}' style='height: 60px; width: 60px;'>" %>
-          </div>
-        <% end %>
-    <p class='notice float-right' id="notice"><%= notice %></p>
 
-  </div>
+
+
+
+      <div class="login float-right">
+        <% if user_signed_in? %>
+        <li>
+          Signed in as <%= current_user.email %>
+        </li>
+        <li>
+          <%= link_to('Edit Account', edit_user_registration_path) %> | <%= link_to('Logout', destroy_user_session_path, :method => :delete) %> | <%= current_user.id %>
+          <% if current_user.admin == true %>
+          Admin
+          <% end %>
+        </li>
+        <% else %>
+        <li>
+          <%= link_to('Login', new_user_session_path)  %>  
+        </li>
+        <li>
+          <%= link_to('Sign Up', new_user_registration_path)  %>
+        </li>
+        <% end %>
+      </div>
+      <% if user_signed_in? %> 
+      <% identicon_name = User.find(current_user.id) %>
+      <% base64_identicon = RubyIdenticon.create_base64(identicon_name.email) %>
+      <div class='forum-topic-image float-right'>
+        <%= raw "<img src='data:image/png;base64,#{base64_identicon}' style='height: 60px; width: 60px;'>" %>
+      </div>
+      <% end %>
+      <p class='notice float-right' id="notice"><%= notice %></p>
+
+    </div>
 
     <div class='masthead-buffer'></div>
     <div class=''>
-    <% unless current_page?(new_user_session_path) or current_page?(new_user_registration_path) %>
-    <div class='columns float-left' id='toolbar'>
-          <%= render :partial => 'toolbox/toolbar' %>
+      <% unless current_page?(new_user_session_path) or current_page?(new_user_registration_path) %>
+      <div class='columns float-left' id='toolbar'>
+        <%= render :partial => 'toolbox/toolbar' %>
+      </div>
+      <% end %>
+      <div class='medium-9 large-9 columns content align-left float-left' id='yield'>
+        <%= yield %>
+      </div>
     </div>
-    <% end %>
-    <div class='medium-9 large-9 columns content align-left float-left' id='yield'>
-      <%= yield %>
-    </div>
-    </div>
-</body>
-</html>
+  </body>
+  </html>

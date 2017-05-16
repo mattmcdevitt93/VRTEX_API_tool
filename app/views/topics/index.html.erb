@@ -97,16 +97,16 @@
 <hr>
 
 <% if params[:topic_id] != nil %>
-  <%= link_to 'Back to Root', topics_path, class: 'default button float-left' %>
+  <%= link_to 'Back to Root', topics_path, class: 'alert button float-left' %>
 <% end %>
 <% if current_user.admin == true || params[:topic_id] != nil %>
   <% if current_user.admin == true || @topic_id_name.allow_topics == true %>
-    <div class='default button float-left' id='newTopic'>New Topic</div>
+    <div class='alert button float-left' id='newTopic'>New Topic</div>
   <% end %>
 <% end %>
 <% if current_user.admin == true || params[:topic_id] != nil %>
   <% if current_user.admin == true || @topic_id_name.allow_posts == true %>
-    <div class='default button float-left' id='newPost'>New Post</div>
+    <div class='alert button float-left' id='newPost'>New Post</div>
   <% end %>
 <% end %>
 <div class='password_border medium-12 large-12 float-left' id='postform' style="display:none" >

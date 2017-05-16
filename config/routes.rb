@@ -23,7 +23,6 @@ Rails.application.routes.draw do
     get '/log_file' => 'toolbox#log_file'
     get '/dev_notes' => 'toolbox#dev_notes'
     get '/admin_dashboard' => 'toolbox#admin_dashboard'
-
     get '/char_sheet' => 'toolbox#char_sheet'
     get '/recent_topics' => 'topics#recent_topics'
 

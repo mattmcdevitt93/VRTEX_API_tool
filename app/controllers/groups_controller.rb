@@ -7,16 +7,16 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.all.order("id ASC")
     @group = Group.new
-    @membership = Membership.new
+    @members = Membership.new
     @approvals = Membership.where('approved' => false).order("id DESC").limit(5)
-    @users = User.all.order("primary_character_name ASC")
   end
 
   # GET /groups/1
   # GET /groups/1.json
   def show
-    @group = Group.where('id' => params[:id])
-    @members = Membership.where('group_id' => params[:id])
+    @group = Group.find(params[:id])
+    @members = Membership.new
+    @memberships = Membership.where('group_id' => params[:id]).paginate(:page => params[:page], :per_page => 25).order(id: :desc)
   end
 
   # GET /groups/new
@@ -82,6 +82,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:id, :name, :is_admin, :category, :note, :chat_group_name, :is_chat_group)
+      params.require(:group).permit(:id, :name, :is_admin, :category, :note, :chat_group_name, :is_chat_group, :is_hidden)
     end
 end

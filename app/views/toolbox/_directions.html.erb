@@ -1,7 +1,11 @@
   <ul class="accordion" data-accordion data-allow-all-closed="true">
     <li class="accordion-item is-active" data-accordion-item>
       <a href="#" class="accordion-title request-title">
+      <% if ENV["SITE_NAME"] != nil %>
+        <h3>Welcome To the <%= ENV["SITE_NAME"].to_s %></h3>
+      <% else %>
         <h3>Welcome To the VRTEX API Tool</h3>
+      <% end %>
       </a>
       <div class="accordion-content" data-tab-content>
       	<ul>
