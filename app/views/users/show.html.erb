@@ -4,14 +4,25 @@
 
   <table>
     <tr>
-      <td> ID / Email: </td> <td><%= @user.id %> | <strong><"REDACTED"></strong></td>
+      <td> ID / Email: </td> <td><%= @user.id %> |
+      <% if current_user.id == @user.id %>
+      <strong><%= @user.email %></strong>
+      <% else %>
+      <strong><"REDACTED"></strong>
+      <% end %>
+      </td>
     </tr>   
     <tr>
       <td>Key ID: </td> <td><%= @user.key_id %></td>
     </tr>
     <tr>
-      <!-- <td>Verification Code: </td> <td><%= User.decrypt(@user.v_code) %></td> -->
-      <td>Verification Code: </td> <td><strong><"REDACTED"></strong></td>
+      <td>Verification Code: </td> <td>
+      <% if current_user.id == @user.id %>
+      <%= User.decrypt(@user.v_code) %>
+      <% else %>
+      <strong><"REDACTED"></strong>
+      <% end %>
+      </td>
     </tr>
     <tr>
       <td>Character Name : </td> <td><%= @user.primary_character_name %> | <%= @user.primary_character_id %> | <%= @user.primary_character %></td>

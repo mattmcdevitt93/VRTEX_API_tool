@@ -1,3 +1,2 @@
-This is the Branch for the EvE online Alliance Manifesto.
-
 This auth tool is intended to be run on services with heroku.
+
