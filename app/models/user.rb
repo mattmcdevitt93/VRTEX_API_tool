@@ -157,8 +157,15 @@ class User < ActiveRecord::Base
     if Log.last == nil
       Log.create :event_code => 0, :table => "Users", :task_length => "00:00:00", :event => "Validation Task", :details => "New Logs for validation_task"
     end
-    task_start = Time.now
     user = User.all
+    User.validation_check(user, input)
+    Rails.logger.info "=================================="
+    Rails.logger.info "End of API check"
+    Rails.logger.info "=================================="
+  end
+
+  def self.validation_check (user, input)
+    task_start = Time.now
     change = false
     # Task Tracker +1
     user.each do |account|
@@ -255,10 +262,7 @@ class User < ActiveRecord::Base
     end
     User.Admin_initialize
 
-
-    Rails.logger.info "=================================="
-    Rails.logger.info "End of API check"
-    Rails.logger.info "=================================="
   end
+
 
 end
