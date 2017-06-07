@@ -1,0 +1,28 @@
+<p>
+  <strong>Player name:</strong>
+  <%= @blacklist.Player_name %>
+</p>
+
+<p>
+  <strong>Character type:</strong>
+  <%= Blacklist.Type_check(@blacklist.character_type) %>
+
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= Blacklist.Tag_check(@blacklist.tag) %>
+</p>
+
+<p>
+  <strong>Reason:</strong>
+  <%= @blacklist.reason %>
+</p>
+
+<p>
+  <strong>Reporter:</strong>
+  <%= User.find(@blacklist.reporter_id).primary_character_name %>
+</p>
+
+<%= link_to 'Edit', edit_blacklist_path(@blacklist) %> |
+<%= link_to 'Back', blacklists_path %>

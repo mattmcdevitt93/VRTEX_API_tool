@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170514212100) do
+ActiveRecord::Schema.define(version: 20170603175447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "blacklists", force: :cascade do |t|
+    t.string   "Player_name"
+    t.boolean  "character_type"
+    t.integer  "tag"
+    t.string   "reason"
+    t.integer  "reporter_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name",       null: false
@@ -35,6 +45,7 @@ ActiveRecord::Schema.define(version: 20170514212100) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.boolean  "is_hidden"
+    t.boolean  "is_director"
   end
 
   create_table "logs", force: :cascade do |t|
@@ -129,6 +140,7 @@ ActiveRecord::Schema.define(version: 20170514212100) do
     t.string   "primary_timezone"
     t.datetime "character_cake_day"
     t.string   "discord_user_id"
+    t.boolean  "director",               default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

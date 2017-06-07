@@ -26,14 +26,14 @@
 	<td class='toolbar-row'><%= link_to 'Memberships', memberships_path %></td>
 	</tr>
 	<tr>
-	<td class='toolbar-row'><%= link_to 'Forum', topics_path(:topic_id => nil) %></td>
+	<td class='toolbar-row'><%= link_to 'Bullitens', topics_path(:topic_id => nil) %></td>
 	</tr>
 	<tr>
 	<td class='toolbar-row'>.</td>
 	</tr>
 	<% end %>
 
-	<% if current_user.admin == true %>
+	<% if current_user.admin == true || current_user.director == true %>
 	<tr>
 	<td class='toolbar-row'><b>Director Tools</b></td>
 	</tr>
@@ -44,11 +44,13 @@
 	<td class='toolbar-row'><%= link_to 'Group Managment', groups_path %></td>
 	</tr>
 	<tr>
-	<td class='toolbar-row'><%= link_to 'Blacklist (WIP)' %></td>
+	<td class='toolbar-row'><%= link_to 'Blacklist', blacklists_path %></td>
 	</tr>
 	<tr>
 	<td class='toolbar-row'><b>.</b></td>
 	</tr>
+	<% end %>
+	<% if current_user.admin == true %>
 	<tr>
 	<td class='toolbar-row'><b>Admin Tools</b></td>
 	</tr>
@@ -66,9 +68,6 @@
 	<!-- </tr> -->
 	<tr>
 	<td class='toolbar-row'>.</td>
-	</tr>
-	<tr>
-	<td class='toolbar-row'>Bullitens</td>
 	</tr>
 	<tr>
 	<td class='toolbar-row'>After Action Reports</td>

@@ -108,7 +108,7 @@ Time = Tells you the time of all the major time zones (* marks current prime tim
 	end
 
 	$bot.ready do |event|
-		$bot.game = "Beta version 0.21"
+		$bot.game = "Beta version 0.22"
 		# $bot.send_message(307641304425168896, 'Auth-bot is online!', tts = false, embed = nil)
 	end
 

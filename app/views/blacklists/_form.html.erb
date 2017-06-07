@@ -1,0 +1,28 @@
+<div class='row'>
+  <div class="columns">
+
+    <%= form_for(@blacklist) do |f| %>
+    <div class="field medium-12 float-left">
+      <strong>Player name</strong> (this must be the exact name)
+      <%= f.text_field :Player_name %>
+    </div>
+    <div class="field medium-5 float-left">
+      <strong>Main / Alt</strong>
+      <%= f.select :character_type, [["Main",true], ["Alt",false]] %>
+    </div>
+    <div class="field medium-5 float-right">
+      <strong>Tag</strong>
+      <%= f.select :tag, [["Spai",1], ["Corp Hopping / kicked",2], ["Denied Appliction",3], ["Other",0]] %>
+    </div>
+    <div class="field medium-12 float-left">
+      <strong>Reason</strong>
+      <%= f.text_area :reason %>
+    </div>
+    <%= f.hidden_field :reporter_id, value: current_user.id  %>
+    <div class="actions float-left">
+      <%= f.submit "Submit", :class => "alert button" %>
+      <%= link_to 'Back', blacklists_path, :class => "alert button" %>
+    </div>
+    <% end %>
+  </div>
+</div>

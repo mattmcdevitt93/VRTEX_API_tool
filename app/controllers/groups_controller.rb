@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
-  before_action :admin_check, only: [:index, :show, :create, :update, :destroy]
+  before_action :director_check
+  before_action :admin_check, only: [:create, :destroy]
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :clear_members, only: [:destroy]
   # GET /groups
@@ -32,7 +33,6 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new(group_params)
-
     respond_to do |format|
       if @group.save
         format.html { redirect_to :back, notice: 'Group was successfully created.' }
@@ -77,11 +77,10 @@ class GroupsController < ApplicationController
     def clear_members
       Membership.where(group_id: params[:id]).destroy_all
       Rails.logger.info "Clear All Members - " + params[:id]
-
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:id, :name, :is_admin, :category, :note, :chat_group_name, :is_chat_group, :is_hidden)
+      params.require(:group).permit(:id, :name, :category, :note, :chat_group_name, :is_chat_group, :is_admin, :is_hidden, :is_director)
     end
 end

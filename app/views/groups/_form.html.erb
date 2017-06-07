@@ -25,8 +25,12 @@
           <%= f.text_field :chat_group_name %>
         </div>
         <div class="field columns medium-2">
-          <span> Elevated roles
+          <span> Admin roles
             <%= f.check_box :is_admin %>
+          </span>
+          <br>
+          <span> Director roles
+            <%= f.check_box :is_director %>
           </span>
           <br>
           <span> Hidden roles

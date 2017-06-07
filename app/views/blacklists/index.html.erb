@@ -1,0 +1,33 @@
+<h2>Player Blacklist</h2>
+
+<%= link_to 'New Entry', new_blacklist_path, class: "alert button float-left" %>
+
+<table class='sortable'>
+  <thead>
+    <tr>
+      <th>Player name</th>
+      <th>Character type</th>
+      <th>Tag</th>
+      <th>Reason</th>
+      <th>Reporter</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @blacklists.each do |blacklist| %>
+      <tr>
+        <td><%= link_to blacklist.Player_name, blacklist %></td>
+        <td><%= Blacklist.Type_check(blacklist.character_type) %></td>
+        <td><%= Blacklist.Tag_check(blacklist.tag) %></td>
+        <td><%= blacklist.reason.truncate(50, separator: ' ') %></td>
+        <td><%= User.find(blacklist.reporter_id).primary_character_name %></td>
+        <td><%= link_to 'Edit', edit_blacklist_path(blacklist), class: "warning button button_margin float-left" %>
+        <%= link_to 'Destroy', blacklist, method: :delete, data: { confirm: 'Are you sure?' }, class: "alert button button_margin float-left" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

@@ -8,6 +8,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def director_check
+    if current_user.director == false && current_user.admin == false
+      redirect_to :root
+    end
+  end
+
   def valid_check
     if current_user.valid_api == false
       if current_user.admin == false
@@ -22,6 +28,6 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     # devise_parameter_sanitizer.permit(:sign_up, keys: [:v_code, :key_id])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:v_code, :key_id, :primary_character, :discord_user_id, :valid_api, :primary_character_name, :admin, :primary_timezone, :character_cake_day])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:v_code, :key_id, :primary_character, :discord_user_id, :valid_api, :primary_character_name, :admin, :director, :primary_timezone, :character_cake_day])
   end
 end

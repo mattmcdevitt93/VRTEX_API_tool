@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Player_name: MyString
+  character_type: false
+  tag: 1
+  reason: MyString
+  reporter_id: 1
+
+two:
+  Player_name: MyString
+  character_type: false
+  tag: 1
+  reason: MyString
+  reporter_id: 1

@@ -7,12 +7,13 @@
       <div class="accordion-content" data-tab-content>
 
         <h3>User Groups</h3>
-        <table class='medium-12'>
+        <table class='medium-12 sortable'>
           <thead>
             <tr>
               <th>ID</th>
               <th>Name</th>
               <th>Admin?</th>
+              <th>Director?</th>
               <th>Chat Group?</th>
               <th>Hidden?</th>
               <th>Category</th>
@@ -27,6 +28,7 @@
               <td><%= group.id %></td>
               <td><%= group.name %></td>
               <td><%= group.is_admin %></td>
+              <td><%= group.is_director %></td>
               <td><%= group.is_chat_group %></td>
               <td><%= group.is_hidden %></td>
               <td><%= group.category %></td>

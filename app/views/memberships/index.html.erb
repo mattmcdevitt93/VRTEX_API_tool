@@ -1,6 +1,6 @@
 <h2>My Active Groups</h2>
 
-<table>
+<table class='sortable'>
   <thead>
     <tr>
       <th colspam="1"></th>
@@ -28,7 +28,7 @@
           <% end %>
         </td>
         <!-- <td><%= membership.group_id %></td> -->
-        <td><%= membership.approved %></td>
+        <td><%= Membership.approve_check(membership.approved) %></td>
         <% if membership.approved === true %>
         <td><%= link_to 'Quit Group', membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>

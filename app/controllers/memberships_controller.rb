@@ -27,9 +27,21 @@ class MembershipsController < ApplicationController
 
     @membership = Membership.new(membership_params)
     respond_to do |format|
+
+      # Prevent issues with Nil Entries
       if @membership.group_id === nil
-      redirect_to memberships_path, notice: 'You must apply for a group.'
-      return
+        redirect_to memberships_path, notice: 'You must apply for a group.'
+        return
+      end
+      # Check for Duplicates
+      if Membership.where('user_id' => current_user, 'group_id' => @membership.group_id).any? == true
+        redirect_to :back, notice: 'Update Denied: duplicate entry'
+        return
+      end
+      # Check for higher roles
+      if Membership.admin_approval_check(@membership.group_id, current_user) == false
+        redirect_to :back, notice: 'Update Denied: Insufficent roles'
+        return
       end
       if @membership.save
         format.html { redirect_to :back, notice: 'Membership was successfully created.' }
@@ -44,6 +56,10 @@ class MembershipsController < ApplicationController
   # PATCH/PUT /memberships/1
   # PATCH/PUT /memberships/1.json
   def update
+    if Membership.admin_approval_check(@membership.group_id, current_user) == false
+      redirect_to :back, notice: 'Update Denied: Insufficent roles'
+      return
+    end
     respond_to do |format|
       if @membership.update(membership_params)
         format.html { redirect_to :back, notice: 'Membership was successfully updated.' }
@@ -66,6 +82,7 @@ class MembershipsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_membership
       @membership = Membership.find(params[:id])
@@ -73,10 +90,10 @@ class MembershipsController < ApplicationController
 
     def set_pages
      @pages = 10
-    end
+   end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def membership_params
       params.require(:membership).permit(:user_id, :group_id, :approved)
     end
-end
+  end

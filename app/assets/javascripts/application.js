@@ -16,6 +16,7 @@
 
 //= require what-input
 //= require foundation
+//= require sorttable
 
 //= require app
 //= require_tree .

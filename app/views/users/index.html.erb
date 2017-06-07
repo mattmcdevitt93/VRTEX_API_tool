@@ -21,7 +21,7 @@
 		<% end %>
 		<%= user.id %> - 
 		<% if user.primary_character_name != nil %>
-		<%= user.primary_character_name %> <% if user.admin == true %>*<% end %>
+		<%= user.primary_character_name %> <% if user.admin == true %>*<% elsif user.director == true %>^<% end %>
 		<% else %>
 		<%= user.email %> <% if user.admin == true %>*<% end %>
 		<% end %>

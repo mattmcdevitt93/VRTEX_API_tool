@@ -1,5 +1,5 @@
 class SrpRequestsController < ApplicationController
-  before_action :admin_check, only: [:admin_index_all, :admin_index_pending, :admin_index_flagged, :destroy]
+  before_action :director_check, only: [:admin_index_all, :admin_index_pending, :admin_index_flagged, :destroy]
   before_action :valid_check
   before_action :set_srp_request, only: [:show, :edit, :update, :destroy]
   before_action :set_pages

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   
+  resources :blacklists
   resources :posts
     resources :topics
     resources :memberships
