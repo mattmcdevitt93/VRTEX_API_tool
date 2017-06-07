@@ -26,7 +26,7 @@
 	<td class='toolbar-row'><%= link_to 'Memberships', memberships_path %></td>
 	</tr>
 	<tr>
-	<td class='toolbar-row'><%= link_to 'Bullitens', topics_path(:topic_id => nil) %></td>
+	<td class='toolbar-row'><%= link_to 'Bulletins', topics_path(:topic_id => nil) %></td>
 	</tr>
 	<tr>
 	<td class='toolbar-row'>.</td>
@@ -41,7 +41,7 @@
 	<td class='toolbar-row'><%= link_to 'SRP managment', admin_index_pending_path %></td>
 	</tr>
 	<tr>
-	<td class='toolbar-row'><%= link_to 'Group Managment', groups_path %></td>
+	<td class='toolbar-row'><%= link_to 'Group Approvals', full_index_path %></td>
 	</tr>
 	<tr>
 	<td class='toolbar-row'><%= link_to 'Blacklist', blacklists_path %></td>
@@ -53,6 +53,9 @@
 	<% if current_user.admin == true %>
 	<tr>
 	<td class='toolbar-row'><b>Admin Tools</b></td>
+	</tr>
+	<tr>
+	<td class='toolbar-row'><%= link_to 'Group Managment', groups_path %></td>
 	</tr>
 	<tr>
 	<td class='toolbar-row'><%= link_to 'Admin Dashboard', admin_dashboard_path %></td>

@@ -123,7 +123,7 @@ class SrpRequestsController < ApplicationController
     end
 
     def set_pages
-      @pages = 10
+      @pages = 25
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

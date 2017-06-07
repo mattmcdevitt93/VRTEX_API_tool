@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :director_check
-  before_action :admin_check, only: [:create, :destroy]
+  before_action :admin_check, only: [:index, :show, :create, :destroy]
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :clear_members, only: [:destroy]
   # GET /groups
