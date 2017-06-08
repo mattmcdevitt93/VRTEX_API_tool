@@ -39,7 +39,7 @@ class MembershipsController < ApplicationController
         return
       end
       # Check for higher roles
-      if Membership.admin_approval_check(@membership.group_id, current_user) == false || @membership.approved == true
+      if Membership.admin_approval_check(@membership.group_id, current_user) == false && @membership.approved == true
         redirect_to :back, notice: 'Update Denied: Insufficent roles'
         return
       end
