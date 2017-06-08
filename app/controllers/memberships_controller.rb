@@ -38,11 +38,6 @@ class MembershipsController < ApplicationController
         redirect_to :back, notice: 'Update Denied: duplicate entry'
         return
       end
-      # Check for higher roles
-      if Membership.admin_approval_check(@membership.group_id, current_user) == false && @membership.approved == true
-        redirect_to :back, notice: 'Update Denied: Insufficent roles'
-        return
-      end
       if @membership.save
         format.html { redirect_to :back, notice: 'Membership was successfully created.' }
         format.json { render :show, status: :created, location: @membership }
