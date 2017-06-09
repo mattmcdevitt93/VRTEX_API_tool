@@ -199,16 +199,18 @@ class User < ActiveRecord::Base
         begin
           profile = EveOnline::Account::Characters.new(account.key_id, User.decrypt(account.v_code))
 
-          if  account.primary_character_id == nil
-            character = profile.characters[account.primary_character]
-          else 
-            for i in 0..(profile.characters.length - 1) do
-              char_id = profile.characters[i].character_id
-              if account.primary_character_id == char_id
-                character = profile.characters[i]
-              end
-            end
-          end
+          # if  account.primary_character_id == nil
+          #   character = profile.characters[account.primary_character]
+          # else 
+          #   for i in 0..(profile.characters.length - 1) do
+          #     char_id = profile.characters[i].character_id
+          #     if account.primary_character_id == char_id
+          #       character = profile.characters[i]
+          #     end
+          #   end
+          # end
+
+          character = profile.characters[account.primary_character]
 
           standing = User.standing_check(character, Contact.all)
 
@@ -260,10 +262,16 @@ class User < ActiveRecord::Base
 
       # Update character name if it is not nil or change
       if character != nil
-        Rails.logger.info 'Name:' + account.primary_character_name.to_s
+        Rails.logger.info 'Name: ' + account.primary_character_name.to_s + " | " + character.character_name.to_s
+        Rails.logger.info 'character_id: ' + account.primary_character_id.to_s + " | " + character.character_id.to_s
+
         if account.primary_character_name == nil || account.primary_character_name == "" || account.primary_character_name != character.character_name
               Rails.logger.info 'Name update'
               account.update(primary_character_name: character.character_name)
+        end
+        if account.primary_character_id != character.character_id
+              Rails.logger.info 'Character ID update'
+              account.update(primary_character_id: character.character_id)
         end
       end
 

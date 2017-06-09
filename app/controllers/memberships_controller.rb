@@ -1,7 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
   before_action :valid_check
-  before_action :set_pages
 
   # GET /memberships
   # GET /memberships.json
@@ -18,7 +17,7 @@ class MembershipsController < ApplicationController
   end
 
   def full_index
-    @approvals = Membership.where('approved' => false).paginate(:page => params[:page], :per_page => @pages)
+    @approvals = Membership.where('approved' => false).paginate(:page => params[:page], :per_page => 25)
   end
 
   # POST /memberships
@@ -34,7 +33,7 @@ class MembershipsController < ApplicationController
         return
       end
       # Check for Duplicates
-      if Membership.where('user_id' => current_user, 'group_id' => @membership.group_id).any? == true
+      if Membership.where('user_id' => @membership.user_id, 'group_id' => @membership.group_id).any? == true
         redirect_to :back, notice: 'Update Denied: duplicate entry'
         return
       end
@@ -82,10 +81,6 @@ class MembershipsController < ApplicationController
     def set_membership
       @membership = Membership.find(params[:id])
     end
-
-    def set_pages
-     @pages = 10
-   end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def membership_params

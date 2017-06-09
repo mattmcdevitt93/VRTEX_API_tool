@@ -17,13 +17,13 @@
 	</tr>
 	<% if current_user.valid_api == true || current_user.admin == true %>
 	<tr>
+	<td class='toolbar-row'><%= link_to 'Memberships', memberships_path %></td>
+	</tr>
+	<tr>
 	<td class='toolbar-row'><%= link_to 'Active Timers', timesheets_path %></td>
 	</tr>
 	<tr>
 	<td class='toolbar-row'><%= link_to 'SRP Requests', srp_requests_path %></td>
-	</tr>
-	<tr>
-	<td class='toolbar-row'><%= link_to 'Memberships', memberships_path %></td>
 	</tr>
 	<tr>
 	<td class='toolbar-row'><%= link_to 'Bulletins', topics_path(:topic_id => nil) %></td>

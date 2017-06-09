@@ -1,16 +1,4 @@
-<div>
-	<% if current_user.blank? == false %>
-		<% if current_user.valid_api == true && current_user.discord_user_id.blank? == false %>
-			Everything is right in the world - API complete
-			<% elsif current_user.valid_api == false and current_user.v_code != nil && current_user.key_id != nil %>
-			Select Primary Character - <%= link_to('Account Details', edit_user_registration_path) %>
-			<% elsif current_user.v_code == nil && current_user.key_id == nil %>
-			Requires API Key - <%= link_to('Account Details', edit_user_registration_path) %>
-			<% elsif current_user.valid_api == true && current_user.discord_user_id.blank? == true %>
-			Discord ID Required for chat access - <%= link_to('Account Details', edit_user_registration_path) %>
-		<% end %>
-	<% end %>
-</div>
+<%= render 'toolbox/guide_bar' %>
 <% if current_user.blank? == false %>
 <%= render 'toolbox/directions' %>
 <% end %>

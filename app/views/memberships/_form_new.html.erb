@@ -1,0 +1,22 @@
+<ul class="accordion" data-accordion data-allow-all-closed="true">
+
+  <% @groups.each do |group| %>
+
+    <li class="accordion-item srp_item" data-accordion-item>
+    <a href="#" class="accordion-title">
+      <strong>Group: </strong><%= group.name.to_s %>
+    </a>
+    <div class="accordion-content" data-tab-content>
+      <%= form_for(@membership) do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :approved?, value: false %>
+        <%= f.hidden_field :group_id, value: group.id %>
+        <%= group.note %>
+        <hr>
+      <div class="actions">
+        <%= f.submit "Apply to Group", :class => "alert button"%>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+</ul>

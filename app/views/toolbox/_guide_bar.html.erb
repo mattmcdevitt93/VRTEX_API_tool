@@ -1,0 +1,26 @@
+<div class='warning_border'>
+	<strong>Account Set up Progress: </strong>
+	<% if current_user.blank? == false %>
+		<% if current_user.valid_api == true && current_user.discord_user_id.blank? == false %>
+			Everything is right in the world - API complete
+				<div class="success progress" role="progressbar">
+				  <div class="progress-meter" style="width: 100%"></div>
+				</div>
+		<% elsif current_user.v_code == nil && current_user.key_id == nil %>
+			Requires API Key - <%= link_to('Account Details', edit_user_registration_path) %>
+				<div class="warning progress" role="progressbar">
+				  <div class="progress-meter" style="width: 15%"></div>
+				</div>
+		<% elsif current_user.valid_api == false && current_user.v_code != nil && current_user.key_id != nil %>
+			Select Valid Primary Character - <%= link_to('Account Details', edit_user_registration_path) %>
+				<div class="warning progress" role="progressbar">
+				  <div class="progress-meter" style="width: 50%"></div>
+				</div>
+		<% elsif current_user.valid_api == true && current_user.discord_user_id.blank? == true %>
+			Discord ID Required for chat access - <%= link_to('Account Details', edit_user_registration_path) %>"
+				<div class="warning progress" role="progressbar">
+				  <div class="progress-meter" style="width: 75%"></div>
+				</div>
+		<% end %>
+	<% end %>
+</div>
