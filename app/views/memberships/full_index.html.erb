@@ -1,6 +1,7 @@
-Full Membership list | <%= will_paginate @approvals %>
+<h2>Full Membership list</h2>
+<%= will_paginate @approvals %>
 
-<hr>
+<!-- <hr>
 <% @approvals.each do |approval| %>
 <% @group_name = Group.where('id' => approval.group_id) %>
 <b>Requested Group: </b>
@@ -17,7 +18,7 @@ Full Membership list | <%= will_paginate @approvals %>
 <% end %>
 <%= link_to 'Deny', approval, method: :delete, data: { confirm: 'Are you sure?' },:class => 'alert button float-left' %>
 <hr>
-<% end %>
+<% end %> -->
 
 <ul class="accordion" data-accordion data-allow-all-closed="true">
 
@@ -31,7 +32,11 @@ Full Membership list | <%= will_paginate @approvals %>
     	<strong>Submitted at: </strong><<%= approval.created_at %>
 
     </a>
-    <div class="accordion-content" data-tab-content>
-
+    <div class="accordion-content membership-application" data-tab-content>
+        <%= form_for(approval) do |f| %>
+        <%= f.hidden_field :approved, value: true %>
+        <%= f.submit "Approve" ,:class => 'success button float-left' %>
+        <% end %>
+        <%= link_to 'Deny', approval, method: :delete, data: { confirm: 'Are you sure?' },:class => 'alert button float-left' %>
     </div>
   <% end %>
