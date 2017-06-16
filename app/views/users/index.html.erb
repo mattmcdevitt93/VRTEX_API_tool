@@ -7,28 +7,59 @@
 <%= will_paginate @user, class: "float-right" %>
 
 
-<div class='index_content'>
+<!-- <div class='index_content'>
 	<% @user.each do |user| %>
-		<% if user.valid_api == true %>
-			<div id="<%= user.id %>" class='index_entry valid'>
-			<span class="success badge" title="Valid API">V</span>
+	<% if user.valid_api == true %>
+	<div id="<%= user.id %>" class='index_entry valid'>
+		<span class="success badge" title="Valid API">V</span>
 		<% elsif user.valid_api == false and (user.v_code == "" and user.key_id == "") or (user.v_code == nil and user.key_id == nil) %>
-			<div id="<%= user.id %>" class='index_entry error'>
+		<div id="<%= user.id %>" class='index_entry error'>
 			<span class="alert badge error" title="Error - No API Key">E</span>
-		<% else %>
+			<% else %>
 			<div id="<%= user.id %>" class='index_entry warning'>
-			<span class="warning badge warningplete" title="Warning - Standing Error or Invalid Key">S</span>
-		<% end %>
-		<%= user.id %> - 
-		<% if user.primary_character_name != nil %>
-		<%= user.primary_character_name %> <% if user.admin == true %>*<% elsif user.director == true %>^<% end %>
-		<% else %>
-		<%= user.email %> <% if user.admin == true %>*<% end %>
-		<% end %>
-		<span class="float-right">
+				<span class="warning badge warningplete" title="Warning - Standing Error or Invalid Key">S</span>
+				<% end %>
+				<%= user.id %> - 
+				<% if user.primary_character_name != nil %>
+				<%= user.primary_character_name %> <% if user.admin == true %>*<% elsif user.director == true %>^<% end %>
+				<% else %>
+				<%= user.email %> <% if user.admin == true %>*<% end %>
+				<% end %>
+				<span class="float-right">
 
-		  |<%= link_to 'User Profile', user %>
-		  </span>
-	</div>
+					|<%= link_to 'User Profile', user %>
+				</span>
+			</div>
 	<% end %>
-</div>
+</div> -->
+<hr>
+<ul class="accordion" data-accordion data-allow-all-closed="true">
+
+	<% @user.each do |user| %>
+
+	<li class="accordion-item srp_item index_entry warning" id="<%= user.id %>" data-accordion-item>
+		<a href="#" class="accordion-title">
+			<% if user.valid_api == true %>
+			<span class="success badge" title="Valid API">V</span>
+			<% elsif user.valid_api == false and (user.v_code == "" and user.key_id == "") or (user.v_code == nil and user.key_id == nil) %>
+			<span class="alert badge" title="Error - No API Key">E</span>
+			<% else %>
+			<span class="warning badge" title="Warning - Standing Error or Invalid Key">S</span>
+			<% end %>
+			<strong>User:
+				<%= user.id %> - 
+				<% if user.primary_character_name != nil %>
+				<%= user.primary_character_name %> <% if user.admin == true %>*<% elsif user.director == true %>^<% end %>
+				<% else %>
+				<%= user.email %> <% if user.admin == true %>*<% end %>
+				<% end %>
+
+			</strong>
+		</a>
+		<div class="accordion-content" data-tab-content>
+			<%= link_to 'User Profile', user, :class => "alert button" %>
+		</div>
+	</li>
+
+	<% end %>
+</ul>

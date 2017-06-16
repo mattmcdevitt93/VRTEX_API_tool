@@ -5,7 +5,7 @@
 <%= render 'add_user' %>
 </div>
 
-<div class='row'>
+<!-- <div class='row'>
 
 <% @memberships.each do |member| %>
 	<% if member.approved == true %>
@@ -34,5 +34,39 @@
 	<% end %>
 <% end %>
 </div>
+
+<hr> -->
+<ul class="accordion" data-accordion data-allow-all-closed="true">
+
+<% @memberships.each do |member| %>
+	<% if member.approved == true %>
+		<% user = User.find(member.user_id) %>
+
+	<li class="accordion-item srp_item index_entry warning" id="<%= user.id %>" data-accordion-item>
+		<a href="#" class="accordion-title">
+			<% if user.valid_api == true %>
+			<span class="success badge" title="Valid API">V</span>
+			<% elsif user.valid_api == false and (user.v_code == "" and user.key_id == "") or (user.v_code == nil and user.key_id == nil) %>
+			<span class="alert badge" title="Error - No API Key">E</span>
+			<% else %>
+			<span class="warning badge" title="Warning - Standing Error or Invalid Key">S</span>
+			<% end %>
+			<strong>User:
+				<%= user.id %> - 
+				<% if user.primary_character_name != nil %>
+				<%= user.primary_character_name %> <% if user.admin == true %>*<% elsif user.director == true %>^<% end %>
+				<% else %>
+				<%= user.email %> <% if user.admin == true %>*<% end %>
+				<% end %>
+
+			</strong>
+		</a>
+		<div class="accordion-content" data-tab-content>
+			<%= link_to 'User Profile', user_path(:id => member.user_id), :class => "alert button" %><%= link_to 'Remove From Group', member, method: :delete, data: { confirm: 'Are you sure?' }, :class => "alert button" %>
+		</div>
+	</li>
+	<% end %>
+<% end %>
+</ul>
 
 

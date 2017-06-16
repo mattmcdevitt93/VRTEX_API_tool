@@ -1,9 +1,9 @@
 require 'discordrb'
 
 class Time
-  def prime?
-    hour >= 18
-  end
+	def prime?
+		hour >= 18
+	end
 end
 
 if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_TOKEN"] != nil
@@ -45,10 +45,10 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 		if note.to_s.blank? or note.include? "help" or note.include? "list" or note.include? "commands"
 			event.respond "
 
-Bot Command List: 
+			Bot Command List: 
 
-Help = This is redundant... you just asked for help.
-Time = Tells you the time of all the major time zones (* marks current prime times)
+			Help = This is redundant... you just asked for help.
+			Time = Tells you the time of all the major time zones (* marks current prime times)
 
 			"
 		else
@@ -104,13 +104,53 @@ Time = Tells you the time of all the major time zones (* marks current prime tim
 			if note.include? "wholivesinapineappleunderthesea"
 				event.respond "Spongebob Squarepants!!!"
 			end
+
+			# if note.include? "cookie"
+			# 	Metric_create(event, note)
+			# end
 		end
 	end
 
+	# $bot.message(contains: 'cookie') do |event|
+	# 	note = event.message.to_s.downcase.gsub!(/\s+/, '')
+	# 	Metric_create(event, note)
+	# end
+
 	$bot.ready do |event|
-		$bot.game = "Beta version 0.22"
+		$bot.game = "Beta version 0.24"
 		# $bot.send_message(307641304425168896, 'Auth-bot is online!', tts = false, embed = nil)
 	end
 
 	$bot.run :async
+end
+
+def Metric_create (event, note)
+	Rails.logger.info "Metrics Create"
+	note_unfiltred = event.message.to_s
+	event.respond "Gib cookie"
+	@author = User.where('discord_user_id' => event.author.id)
+	Rails.logger.info "Discord Mention: Cookie Metric 1: " + @author[0].email.to_s + " | " + @author[0].discord_user_id.to_s
+	@user_ids = note.scan(/(\d{18})/)
+	@author_id = @author[0].discord_user_id
+				# @users_parsed
+				@note = note_unfiltred.scan(/"([^"]*)"/)
+				player_names = note_unfiltred.scan(/(\(.*?\))/)
+				player_names = player_names.to_s.gsub(/[()]/, "")
+				Rails.logger.info @user_ids.to_s
+				@users_filtred = []
+				Rails.logger.info "==============================="
+				@user_ids.each do |x|
+					check = false
+					if x[0].to_s == @author_id.to_s || x[0].to_s == ENV["DISCORD_CLIENT"].to_s
+						check = true
+					else 
+						@users_filtred.push(x[0])
+					end
+					Rails.logger.info "Check: " + x[0].to_s + " | " + ENV["DISCORD_CLIENT"].to_s + " : " + @author_id.to_s + " | " + check.to_s
+				end
+				@users_filtred = @users_filtred.uniq
+				Rails.logger.info "==============================="
+				Rails.logger.info "Users: " + @users_filtred.to_s + " " + player_names.to_s + " | Bot: " + ENV["DISCORD_CLIENT"].to_s + " | " + @note.to_s
+
+
 end
