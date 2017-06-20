@@ -185,6 +185,18 @@ class User < ActiveRecord::Base
     return blacklist
   end
 
+  def self.ticker_update (user, corp_id)
+      Rails.logger.info "ticker_update: " + corp_id.to_s
+      url = "https://esi.tech.ccp.is/latest/corporations/" + corp_id.to_s + "/?datasource=tranquility"
+      open(url.to_s) {|f|
+        f.each_line {|line|
+        ticker = line.split[3].scan(/\w+|\-+|\.+/)[0].to_s
+        Rails.logger.info "ESI: " + ticker
+        user.update(corp_ticker: ticker.to_s)
+        }
+      }
+  end
+
   def self.validation_check (user, input)
     task_start = Time.now
     change = false
@@ -286,8 +298,10 @@ class User < ActiveRecord::Base
         l = Log.create :event_code => 1, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s
         $Log_count = 0
         # @Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | " + input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s)
+        User.ticker_update(account, character.corporation_id)
       end
       # Check User groups and apply Admin and Director
+
       User.Admin_check_groups(account.id)
     end
 

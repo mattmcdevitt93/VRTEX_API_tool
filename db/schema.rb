@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603175447) do
+ActiveRecord::Schema.define(version: 20170620215220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,12 +93,12 @@ ActiveRecord::Schema.define(version: 20170603175447) do
   create_table "timesheets", force: :cascade do |t|
     t.string   "event"
     t.datetime "event_time"
-    t.integer  "event_type"
     t.integer  "user_id"
     t.integer  "urgency"
     t.string   "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "event_type"
   end
 
   create_table "topics", force: :cascade do |t|
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 20170603175447) do
     t.datetime "character_cake_day"
     t.string   "discord_user_id"
     t.boolean  "director",               default: false
+    t.string   "corp_ticker"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

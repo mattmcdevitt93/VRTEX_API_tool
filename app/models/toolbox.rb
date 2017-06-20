@@ -46,6 +46,10 @@ class Toolbox < ActiveRecord::Base
 							Rails.logger.info "Discord_check - Role Error"
 						end
 					end
+
+					if $Discord_name_overwrite == true
+						Toolbox.discord_name_check(bot, target)
+					end
 			else
 				Toolbox.discord_clear_roles(bot, target.discord_user_id)
 			end
@@ -57,6 +61,28 @@ class Toolbox < ActiveRecord::Base
 		# discord_user_id
 			Rails.logger.info "===    End of Discord Bot      ==="
 			Rails.logger.info "===++++++++++++++++++++++++++++==="
+	end
+
+	def self.discord_name_check (bot, user_id)
+		user = bot.servers[ENV["DISCORD_SERVER"].to_i].members.find {|s| s.id == user_id.discord_user_id.to_i}
+		user_nickname = user.nickname.to_s
+		if user_id.corp_ticker != nil
+			ticker = "[" + user_id.corp_ticker + "] "
+		else
+			ticker = ""
+		end
+		current_name = ticker.to_s + user_id.primary_character_name.to_s
+		Rails.logger.info "Auth Username: " + current_name.to_s + " | Discord name: " + user_nickname.to_s
+		if current_name.to_s == user_nickname.to_s
+			Rails.logger.info "Discord Name Correct"
+		else
+			Rails.logger.info "Overwrite Discord Name"
+			begin
+			user.nickname = current_name
+			rescue
+			Rails.logger.info "Permission Error: Discord Name"
+			end
+		end
 	end
 
 	def self.discord_add_roles (bot, user_id, role_name, server)

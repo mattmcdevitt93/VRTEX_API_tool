@@ -105,16 +105,16 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 				event.respond "Spongebob Squarepants!!!"
 			end
 
-			# if note.include? "cookie"
-			# 	Metric_create(event, note)
-			# end
+			if note.include? "cookie"
+				Metric_create(event, note)
+			end
 		end
 	end
 
-	# $bot.message(contains: 'cookie') do |event|
-	# 	note = event.message.to_s.downcase.gsub!(/\s+/, '')
-	# 	Metric_create(event, note)
-	# end
+	$bot.message(contains: 'cookie') do |event|
+		note = event.message.to_s.downcase.gsub!(/\s+/, '')
+		Metric_create(event, note)
+	end
 
 	$bot.ready do |event|
 		$bot.game = "Beta version 0.24"
@@ -134,11 +134,10 @@ def Metric_create (event, note)
 	@author_id = @author[0].discord_user_id
 				# @users_parsed
 				@note = note_unfiltred.scan(/"([^"]*)"/)
-				player_names = note_unfiltred.scan(/(\(.*?\))/)
-				player_names = player_names.to_s.gsub(/[()]/, "")
 				Rails.logger.info @user_ids.to_s
 				@users_filtred = []
 				Rails.logger.info "==============================="
+				
 				@user_ids.each do |x|
 					check = false
 					if x[0].to_s == @author_id.to_s || x[0].to_s == ENV["DISCORD_CLIENT"].to_s
@@ -146,11 +145,44 @@ def Metric_create (event, note)
 					else 
 						@users_filtred.push(x[0])
 					end
-					Rails.logger.info "Check: " + x[0].to_s + " | " + ENV["DISCORD_CLIENT"].to_s + " : " + @author_id.to_s + " | " + check.to_s
+					Rails.logger.info "Mention Check: " + x[0].to_s + " | " + ENV["DISCORD_CLIENT"].to_s + " : " + @author_id.to_s + " | " + check.to_s
 				end
 				@users_filtred = @users_filtred.uniq
-				Rails.logger.info "==============================="
-				Rails.logger.info "Users: " + @users_filtred.to_s + " " + player_names.to_s + " | Bot: " + ENV["DISCORD_CLIENT"].to_s + " | " + @note.to_s
 
+				@player_names = note_unfiltred.scan(/(\(.*?\))/)
+				@player_names = @player_names.to_s.gsub(/[()]/, "")
+				@player_names = @player_names.split(',')
+				@player_name_strings = []
+				@player_names.each do |x|
+					x = x.tr('[]"', '')
+					if x[0] == " "
+						x.slice!(0)
+					end
+					Rails.logger.info "PM Check: " + x.to_s
+					@player_name_strings.push(x.to_s)
+				end
+
+				Rails.logger.info "==============================="
+				Rails.logger.info "Users: " + @users_filtred.to_s + " " + @player_name_strings.to_s + " | Bot: " + ENV["DISCORD_CLIENT"].to_s + " | " + @note[0].to_s
+				Rails.logger.info "Mention: " + @users_filtred.length.to_s + " PM: " + @player_name_strings.length.to_s
+
+				@target_users = []
+
+				@users_filtred.each do |x|
+					@mentioned_users = User.where('discord_user_id' => x)
+					if @mentioned_users.empty? == false
+						@target_users.push(@mentioned_users)
+					end
+				end
+
+				@player_name_strings.each do |x|
+					@pm_users = User.where('primary_character_name' => x)
+					if @pm_users.empty? == false
+						@target_users.push(@pm_users)
+					end
+				end
+
+
+				Rails.logger.info "Target_users: " + @target_users.to_s
 
 end

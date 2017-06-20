@@ -24,4 +24,7 @@ else
 	$Discord_bot_active = false
 end
 
+$Discord_name_overwrite = true
+require 'open-uri'
+
 require 'uri'
