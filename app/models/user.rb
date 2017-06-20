@@ -301,6 +301,7 @@ class User < ActiveRecord::Base
         User.ticker_update(account, character.corporation_id)
       end
       # Check User groups and apply Admin and Director
+        User.ticker_update(account, character.corporation_id)
 
       User.Admin_check_groups(account.id)
     end
