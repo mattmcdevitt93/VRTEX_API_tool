@@ -117,7 +117,7 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 	end
 
 	$bot.ready do |event|
-		$bot.game = "Beta version 0.24"
+		$bot.game = "Beta version 0.25"
 		# $bot.send_message(307641304425168896, 'Auth-bot is online!', tts = false, embed = nil)
 	end
 
