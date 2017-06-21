@@ -192,7 +192,7 @@ class User < ActiveRecord::Base
       uri = URI(url)
       response = Net::HTTP.get(uri)
       Rails.logger.info "ESI: " +  JSON.parse(response)["ticker"].to_s
-
+      user.update(corp_ticker: JSON.parse(response)["ticker"].to_s)
   end
 
   def self.validation_check (user, input)
@@ -306,6 +306,11 @@ class User < ActiveRecord::Base
       end
       # Check User groups and apply Admin and Director
 
+            begin
+            User.ticker_update(account, character.corporation_id)
+            rescue
+              Rails.logger.info "Corp ticker update failed: "
+            end
       User.Admin_check_groups(account.id)
     end
 
