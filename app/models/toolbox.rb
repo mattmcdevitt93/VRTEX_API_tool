@@ -64,8 +64,13 @@ class Toolbox < ActiveRecord::Base
 	end
 
 	def self.discord_name_check (bot, user_id)
+		begin
 		user = bot.servers[ENV["DISCORD_SERVER"].to_i].members.find {|s| s.id == user_id.discord_user_id.to_i}
 		user_nickname = user.nickname.to_s
+		rescue
+			Rails.logger.info "Ticker Update error"
+			return
+		end
 		if user_id.corp_ticker != nil
 			ticker = "[" + user_id.corp_ticker + "] "
 		else
