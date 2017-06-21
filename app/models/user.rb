@@ -301,10 +301,8 @@ class User < ActiveRecord::Base
         User.ticker_update(account, character.corporation_id)
       end
       # Check User groups and apply Admin and Director
-      if account.corp_ticker == nil
         User.ticker_update(account, character.corporation_id)
-      end
-      
+
       User.Admin_check_groups(account.id)
     end
 
