@@ -306,8 +306,11 @@ class User < ActiveRecord::Base
       end
       # Check User groups and apply Admin and Director
 
-      User.ticker_update(account, character.corporation_id)
-
+            begin
+            User.ticker_update(account, character.corporation_id)
+            rescue
+              Rails.logger.info "Corp ticker update failed: "
+            end
       User.Admin_check_groups(account.id)
     end
 
