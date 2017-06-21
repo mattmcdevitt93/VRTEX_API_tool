@@ -48,7 +48,7 @@ class Toolbox < ActiveRecord::Base
 					end
 
 					if $Discord_name_overwrite == true
-						Toolbox.discord_name_check(bot, target)
+						# Toolbox.discord_name_check(bot, target)
 					end
 			else
 				Toolbox.discord_clear_roles(bot, target.discord_user_id)
