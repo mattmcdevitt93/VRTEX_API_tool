@@ -284,11 +284,11 @@ class User < ActiveRecord::Base
               account.update(primary_character_id: character.character_id)
         end
           if account.corp_ticker == nil
-            # begin
+            begin
             User.ticker_update(account, character.corporation_id)
-            # rescue
-              # Rails.logger.info "Corp ticker update failed: "
-            # end
+            rescue
+              Rails.logger.info "Corp ticker update failed: "
+            end
           end
       end
 
