@@ -26,5 +26,6 @@ end
 
 $Discord_name_overwrite = true
 require 'open-uri'
-
+require 'net/http'
+require 'json'
 require 'uri'

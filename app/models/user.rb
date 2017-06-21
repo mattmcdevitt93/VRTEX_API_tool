@@ -188,13 +188,11 @@ class User < ActiveRecord::Base
   def self.ticker_update (user, corp_id)
       Rails.logger.info "ticker_update: " + corp_id.to_s
       url = "https://esi.tech.ccp.is/latest/corporations/" + corp_id.to_s + "/?datasource=tranquility"
-      open(url.to_s) {|f|
-        f.each_line {|line|
-        ticker = line.split[3].scan(/\w+|\-+|\.+/)[0].to_s
-        Rails.logger.info "ESI: " + ticker
-        user.update(corp_ticker: ticker.to_s)
-        }
-      }
+ 
+      uri = URI(url)
+      response = Net::HTTP.get(uri)
+      Rails.logger.info "ESI: " +  JSON.parse(response)["ticker"].to_s
+
   end
 
   def self.validation_check (user, input)
@@ -285,13 +283,12 @@ class User < ActiveRecord::Base
               Rails.logger.info 'Character ID update'
               account.update(primary_character_id: character.character_id)
         end
-
           if account.corp_ticker == nil
-            begin
+            # begin
             User.ticker_update(account, character.corporation_id)
-            rescue
-              Rails.logger.info "Corp ticker update failed: "
-            end
+            # rescue
+              # Rails.logger.info "Corp ticker update failed: "
+            # end
           end
       end
 
@@ -309,6 +306,7 @@ class User < ActiveRecord::Base
       end
       # Check User groups and apply Admin and Director
 
+      User.ticker_update(account, character.corporation_id)
 
       User.Admin_check_groups(account.id)
     end
