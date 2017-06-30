@@ -9,7 +9,7 @@
     <%= f.select :event_type, [["None"],["Sov Timer - Offensive"],["Sov Timer - Defenceive"], ["Upwell Structure - Timer"], ["Upwell Structure - Kill Timer"], ["POS Timer"], ["Other"]], {}, { :class => 'Timer_Type_select' } %>
   </div>
   <div class="field" id="event_time">
-    <strong>Event Time:</strong> (Enter your Local Time)
+    <strong>Event Time:</strong>
     <div>
     <%= f.datetime_select :event_time, :required => 'required' %>
     </div>
