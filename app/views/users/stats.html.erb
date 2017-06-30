@@ -1,0 +1,40 @@
+<h2>BETA Stats Table</h2>
+
+<% @user = User.all.order(id: :desc) %>
+<table class='sortable'>
+	<th>ID</th>
+	<th>Character Name / ESI ID</th>
+  	<th>Corp Ticker</th>
+  	<th>Discord ID</th>
+  	<th>Groups</th>
+  	<th>Valid?</th>
+  	<th>Roles?</th>
+<!--   	<th>Updated at</th>
+  	<th>Created at</th> -->
+
+	<% @user.each do |target| %>
+	<tr>
+	<td><%= target.id %></td>
+	<td><%= target.primary_character_name %> | <%= target.primary_character_id %></td>
+	<td><%= target.corp_ticker %></td>
+	<td><%= target.discord_user_id %></td>
+	<td><%= User.get_groups(target.id) %></td>
+	<td>
+		<% if target.valid_api == true %>
+			<span class="success badge" title="Valid API">V</span>
+		<% elsif target.valid_api == false and (target.v_code == "" and target.key_id == "") or (target.v_code == nil and target.key_id == nil) %>
+			<span class="alert badge" title="Error - No API Key">E</span>
+		<% else %>
+			<span class="warning badge" title="Warning - Standing Error or Invalid Key">S</span>
+		<% end %>
+	<%= target.valid_api %>
+	</td>
+
+	<td><% if target.admin == true %>A<% end %><% if target.director == true %>D<% end %></td>
+
+<!-- 	<td><%= target.updated_at %></td>
+
+	<td><%= target.created_at %></td> -->
+	</tr>
+	<% end %>
+</table>

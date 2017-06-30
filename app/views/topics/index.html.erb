@@ -79,7 +79,7 @@
             </span>
           </div>
           <div class="forum-entry-content" >
-            <%= sanitize post.contents, tags: %w(strong em a p), attributes: %w(href) %>
+            <%= simple_format(sanitize post.contents, tags: %w(strong em a p), attributes: %w(href)) %>
           </div>
         </div>
         <div class='columns medium-2'>

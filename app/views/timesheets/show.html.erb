@@ -13,15 +13,11 @@
 </p>
 <p>
   <strong>Target:</strong>
-  <%= Timesheet.type_id(@timesheet.event_type) %>
-</p>
-<p>
-  <strong>Urgency:</strong>
-  <%= Timesheet.urgency_id(@timesheet.urgency) %>
+  <%= @timesheet.event_type %>
 </p>
 <p>
   <strong>Notes:</strong>
-  <%= @timesheet.notes %>
+  <%= simple_format(@timesheet.notes) %>
 </p>
 <p>
 <strong>Time to Event</strong>
@@ -36,6 +32,6 @@
   Updated at: <%= @timesheet.updated_at %> | Created at: <%= @timesheet.created_at %>
 </p>
 <% if @timesheet.user_id == current_user.id or current_user.admin == true %>
-<%= link_to 'Edit', edit_timesheet_path(@timesheet) %> |
+<%= link_to 'Edit', edit_timesheet_path(@timesheet), :class => "alert button float-left" %>
 <% end %>
-<%= link_to 'Back', timesheets_path %>
+<%= link_to 'Back', timesheets_path, :class => "alert button float-left" %>

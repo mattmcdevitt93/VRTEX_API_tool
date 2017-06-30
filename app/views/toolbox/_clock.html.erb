@@ -1,0 +1,15 @@
+<% Time.zone = current_user.primary_timezone %>
+<script>
+$(document).ready(function() {
+  Module.clock_offset(<%= Time.zone.now.utc_offset() %>, $('#Local_time'))
+  Module.clock_offset(0, $('#UTC_clock'))
+});
+</script>
+
+<% # Toolbox.timesheet_check('test') %>
+<div class='clock'>
+  <strong>Local time:</strong>
+  <span id='Local_time'></span>
+  <strong> | EvE time / UTC:</strong>
+  <span id='UTC_clock'></span>
+</div>

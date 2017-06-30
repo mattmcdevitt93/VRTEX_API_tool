@@ -10,18 +10,63 @@ class Toolbox < ActiveRecord::Base
 
 	def self.timesheet_check (type)
 		Time.zone = 'UTC'
-		Rails.logger.info "--==============================--"
-		Rails.logger.info "Timesheet: Check | " + type.to_s + " | " + Time.zone.now.to_s
+		# Rails.logger.info "--==============================--"
+		# Rails.logger.info "Timesheet: Check | " + type.to_s + " | " + Time.zone.now.to_s
 		timers = Timesheet.where("event_time >= ?", Time.zone.now.beginning_of_day)
 		timers.each do |target|
 			if (target.event_time - Time.zone.now) <= 60 and (target.event_time - Time.zone.now) >= 0
 				Rails.logger.info "Discord Broadcast - Timer start | " + target.event.to_s
+ping = "@everyone 
+--==============================--
+ATTENTION BROADCAST: " + target.event.to_s + "
+EvE/UTC Time " + Time.zone.now.to_s + "
+Time Until Event: Now
+Target: " + target.event_type.to_s + "
+
+Info:
+" + target.notes + "
+
+--==============================--
+"
+				Toolbox.discord_broadcast(ping)
 			end
 			if (target.event_time - Time.zone.now) <= 21660 and (target.event_time - Time.zone.now) >= 21600
 				Rails.logger.info "Discord Broadcast - 6 Hour warning | " + target.event.to_s
+ping = "@everyone 
+--==============================--
+ATTENTION BROADCAST: " + target.event.to_s + "
+EvE/UTC Time " + Time.zone.now.to_s + "
+Time Until Event: 6 Hours
+Target: " + target.event_type.to_s + "
+
+Info:
+" + target.notes + "
+
+--==============================--
+"
+				Toolbox.discord_broadcast(ping)
 			end
+
+			if (target.event_time - Time.zone.now) <= 3660 and (target.event_time - Time.zone.now) >= 3600
+				Rails.logger.info "Discord Broadcast - 1 Hour warning | " + target.event.to_s
+ping = "@everyone 
+--==============================--
+ATTENTION BROADCAST: " + target.event.to_s + "
+EvE/UTC Time " + Time.zone.now.to_s + "
+Time Until Event: 1 Hours
+Target: " + target.event_type.to_s + "
+
+Info:
+" + target.notes + "
+
+--==============================--
+"
+				Toolbox.discord_broadcast(ping)
+			end
+
+
 		end
-		Rails.logger.info "--==============================--"
+		# Rails.logger.info "--==============================--"
 
 	end
 
@@ -142,5 +187,9 @@ class Toolbox < ActiveRecord::Base
 			Rails.logger.info "target - clear all roles - Error"
 		end
 		# bot.send_message(ENV["DISCORD_SERVER"], 'Discord Bot Action clear all roles of ' + user.name.to_s, tts = false, embed = nil)
+	end
+
+	def self.discord_broadcast (text)
+		$bot.send_message(ENV["DISCORD_DEFAULT_CHANNEL"],  text.to_s, tts = false, embed = nil)
 	end
 end

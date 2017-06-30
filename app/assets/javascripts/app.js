@@ -48,6 +48,16 @@ Module.bindings = function () {
         Module.topic_form_toggle();
     });
 
+    // $('.Timer_Type_select').bind('input', function() { 
+    //     console.log('Update Timer_Type ' + $('.Timer_Type_select').val())
+    //     if ($('.Timer_Type_select').val() == 'Other') {
+    //         console.log('Update Timer_Type !!! Switch Fields')
+    //         $('.Timer_Type_select').addClass("hidden")
+    //         $('.Timer_Type_text').removeClass("hidden")
+    //     }
+
+    // });
+
     Module.inherit_parent_width_check = null;
 }
 
@@ -142,10 +152,10 @@ Module.index_filter = function (state) {
         $('#default-badge').removeClass("inactive");
     };
     Module.index_filter_state = state;
-    // console.log(state)
+    console.log(state)
     var list = $( ".index_content" ).find( ".index_entry" )
     for (var i = 0; i < list.length; i++) {
-        // console.log(list[i].getAttribute('id'))
+        console.log(list[i].getAttribute('id'))
         if ($('#' + list[i].getAttribute('id')).hasClass(Module.index_filter_state) === false && Module.index_filter_state !== 'reset') {
             $('#' + list[i].getAttribute('id')).addClass("hidden");
         } else {
@@ -154,28 +164,15 @@ Module.index_filter = function (state) {
     }
 }
 
-Module.clock_offset = function (offset) {
-
-    var display = $('#Local_time')
-
+Module.clock_offset = function (offset, display) {
     var x = setInterval(function() {
-        var time = new Date().getTime()
-        time = time - (offset*1000)
-        var t = moment(time).format("dddd, MMMM Do YYYY, h:mm:ss a");
+        if (offset == 0) {
+            var t = moment.utc().format("dddd, MMMM Do YYYY, HH:mm:ss a Z");
+        } else {
+            var t = moment().utcOffset(offset/60).format("dddd, MMMM Do YYYY, HH:mm:ss a Z");
+        }
+
         display.text(t);
-    }, 1000);
-
-}
-
-Module.UTC_clock = function () {
-
-    var display = $('#UTC_clock')
-
-    var x = setInterval(function() {
-        var time = new Date().getTime()
-        var t = moment(time).format("dddd, MMMM Do YYYY, h:mm:ss a");
-        display.text(t);
-        // console.log("Tick!")
     }, 1000);
 }
 

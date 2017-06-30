@@ -1,38 +1,29 @@
 <%= form_for(@timesheet) do |f| %>
-  <% if @timesheet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@timesheet.errors.count, "error") %> prohibited this timesheet from being saved:</h2>
-
-      <ul>
-      <% @timesheet.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
-    <%= f.label :event %><br>
+    <div>Timer Name</div>
     <%= f.text_field :event, :required => 'required' %>
   </div>
   <div class="field">
     Timer Type:
-    <%= f.select :event_type, [["None", 0],["Teritory Claim Unit", 1],["Infastructure Hub", 2], ["Outpost", 3], ["Player Owned Station", 4], ["Strategic Operation", 5]] %>
+    <%= f.select :event_type, [["None"],["Sov Timer - Offensive"],["Sov Timer - Defenceive"], ["Upwell Structure - Timer"], ["Upwell Structure - Kill Timer"], ["POS Timer"], ["Other"]], {}, { :class => 'Timer_Type_select' } %>
   </div>
   <div class="field" id="event_time">
-    <%= f.label :event_time %><br>
+    <strong>Event Time:</strong> (Enter your Local Time)
+    <div>
     <%= f.datetime_select :event_time, :required => 'required' %>
+    </div>
   </div>
-  <div class="field">
+<!--   <div class="field">
     Urgency:
     <%= f.select :urgency, [["Offensive - Low Priority - Bash time...",1],["Offensive - Medium Priority - Alliance Objectives", 2],["Offensive - High Priority - Strategic Operation", 3],["Defence - Low Priority - Possible Timer Punt", 4],["Defence - High Priority - There will be a fight", 5], ["Defence - Ultra High Priority - Bat phone", 6]] %>
-  </div>
+  </div> -->
   <div class="field">
     Notes / Location<br>
-    <%= f.text_field :notes %>
+    <%= f.text_area :notes, cols: "30", rows: "10" %>
   </div>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update", :class => "alert button float-left"  %>
   </div>
 <% end %>

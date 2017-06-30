@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :memberships
     root 'users#dashboard'
     get '/index' => 'users#index'
+    get '/stats' => 'users#stats'
+
     
     get '/log_index' => 'toolbox#log_index'
     get '/log_index_events' => 'toolbox#log_index_events'

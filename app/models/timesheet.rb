@@ -18,24 +18,4 @@ class Timesheet < ActiveRecord::Base
 		end
 		return notification
 	end
-
-
-	def self.type_id (rank)
-		if rank == 0 
-			notification = 'None'
-		elsif rank == 1
-			notification = 'Teritory Claim Unit'
-		elsif rank == 2
-			notification = 'Infastructure Hub'
-		elsif rank == 3
-			notification = 'Outpost'
-		elsif rank == 4
-			notification = 'Player Owned Station / Citidel'
-		elsif rank == 5
-			notification = 'Strategic Operation'
-		elsif rank == 6 
-			notification = 'Other'
-		end
-		return notification
-	end
 end

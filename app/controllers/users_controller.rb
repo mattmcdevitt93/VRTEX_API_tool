@@ -5,8 +5,9 @@ class UsersController < ApplicationController
 
 	def index
     @user = User.paginate(:page => params[:page], :per_page => 50).order(id: :desc)
+    @blacklist = Blacklist.new
 	end
-
+  
   def show
     @stats = 5
     if current_user.admin == true or current_user.id.to_s == params[:id]

@@ -1,9 +1,11 @@
 
 <h2>Admin Index</h2>
+<div class='hidden'>
 <span id="success-badge" class="success badge" title="Valid API" onclick="Module.index_filter('valid')">V</span>
 <span id="warning-badge" class="warning badge" title="Warning - Standing Error or Invalid Key" onclick="Module.index_filter('warning')">S</span>
 <span id="alert-badge" class="alert badge" title="Error - No API Key" onclick="Module.index_filter('error')">E</span> 
-
+</div>
+<%= link_to('BETA statistics table', stats_path, {:class => "alert button float-left"})  %>
 <%= will_paginate @user, class: "float-right" %>
 
 
@@ -33,7 +35,7 @@
 	<% end %>
 </div> -->
 <hr>
-<ul class="accordion" data-accordion data-allow-all-closed="true">
+<ul class="accordion" data-accordion data-allow-all-closed="true" class='index_content'>
 
 	<% @user.each do |user| %>
 
@@ -46,9 +48,12 @@
 			<% else %>
 			<span class="warning badge" title="Warning - Standing Error or Invalid Key">S</span>
 			<% end %>
-			<strong>User:
+			<strong>User ID:
 				<%= user.id %> - 
 				<% if user.primary_character_name != nil %>
+					<% if user.corp_ticker != nil %>
+						[<%= user.corp_ticker %>]
+					<% end %>
 				<%= user.primary_character_name %> <% if user.admin == true %>*<% elsif user.director == true %>^<% end %>
 				<% else %>
 				<%= user.email %> <% if user.admin == true %>*<% end %>
@@ -56,8 +61,16 @@
 
 			</strong>
 		</a>
-		<div class="accordion-content" data-tab-content>
-			<%= link_to 'User Profile', user, :class => "alert button" %>
+		<div class="accordion-content" style="height: 75px;" data-tab-content>
+			<%= link_to 'User Profile', user, :class => "alert button float-left" %>
+			<%= form_for(@blacklist) do |f| %>
+				<%= f.hidden_field :Player_name, value: user.primary_character_name %>
+				<%= f.hidden_field :character_type, value: true %>
+				<%= f.hidden_field :tag, value: 0 %>
+				<%= f.hidden_field :reason, value: "From Index, contact Admin for update" %>
+				<%= f.hidden_field :reporter_id, value: current_user.id  %>
+				<%= f.submit "Blacklist User", :class => "alert button float-left", data: { confirm: 'Are you sure you want to do this?' } %>
+			<% end %>
 		</div>
 	</li>
 
