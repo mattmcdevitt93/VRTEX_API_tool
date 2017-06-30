@@ -1,6 +1,5 @@
 <h2>BETA Stats Table</h2>
 
-<% @user = User.all.order(id: :desc) %>
 <table class='sortable'>
 	<th>ID</th>
 	<th>Character Name / ESI ID</th>
@@ -16,7 +15,7 @@
 		<tr>
 		<td><%= target.id %></td>
 		<td><%= target.primary_character_name %> | <%= target.primary_character_id %></td>
-		<td class="sorttable_alpha" ><%= target.corp_ticker %></td>
+		<td ><%= target.corp_ticker %></td>
 		<td><%= target.discord_user_id %></td>
 		<td><%= User.get_groups(target.id) %></td>
 		<td>
