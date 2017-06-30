@@ -5,6 +5,7 @@
 <span id="warning-badge" class="warning badge" title="Warning - Standing Error or Invalid Key" onclick="Module.index_filter('warning')">S</span>
 <span id="alert-badge" class="alert badge" title="Error - No API Key" onclick="Module.index_filter('error')">E</span> 
 </div>
+<%= link_to('BETA statistics table', {:controller => "users", :action => "stats", :user_index => true }, class: "alert button float-left")  %>
 <%= will_paginate @user, class: "float-right" %>
 
 
@@ -68,7 +69,7 @@
 				<%= f.hidden_field :tag, value: 0 %>
 				<%= f.hidden_field :reason, value: "From Index, contact Admin for update" %>
 				<%= f.hidden_field :reporter_id, value: current_user.id  %>
-				<%= f.submit "Blacklist User", :class => "alert button float-left", data: { confirm: 'Are you sure you want to do this?' } %>
+				<%= f.submit "Blacklist User", :class => "alert button float-left", data: { confirm: 'Are you sure you want to do this)?' } %>
 			<% end %>
 		</div>
 	</li>

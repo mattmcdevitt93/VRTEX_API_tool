@@ -10,7 +10,9 @@ class UsersController < ApplicationController
 
   def stats
     @user = User.where('corp_ticker' => current_user.corp_ticker).order(id: :desc)
-
+    if current_user.admin == true && params[:user_index] == 'true'
+      @user = User.all.order(id: :desc)
+    end
   end
   
   def show
