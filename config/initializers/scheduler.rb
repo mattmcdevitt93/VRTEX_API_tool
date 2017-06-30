@@ -8,3 +8,7 @@ require 'rufus-scheduler'
             User.validation_task ('auto')
             Toolbox.discord_check($bot)
       end
+
+      $s.every '1m' do
+      	Toolbox.timesheet_check('auto')
+      end      

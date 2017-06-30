@@ -49,8 +49,6 @@ Module.bindings = function () {
     });
 
     Module.inherit_parent_width_check = null;
-
-
 }
 
 Module.topic_form_toggle = function () {
@@ -112,10 +110,9 @@ Module.toolbar_rotate = function () {
  } else {
      $('#toolbar-switch').rotate({ animateTo:0, duration: 500})
      $('#toolbar-switch').addClass("active"); }
+}
 
- }
-
- Module.index_filter = function (state) {
+Module.index_filter = function (state) {
     // console.log('Sort by ' + state)
     if (Module.index_filter_state === state) {
         state = 'reset'
@@ -155,4 +152,53 @@ Module.toolbar_rotate = function () {
             $('#' + list[i].getAttribute('id')).removeClass("hidden");
         }
     }
+}
+
+Module.clock_offset = function (offset) {
+
+    var display = $('#Local_time')
+
+    var x = setInterval(function() {
+        var time = new Date().getTime()
+        time = time - (offset*1000)
+        var t = moment(time).format("dddd, MMMM Do YYYY, h:mm:ss a");
+        display.text(t);
+    }, 1000);
+
+}
+
+Module.UTC_clock = function () {
+
+    var display = $('#UTC_clock')
+
+    var x = setInterval(function() {
+        var time = new Date().getTime()
+        var t = moment(time).format("dddd, MMMM Do YYYY, h:mm:ss a");
+        display.text(t);
+        // console.log("Tick!")
+    }, 1000);
+}
+
+Module.countdown_timer = function (duration, display) {
+
+    var completion = new Date().getTime() + duration * 1000;
+
+    var x = setInterval(function() {
+
+      var current_time = new Date().getTime();
+      var distance = completion - current_time
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      display.text(days + " Days " + hours + " Hours, "
+          + minutes + " Minutes " + seconds + " Seconds");
+
+      // console.log(distance)
+      if (distance < 0) {
+        clearInterval(x);
+        display.text("EVENT STARTED");
+    }
+    }, 1000);
 }

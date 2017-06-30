@@ -71,18 +71,30 @@
       <hr>
     <% end %>
     <div class="medium-5 field float-left">
-      DISCORD_TOKEN 
-      <%= ENV["DISCORD_TOKEN"] %>
+      DISCORD_TOKEN: 
+      <% if ENV["DISCORD_TOKEN"] != nil %>
+        True
+      <% else %>
+        False
+      <% end %>
     </div>
     <hr>
-    <div class="medium-1 field float-left">
-      DISCORD_SERVER
-      <%= ENV["DISCORD_SERVER"] %>
+    <div class="medium-2 field float-left">
+      DISCORD_SERVER: 
+      <% if ENV["DISCORD_SERVER"] != nil %>
+        True
+      <% else %>
+        False
+      <% end %>
     </div>
     <hr>
-    <div class="medium-1 field float-left">
-      DISCORD_CLIENT
-      <%= ENV["DISCORD_CLIENT"] %>
+    <div class="medium-2 field float-left">
+      DISCORD_CLIENT: 
+      <% if ENV["DISCORD_CLIENT"] != nil %>
+        True
+      <% else %>
+        False
+      <% end %>
     </div>
     <hr>
     </div>

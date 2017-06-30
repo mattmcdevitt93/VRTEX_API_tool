@@ -8,6 +8,25 @@ class Toolbox < ActiveRecord::Base
 		end
 	end
 
+	def self.timesheet_check (type)
+		Time.zone = 'UTC'
+		Rails.logger.info "--==============================--"
+		Rails.logger.info "Timesheet: Check | " + type.to_s + " | " + Time.zone.now.to_s
+		timers = Timesheet.where("event_time >= ?", Time.zone.now.beginning_of_day)
+		timers.each do |target|
+			if (target.event_time - Time.zone.now) <= 60 and (target.event_time - Time.zone.now) >= 0
+				Rails.logger.info "Discord Broadcast - Timer start | " + target.event.to_s
+			end
+			if (target.event_time - Time.zone.now) <= 21660 and (target.event_time - Time.zone.now) >= 21600
+				Rails.logger.info "Discord Broadcast - 6 Hour warning | " + target.event.to_s
+			end
+		end
+		Rails.logger.info "--==============================--"
+
+	end
+
+
+
 	def self.discord_check (bot)
 		Rails.logger.info "--++++++++++++++++++++++++++++++--"
 		Rails.logger.info "-- Begin Discord Group Updates  --"

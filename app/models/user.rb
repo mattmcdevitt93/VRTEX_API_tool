@@ -303,14 +303,14 @@ class User < ActiveRecord::Base
         l = Log.create :event_code => 1, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s
         $Log_count = 0
         # @Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | " + input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s)
+          begin
+            User.ticker_update(account, character.corporation_id)
+          rescue
+            Rails.logger.info "Corp ticker update failed: "
+          end
       end
       # Check User groups and apply Admin and Director
 
-            begin
-            User.ticker_update(account, character.corporation_id)
-            rescue
-              Rails.logger.info "Corp ticker update failed: "
-            end
       User.Admin_check_groups(account.id)
     end
 

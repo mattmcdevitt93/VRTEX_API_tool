@@ -4,24 +4,37 @@
 <span id="default-badge" class="default badge" title="Incoming Timers" onclick="Module.index_filter('incoming')">I</span>
 <span id="success-badge" class="success badge" title="Active Timers" onclick="Module.index_filter('valid')">A</span>
 <span id="alert-badge" class="alert badge" title="Complete Timers" onclick="Module.index_filter('error')">C</span>
-<span id="warning-badge" class="warning badge" title="6 Hour Warning" onclick="Module.index_filter('warning')">6</span>
 </div>
+<% Time.zone = current_user.primary_timezone %>
 <script>
-// $(document).ready(function() {
-//   Module.index_filter('incoming');
-// });
+$(document).ready(function() {
+  Module.UTC_clock()
+  Module.clock_offset(<%= Time.zone.now.utc_offset() %>)
+});
 
 </script>
+<% Time.zone = 'UTC' %>
+
+<% # Toolbox.timesheet_check('test') %>
 <div>
-  <strong>Local time:</strong> <%= Time.now %> <strong> | EvE time / GMT:</strong> <%= Time.zone.now %>
+  <strong>Local time:</strong>
+  <span id='Local_time'></span>
+   <strong> | EvE time / UTC:</strong>
+  <span id='UTC_clock'></span>
+
 </div>
 
-<table>
+<%= link_to 'New Timer', new_timesheet_path, class: "alert button" %>
+
+<%= will_paginate @timesheets %>
+
+<table class="sortable">
   <thead>
     <tr>
       <th></th>
       <th>Event</th>
       <th>Event time</th>
+      <th>Countdown</th>
       <th>Urgency</th>
       <th>Notes</th>
       <th colspan="2"></th>
@@ -30,24 +43,47 @@
 
   <tbody class='index_content'>
     <% @timesheets.each do |timesheet| %>
-    <% if (timesheet.event_time - Time.zone.now) <= 21600 and (timesheet.event_time - Time.zone.now) >= 0 %>
+    <!-- Incoming Timer <6 hours -->
+    <% if (timesheet.event_time - Time.zone.now) >= 21600 %>
     <tr class='index_entry warning incoming' title="Incoming Timer" id="<%= timesheet.id %>">
       <td>
-        <span id='warning-badge' class="warning badge" title="6 Hour Warning">6</span>
-        <% elsif timesheet.event_time >= Time.zone.now %>
+        <span id='default-badge' class="default badge" title="Incoming Event">I</span>
+
+    <!-- 6 Hour Warning -->
+    <% elsif (timesheet.event_time - Time.zone.now) <= 21600 and (timesheet.event_time - Time.zone.now) >= 0 %>
     <tr class='index_entry valid incoming' id="<%= timesheet.id %>">
       <td>
-        <span id='success-badge' class="success badge" title="Active Timer">A</span>
-        <% elsif timesheet.event_time <= Time.zone.now %>
+        <span id='success-badge' class="warning badge" title="6 Hour Warning">6</span>
+
+    <!-- Active Timer >1 hour -->
+    <% elsif (timesheet.event_time - Time.zone.now) >= -3600 %>
+    <tr class='index_entry valid incoming' id="<%= timesheet.id %>">
+      <td>
+        <span id='success-badge' class="success badge" title="Active Event">A</span>
+
+    <!-- Complete Timer -->
+    <% elsif (timesheet.event_time - Time.zone.now) <= -3600 %>
     <tr class='index_entry error' id="<%= timesheet.id %>">
       <td>
-        <span id='alert-badge' class="alert badge" title="Complete Timer">C</span>
-        <% end %>
-        <% Rails.logger.info timesheet.event + ' | ' + timesheet.event_time.to_s + ' | ' + Time.now.to_s %>
-        <% Rails.logger.info Time.zone.now - timesheet.event_time %>
+        <span id='alert-badge' class="alert badge" title="Complete Event">C</span>
+
+    <% end %>
+
       </td>
       <td><%= link_to timesheet.event, timesheet %></td>
       <td><%= timesheet.event_time %></td>
+      <td class='medium-3'>
+      <% if timesheet.event_time - Time.zone.now >= 0 %>
+        <script>
+        jQuery(function ($) {
+          var duration = <%= (timesheet.event_time - Time.zone.now).to_i %>,
+          display = $('#<%= timesheet.id %>_countdown');
+          Module.countdown_timer(duration, display);
+        });
+        </script>
+      <% end %>
+      <span id='<%= timesheet.id %>_countdown' ></span>
+      </td>
       <td><%= Timesheet.urgency_id(timesheet.urgency) %></td>
       <td><%= timesheet.notes %></td>
       <% if timesheet.user_id == current_user.id or current_user.admin == true %>
@@ -61,10 +97,4 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Timer', new_timesheet_path %>
-
-<%= will_paginate @timesheets %>
 
