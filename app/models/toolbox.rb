@@ -14,6 +14,9 @@ class Toolbox < ActiveRecord::Base
 		# Rails.logger.info "Timesheet: Check | " + type.to_s + " | " + Time.zone.now.to_s
 		timers = Timesheet.where("event_time >= ?", Time.zone.now.beginning_of_day)
 		timers.each do |target|
+			user = User.find(target.user_id)
+			if user.director != false || user.admin != false
+
 			if (target.event_time - Time.zone.now) <= 60 and (target.event_time - Time.zone.now) >= 0
 				Rails.logger.info "Discord Broadcast - Timer start | " + target.event.to_s
 ping = "@everyone 
@@ -62,8 +65,8 @@ Info:
 --==============================--
 "
 				Toolbox.discord_broadcast(ping)
+				end
 			end
-
 
 		end
 		# Rails.logger.info "--==============================--"
