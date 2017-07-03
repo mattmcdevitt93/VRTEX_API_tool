@@ -29,7 +29,7 @@
     	<strong>Group: </strong><%= @group_name[0].name %> | 
     	<% @username = User.where('id' => approval.user_id) %>
     	<strong>User: </strong><%= @username[0].primary_character_name %> | 
-    	<strong>Submitted at: </strong><<%= approval.created_at %>
+    	<strong>Submitted at: </strong><%= approval.created_at %>
 
     </a>
     <div class="accordion-content membership-application" data-tab-content>

@@ -164,30 +164,39 @@ Module.index_filter = function (state) {
     }
 }
 
-Module.clock_offset = function (offset, display) {
-    var x = setInterval(function() {
-        if (offset == 0) {
-            var t = moment.utc().format("dddd, MMMM Do YYYY, HH:mm:ss a Z");
-        } else {
-            var t = moment().utcOffset(offset/60).format("dddd, MMMM Do YYYY, HH:mm:ss a Z");
-        }
 
-        display.text(t);
+Module.clock_offset = function (offset, display) {
+        Module.clock_offset_function(offset, display)
+    var x = setInterval(function() {
+        Module.clock_offset_function(offset, display)
     }, 1000);
+}
+
+Module.clock_offset_function = function (offset, display) {
+    if (offset == 0) {
+        var t = moment.utc().format("dddd, MMMM Do YYYY, HH:mm:ss a Z");
+    } else {
+        var t = moment().utcOffset(offset/60).format("dddd, MMMM Do YYYY, HH:mm:ss a Z");
+    }
+    display.text(t);
 }
 
 Module.countdown_timer = function (duration, display) {
 
     var completion = new Date().getTime() + duration * 1000;
-
+        Module.countdown_timer_function(duration, display, completion)
     var x = setInterval(function() {
+        Module.countdown_timer_function(duration, display, completion)
+    }, 1000);
+}
 
-      var current_time = new Date().getTime();
-      var distance = completion - current_time
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+Module.countdown_timer_function = function (duration, display, completion) {
+    var current_time = new Date().getTime();
+    var distance = completion - current_time
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       display.text(days + " Days " + hours + " Hours, "
           + minutes + " Minutes " + seconds + " Seconds");
@@ -197,5 +206,4 @@ Module.countdown_timer = function (duration, display) {
         clearInterval(x);
         display.text("EVENT STARTED");
     }
-    }, 1000);
 }

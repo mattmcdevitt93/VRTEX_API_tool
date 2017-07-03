@@ -49,9 +49,32 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 
 			Help = This is redundant... you just asked for help.
 			Time = Tells you the time of all the major time zones (* marks current prime times)
+			Events = Gets todays events and PMs their times.
 
 			"
 		else
+
+			if note.include? "event"
+				Time.zone = 'UTC'
+				Rails.logger.info "Discord Mention: Events GET"
+				timers = Timesheet.where("event_time between ? and ?", Time.zone.now.beginning_of_day, Time.zone.now.tomorrow)
+				message = 'Todays Events
+Current Time (EvE / UTC) ' + Time.zone.now.to_s
+				timers.each do |target|
+					message = message + "
+--==============================--
+" + target.event.to_s + "
+Event Time " + target.event_time.to_s + "
+Target: " + target.event_type.to_s + "
+
+Info:
+" + target.notes + "
+
+--==============================--
+"
+				end
+				event.author.pm(message)
+			end
 
 			if note.include? "time"
 
@@ -111,13 +134,13 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 		end
 	end
 
-	$bot.message(contains: 'cookie') do |event|
-		note = event.message.to_s.downcase.gsub!(/\s+/, '')
-		Metric_create(event, note)
-	end
+	# $bot.message(contains: 'cookie') do |event|
+	# 	note = event.message.to_s.downcase.gsub!(/\s+/, '')
+	# 	Metric_create(event, note)
+	# end
 
 	$bot.ready do |event|
-		$bot.game = "Beta version 0.25"
+		$bot.game = "Beta version 0.26"
 		# $bot.send_message(307641304425168896, 'Auth-bot is online!', tts = false, embed = nil)
 	end
 

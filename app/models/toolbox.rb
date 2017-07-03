@@ -17,13 +17,13 @@ class Toolbox < ActiveRecord::Base
 			user = User.find(target.user_id)
 			if user.director != false || user.admin != false
 
-			if (target.event_time - Time.zone.now) <= 60 and (target.event_time - Time.zone.now) >= 0
+			if (target.event_time - Time.zone.now) <= 300 and (target.event_time - Time.zone.now) >= 240
 				Rails.logger.info "Discord Broadcast - Timer start | " + target.event.to_s
 ping = "@everyone 
 --==============================--
 ATTENTION BROADCAST: " + target.event.to_s + "
 EvE/UTC Time " + Time.zone.now.to_s + "
-Time Until Event: Now
+Time Until Event: ~5 Min.
 Target: " + target.event_type.to_s + "
 
 Info:
@@ -33,22 +33,23 @@ Info:
 "
 				Toolbox.discord_broadcast(ping)
 			end
-			if (target.event_time - Time.zone.now) <= 21660 and (target.event_time - Time.zone.now) >= 21600
-				Rails.logger.info "Discord Broadcast - 6 Hour warning | " + target.event.to_s
-ping = "@everyone 
---==============================--
-ATTENTION BROADCAST: " + target.event.to_s + "
-EvE/UTC Time " + Time.zone.now.to_s + "
-Time Until Event: 6 Hours
-Target: " + target.event_type.to_s + "
+# 6 Hour Notification
+# 			if (target.event_time - Time.zone.now) <= 21660 and (target.event_time - Time.zone.now) >= 21600
+# 				Rails.logger.info "Discord Broadcast - 6 Hour warning | " + target.event.to_s
+# ping = "@everyone 
+# --==============================--
+# ATTENTION BROADCAST: " + target.event.to_s + "
+# EvE/UTC Time " + Time.zone.now.to_s + "
+# Time Until Event: 6 Hours
+# Target: " + target.event_type.to_s + "
 
-Info:
-" + target.notes + "
+# Info:
+# " + target.notes + "
 
---==============================--
-"
-				Toolbox.discord_broadcast(ping)
-			end
+# --==============================--
+# "
+# 				Toolbox.discord_broadcast(ping)
+# 			end
 
 			if (target.event_time - Time.zone.now) <= 3660 and (target.event_time - Time.zone.now) >= 3600
 				Rails.logger.info "Discord Broadcast - 1 Hour warning | " + target.event.to_s
