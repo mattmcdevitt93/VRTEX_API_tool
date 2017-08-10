@@ -156,7 +156,7 @@ Info:
 	# end
 
 	$bot.ready do |event|
-		$bot.game = "Beta version 0.26"
+		$bot.game = "Beta version 0.27"
 		# $bot.send_message(307641304425168896, 'Auth-bot is online!', tts = false, embed = nil)
 	end
 
