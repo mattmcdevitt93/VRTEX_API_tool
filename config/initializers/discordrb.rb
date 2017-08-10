@@ -56,7 +56,21 @@ if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_
 
 			if note.include? "event"
 				Time.zone = 'UTC'
-				Rails.logger.info "Discord Mention: Events GET"
+				Rails.logger.info "Channel " + event.author.id.to_s
+				begin
+				return_check = 0
+				user = User.where('discord_user_id' => event.author.id)
+				Rails.logger.info "Valid? " + user[0].valid_api.to_s
+				if user[0].valid_api == false
+					Rails.logger.info "Invalid user, no event info posted"
+					return_check = 1 
+				end
+				rescue
+					Rails.logger.info "Unsubscribed user, no event info posted"
+					return_check = 1
+				end
+				if return_check == 0
+									Rails.logger.info "Discord Mention: Events GET"
 				timers = Timesheet.where("event_time between ? and ?", Time.zone.now.beginning_of_day, Time.zone.now.tomorrow)
 				message = 'Todays Events
 Current Time (EvE / UTC) ' + Time.zone.now.to_s
@@ -74,6 +88,8 @@ Info:
 "
 				end
 				event.author.pm(message)
+				end
+
 			end
 
 			if note.include? "time"
