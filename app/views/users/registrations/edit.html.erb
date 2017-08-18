@@ -46,12 +46,19 @@
     <%= f.text_field :v_code, :value => @data.to_s, :required => true %>
   </div>
 
-  <% #if current_user.discord_user_id == nil %>
   <div class="field medium-8 large-8 float-left">
-    Discord User ID (note: This may only be entered once)
+    Discord User ID (Manual Input)
   <%= f.number_field :discord_user_id %>
   </div>
-  <% #end %>
+
+<!--   <div class="field medium-8 large-8 float-left">
+    Discord User ID (Auto Input - Work in progress)
+    <div>
+      <span class='success button'>Status</span><span class='button'>Register</span><span class='alert button'>Refresh</span>
+    </div>
+  </div> -->
+
+  
 </div>
 
 <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

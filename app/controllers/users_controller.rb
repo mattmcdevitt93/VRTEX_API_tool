@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   
   def show
     @stats = 5
+    @memberships = Membership.where('user_id' => params[:id], 'approved' => true) 
     if current_user.admin == true or current_user.id.to_s == params[:id]
       @user = User.find(params[:id])
     else

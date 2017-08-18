@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
   def self.get_groups (id)
     Rails.logger.info 'Group Check'
-    user_groups = Membership.where('user_id' => id, 'approved' => true)
+    user_groups = Membership.where('user_id' => id, 'approved' => true) 
     output = ""
     user_groups.each do |group|
       group_name = Group.find(group.group_id)

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   after_action :update_auth_records, if: :devise_controller?, only: [:update]
+  before_action :registration_edit, if: :devise_controller?, only: [:edit]
   before_filter :authenticate_user!
 
   def admin_check
@@ -30,6 +31,10 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     # devise_parameter_sanitizer.permit(:sign_up, keys: [:v_code, :key_id])
     devise_parameter_sanitizer.permit(:account_update, keys: [:v_code, :key_id, :primary_character, :discord_user_id, :valid_api, :primary_character_name, :admin, :director, :primary_timezone, :character_cake_day])
+  end
+
+  def registration_edit 
+    Rails.logger.info "Edit User Registration"
   end
 
   def update_auth_records

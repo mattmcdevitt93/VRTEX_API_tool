@@ -31,7 +31,19 @@
       <td>Discord ID : </td> <td><%= @user.discord_user_id %></td>
     </tr>
     <tr>
-      <td>Groups : </td> <td><%= User.get_groups(@user.id) %></td>
+      <td>Groups : </td> <td>
+          <% @memberships.each do |group| %>
+            <div class = "" >
+              <% group_name = Group.find(group.group_id) %>
+              <%= "[" + group_name.name.to_s + "]" %>
+            <% if current_user.admin == true %>
+              <%= link_to 'X', group, method: :delete, data: { confirm: 'Are you sure?' }, :class => "" %>
+            <% end %>
+              </div>
+
+          <% end %>
+      </td>
+
     </tr>
     <tr>
       <td>Valid?: </td> <td><%= @user.valid_api %></td>
