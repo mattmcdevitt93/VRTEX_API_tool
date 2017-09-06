@@ -59,6 +59,13 @@ Module.bindings = function () {
     // });
 
     Module.inherit_parent_width_check = null;
+
+    $( "#hideguide" ).click(function() {
+        console.log('Toggle guide')
+        $( ".guide_bar" ).toggle();
+        // window.scrollTo(0,document.body.scrollHeight);
+        Module.toolbar_resize();
+    });
 }
 
 Module.topic_form_toggle = function () {

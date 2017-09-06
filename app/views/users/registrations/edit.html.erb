@@ -4,7 +4,7 @@
 <%= devise_error_messages! %>
 
 <div class="row">
-  <div class="field columns medium-6">
+  <div class="field columns medium-7">
     <strong>Email / Username</strong>
     <%= f.email_field :email, autofocus: true %>
   </div>
@@ -12,12 +12,12 @@
     <strong>Primary Timezone</strong>
     <%= f.time_zone_select :primary_timezone, nil, default: "Eastern Time (US & Canada)" %>
   </div>
-  <% if current_user.admin == true %>
+<!--   <% if current_user.admin == true %>
   <div class="columns medium-1">
   <strong>Admin</strong>
   <%= f.check_box :admin %>
   </div>
-  <% end %>
+  <% end %> -->
 </div>
 
 
@@ -51,14 +51,32 @@
   <%= f.number_field :discord_user_id %>
   </div>
 
-<!--   <div class="field medium-8 large-8 float-left">
-    Discord User ID (Auto Input - Work in progress)
+  <div class="field medium-8 large-8 float-left">
+    Discord Invite
     <div>
-      <span class='success button'>Status</span><span class='button'>Register</span><span class='alert button'>Refresh</span>
-    </div>
-  </div> -->
+      <% if current_user.discord_connected == true %>
+        <span class='success button'>Status: Active </span>
+      <% else %>
+        <span class='warning button'>Status: Disconnected </span>
+      <% end %>
+      <% if current_user.discord_invite != nil %>
+        <%= link_to "Create New Invite", {:controller => "registrations", :action => "edit", :discord_invite_refresh => true }, class: "success button" %>
 
-  
+            <% utc = ActiveSupport::TimeZone.new("Etc/UTC") %>
+            <% if current_user.discord_invite != nil && current_user.updated_at.in_time_zone(utc) + 300 >= Time.now.in_time_zone(utc) %>
+              <% url = "https://discord.gg/" + current_user.discord_invite.to_s %>
+              <% Rails.logger.info "Activate User Registration: " + url.to_s %>
+              <%= link_to "Temporary Invite Link", url, :target => "_blank", class: "default button" %>
+            <% end %>
+
+      <% else %>
+      <%= link_to "Generate new Link", {:controller => "registrations", :action => "edit", :discord_invite_refresh => true }, class: "warning button" %>
+      <% end %>
+<!--       <%= link_to "Refresh", {:controller => "registrations", :action => "edit", :discord_refresh => true }, class: "alert button" %> -->
+    </div>
+  </div>
+
+
 </div>
 
 <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

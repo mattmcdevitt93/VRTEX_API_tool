@@ -283,13 +283,11 @@ class User < ActiveRecord::Base
               Rails.logger.info 'Character ID update'
               account.update(primary_character_id: character.character_id)
         end
-          if account.corp_ticker == nil
             begin
-            User.ticker_update(account, character.corporation_id)
+              User.ticker_update(account, character.corporation_id)
             rescue
               Rails.logger.info "Corp ticker update failed: "
             end
-          end
       end
 
       # Check if the flag is diffrent than the existing flag, if so update the account flag and update logs
@@ -303,11 +301,11 @@ class User < ActiveRecord::Base
         l = Log.create :event_code => 1, :table => "Users", :task_length => task_length, :event => "Validation Task", :details => input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s
         $Log_count = 0
         # @Log_file.puts (DateTime.now.to_s + " | " + task_length.to_s + " | Validation Task | " + input + " - API Change - " + account.email + "/" + account.primary_character_name.to_s + " - " + status.to_s)
-          begin
-            User.ticker_update(account, character.corporation_id)
-          rescue
-            Rails.logger.info "Corp ticker update failed: "
-          end
+          # begin
+          #   User.ticker_update(account, character.corporation_id)
+          # rescue
+          #   Rails.logger.info "Corp ticker update failed: "
+          # end
       end
       # Check User groups and apply Admin and Director
 

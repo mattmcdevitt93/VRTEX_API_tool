@@ -34,7 +34,18 @@ class ApplicationController < ActionController::Base
   end
 
   def registration_edit 
-    Rails.logger.info "Edit User Registration"
+    # if params[:discord_refresh] == 'true'
+    #   Toolbox.discord_id_refresh(current_user.id)
+    #   redirect_to :back
+    # end
+    if params[:discord_invite_refresh] == 'true'
+      Toolbox.discord_invite_refresh(current_user.id)
+      redirect_to :back
+    end
+    if current_user.discord_invite == nil
+      Rails.logger.info "generate Initial Discord Invite"
+      Toolbox.discord_invite_refresh(current_user.id)
+    end
   end
 
   def update_auth_records

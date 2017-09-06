@@ -1,7 +1,8 @@
-<div class='warning_border'>
-	<strong>Account Set up Progress: </strong>
+<div class='warning_border guide_bar'>
+	<strong>Account Set up Progress: </strong>	<span id='hideguide' class='float-right'>X</span>
+
 	<% if current_user.blank? == false %>
-		<% if current_user.valid_api == true && current_user.discord_user_id.blank? == false %>
+		<% if current_user.valid_api == true && current_user.discord_user_id.blank? == false && current_user.discord_connected == true %>
 			Everything is right in the world - API complete
 				<div class="success progress" role="progressbar">
 				  <div class="progress-meter" style="width: 100%"></div>

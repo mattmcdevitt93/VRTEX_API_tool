@@ -1,5 +1,19 @@
 class Toolbox < ActiveRecord::Base
 
+	def self.discord_invite_refresh (user_id)
+		Rails.logger.info "generate Discord Invite - Refresh"
+		invite = $bot.channel(ENV["DISCORD_SERVER"]).invite(max_age=300)
+		Rails.logger.info invite.to_s
+		user = User.find(user_id)
+		user.update(discord_invite: invite.code)
+	end
+
+	# def self.discord_id_refresh (user_id)
+	# 	Rails.logger.info "Discord ID pull"
+	# 	$bot.channel(ENV["DISCORD_SERVER"])
+	# end
+
+
 	def self.env_var_check 
 		if ENV["DISCORD_SERVER"] != nil && ENV["DISCORD_CLIENT"] != nil && ENV["DISCORD_TOKEN"] != nil && $Discord_bot_active == true
 			return true
@@ -118,6 +132,8 @@ Info:
 					if $Discord_name_overwrite == true
 						Toolbox.discord_name_check(bot, target)
 					end
+
+					target.update(discord_connected: true)
 			else
 				Toolbox.discord_clear_roles(bot, target.discord_user_id)
 			end
@@ -183,12 +199,15 @@ Info:
 			Rails.logger.info "discord_check - ENV failure"
 			return
 		end
+		Rails.logger.info user_id.to_s
 		begin
 		user = bot.servers[ENV["DISCORD_SERVER"].to_i].members.find {|s| s.id == user_id.to_i}
 		user.remove_role(user.roles)
 		Rails.logger.info "target - clear all roles - " + user.name.to_s
 		rescue
 			Rails.logger.info "target - clear all roles - Error"
+			target = User.where('discord_user_id' => user_id)
+			target[0].update(discord_connected: false)
 		end
 		# bot.send_message(ENV["DISCORD_SERVER"], 'Discord Bot Action clear all roles of ' + user.name.to_s, tts = false, embed = nil)
 	end

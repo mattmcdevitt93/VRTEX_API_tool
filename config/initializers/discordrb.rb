@@ -154,6 +154,15 @@ Info:
 	# 	note = event.message.to_s.downcase.gsub!(/\s+/, '')
 	# 	Metric_create(event, note)
 	# end
+	
+
+	$bot.member_update do |event|
+		Rails.logger.info "New User Updated"
+	end
+
+	$bot.member_join do |event|
+		Rails.logger.info "New User Joined"
+	end
 
 	$bot.ready do |event|
 		$bot.game = "Beta version 0.27"
